@@ -28,6 +28,66 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hybrid", "Hybrid", "{3BA87847-D2AF-412D-81D3-44CEA68B4F59}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HyperMD", "HyperMD", "{6ED201B0-703A-46E7-B9C7-8C6F60768B9B}"
+	ProjectSection(SolutionItems) = preProject
+		src\Hybrid\HyperMD\ai1.html = src\Hybrid\HyperMD\ai1.html
+		src\Hybrid\HyperMD\ai1.js = src\Hybrid\HyperMD\ai1.js
+		src\Hybrid\HyperMD\basic.css = src\Hybrid\HyperMD\basic.css
+		src\Hybrid\HyperMD\codemirror.css = src\Hybrid\HyperMD\codemirror.css
+		src\Hybrid\HyperMD\codemirror.js = src\Hybrid\HyperMD\codemirror.js
+		src\Hybrid\HyperMD\emojione.js = src\Hybrid\HyperMD\emojione.js
+		src\Hybrid\HyperMD\emojione.min.css = src\Hybrid\HyperMD\emojione.min.css
+		src\Hybrid\HyperMD\fold-code-with-flowchart.js = src\Hybrid\HyperMD\fold-code-with-flowchart.js
+		src\Hybrid\HyperMD\fold-code-with-mermaid.js = src\Hybrid\HyperMD\fold-code-with-mermaid.js
+		src\Hybrid\HyperMD\fold-emoji-with-emojione.js = src\Hybrid\HyperMD\fold-emoji-with-emojione.js
+		src\Hybrid\HyperMD\fold-emoji-with-twemoji.js = src\Hybrid\HyperMD\fold-emoji-with-twemoji.js
+		src\Hybrid\HyperMD\fold-math-with-katex.js = src\Hybrid\HyperMD\fold-math-with-katex.js
+		src\Hybrid\HyperMD\fold-math-with-mathjax.js = src\Hybrid\HyperMD\fold-math-with-mathjax.js
+		src\Hybrid\HyperMD\foldcode.js = src\Hybrid\HyperMD\foldcode.js
+		src\Hybrid\HyperMD\foldgutter.css = src\Hybrid\HyperMD\foldgutter.css
+		src\Hybrid\HyperMD\foldgutter.js = src\Hybrid\HyperMD\foldgutter.js
+		src\Hybrid\HyperMD\hover-with-marked.js = src\Hybrid\HyperMD\hover-with-marked.js
+		src\Hybrid\HyperMD\hypermd-image-error.png = src\Hybrid\HyperMD\hypermd-image-error.png
+		src\Hybrid\HyperMD\hypermd-image-link.png = src\Hybrid\HyperMD\hypermd-image-link.png
+		src\Hybrid\HyperMD\hypermd-image-spin.gif = src\Hybrid\HyperMD\hypermd-image-spin.gif
+		src\Hybrid\HyperMD\hypermd-image-uploading.gif = src\Hybrid\HyperMD\hypermd-image-uploading.gif
+		src\Hybrid\HyperMD\hypermd-light.css = src\Hybrid\HyperMD\hypermd-light.css
+		src\Hybrid\HyperMD\hypermd.css = src\Hybrid\HyperMD\hypermd.css
+		src\Hybrid\HyperMD\hypermd.js = src\Hybrid\HyperMD\hypermd.js
+		src\Hybrid\HyperMD\hypermd.woff = src\Hybrid\HyperMD\hypermd.woff
+		src\Hybrid\HyperMD\insert-file-with-smms.js = src\Hybrid\HyperMD\insert-file-with-smms.js
+		src\Hybrid\HyperMD\javascript.js = src\Hybrid\HyperMD\javascript.js
+		src\Hybrid\HyperMD\logo.png = src\Hybrid\HyperMD\logo.png
+		src\Hybrid\HyperMD\markdown-fold.js = src\Hybrid\HyperMD\markdown-fold.js
+		src\Hybrid\HyperMD\markdown.js = src\Hybrid\HyperMD\markdown.js
+		src\Hybrid\HyperMD\marked.js = src\Hybrid\HyperMD\marked.js
+		src\Hybrid\HyperMD\meta.js = src\Hybrid\HyperMD\meta.js
+		src\Hybrid\HyperMD\overlay.js = src\Hybrid\HyperMD\overlay.js
+		src\Hybrid\HyperMD\paste-with-turndown.js = src\Hybrid\HyperMD\paste-with-turndown.js
+		src\Hybrid\HyperMD\stex.js = src\Hybrid\HyperMD\stex.js
+		src\Hybrid\HyperMD\turndown-plugin-gfm.js = src\Hybrid\HyperMD\turndown-plugin-gfm.js
+		src\Hybrid\HyperMD\turndown.js = src\Hybrid\HyperMD\turndown.js
+		src\Hybrid\HyperMD\xml.js = src\Hybrid\HyperMD\xml.js
+		src\Hybrid\HyperMD\yaml.js = src\Hybrid\HyperMD\yaml.js
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EditorJS", "EditorJS", "{5EEC39BC-6B4F-4423-9A2D-C0CDF4E88B7B}"
+	ProjectSection(SolutionItems) = preProject
+		src\Hybrid\EditorJS\checklist.js = src\Hybrid\EditorJS\checklist.js
+		src\Hybrid\EditorJS\delimiter.js = src\Hybrid\EditorJS\delimiter.js
+		src\Hybrid\EditorJS\editor.html = src\Hybrid\EditorJS\editor.html
+		src\Hybrid\EditorJS\editor.js = src\Hybrid\EditorJS\editor.js
+		src\Hybrid\EditorJS\header.js = src\Hybrid\EditorJS\header.js
+		src\Hybrid\EditorJS\image.js = src\Hybrid\EditorJS\image.js
+		src\Hybrid\EditorJS\link.js = src\Hybrid\EditorJS\link.js
+		src\Hybrid\EditorJS\list.js = src\Hybrid\EditorJS\list.js
+		src\Hybrid\EditorJS\mark.js = src\Hybrid\EditorJS\mark.js
+		src\Hybrid\EditorJS\nested-list.js = src\Hybrid\EditorJS\nested-list.js
+		src\Hybrid\EditorJS\paragraph.js = src\Hybrid\EditorJS\paragraph.js
+		src\Hybrid\EditorJS\quote.js = src\Hybrid\EditorJS\quote.js
+		src\Hybrid\EditorJS\simple-image.js = src\Hybrid\EditorJS\simple-image.js
+		src\Hybrid\EditorJS\table.js = src\Hybrid\EditorJS\table.js
+		src\Hybrid\EditorJS\underline.js = src\Hybrid\EditorJS\underline.js
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -162,6 +222,7 @@ Global
 		{FD90B330-F9AD-4D6A-A36A-6009E987A94C} = {056CA9FB-AE15-4A5E-AD2D-B16428C69E0D}
 		{3BA87847-D2AF-412D-81D3-44CEA68B4F59} = {75849264-A8C3-42CE-9148-7DFD9FA7A2B1}
 		{6ED201B0-703A-46E7-B9C7-8C6F60768B9B} = {3BA87847-D2AF-412D-81D3-44CEA68B4F59}
+		{5EEC39BC-6B4F-4423-9A2D-C0CDF4E88B7B} = {3BA87847-D2AF-412D-81D3-44CEA68B4F59}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C30DC5-4C06-490C-863C-74D7F7B152A7}
