@@ -9,10 +9,10 @@
 
   <ItemGroup>
     <Folder Include="Windows\Controls" />
-    <Folder Include="Windows\Primitives" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Acorisoft.Platform\Acorisoft.Platform.csproj" />
   </ItemGroup>
 

@@ -70,7 +70,7 @@ namespace Acorisoft.Platform.Generators
         public override void VisitNamespaceDeclaration(NamespaceDeclarationSyntax node)
         {
             var @namespace = node.Name.ToFullString().Replace("\r", "").Replace("\n", "").Trim();
-            _namespace.Add($"using {@namespace};\n");
+            _namespace.Add(@namespace);
             _root = @namespace.Length <= _minLength ? @namespace : _root;
             _minLength = @namespace.Length <= _minLength ? @namespace.Length : _minLength;
 
@@ -130,11 +130,19 @@ namespace Acorisoft.Platform.Generators
 
             foreach (var ns in walker1.Namespace)
             {
-                builder1.Append(ns);
+                builder1.Append($"using {ns};\n");
             }
 
             var usingDec = builder1.ToString();
             var header = builder.ToString();
+
+            //
+            // 如果目标不存在header内容，那么就不执行生成操作
+            if (string.IsNullOrEmpty(header))
+            {
+                return;
+            }
+
             var code = string.Format(FileHeader, usingDec, walker1.RootNamespace, header);
             context.AddSource("ViewModelGenerated.cs", SourceText.From(code, Encoding.UTF8));
             Console.WriteLine(code);

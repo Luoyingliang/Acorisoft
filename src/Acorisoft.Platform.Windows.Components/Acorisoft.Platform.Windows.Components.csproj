@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\Acorisoft.Platform.Windows\Acorisoft.Platform.Windows.csproj" />
     <ProjectReference Include="..\Acorisoft.Platform\Acorisoft.Platform.csproj" />
   </ItemGroup>
