@@ -77,6 +77,11 @@ namespace Acorisoft.Platform.Generators
             var assemblyInfoVisitor = new AssemblyAttributeWalker();
             var set = new HashSet<string>();
             var builder = new StringBuilder();
+
+            if (string.IsNullOrEmpty(assemblyInfoVisitor.Xmlns))
+            {
+                return;
+            }            
                 
             //
             // 遍历

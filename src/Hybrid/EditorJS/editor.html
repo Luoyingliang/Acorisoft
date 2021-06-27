@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="checklist.js"></script>
+    <script src="delimiter.js"></script>
+    <script src="header.js"></script>
+    <script src="image.js"></script>
+    <script src="nested-list.js"></script>
+    <script src="paragraph.js"></script>
+    <script src="quote.js"></script>
+    <script src="link.js"></script>
+    <script src="list.js"></script>
+    <script src="mark.js"></script>
+    <script src="underline.js"></script>
+    <script src="table.js"></script>
+    <script src="editor.js"></script>
+    <script type="module">
+        const editor = new EditorJS({
+            /** 
+            * 承载编辑器的元素id
+            */
+            holder: 'editor',
+            placeholder: "这里输入文字",
+            /*
+            * 开启自动焦点
+            */
+            autofocus: true,
+
+            /*
+            * 工具
+            */
+            tools: {
+
+                /*
+                * 标头工具
+                */
+                header: {
+                    class: Header,
+                    inlineToolbar: ['marker', 'link'],
+                    config: {
+                        placeholder: 'Header',
+                        levels: [1, 2, 3, 4, 5, 6],
+                        defaultLevel: 1,
+
+                    },
+                    shortcut: 'CMD+SHIFT+1'
+                },
+
+                /*
+               * 段落工具
+               */
+                paragraph: {
+                    class: Paragraph,
+                    inlineToolbar: true,
+                },
+
+                /*
+               * 图片工具
+               */
+                image: {
+                    class: ImageTool,
+                    config: {
+                        endpoints: {
+                            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
+                            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                        }
+                    }
+                },
+
+                /*
+               * 工具
+               */
+                quote: {
+                    class: Quote,
+                    inlineToolbar: true,
+                    shortcut: 'CMD+SHIFT+O',
+                    config: {
+                        quotePlaceholder: 'Enter a quote',
+                        captionPlaceholder: 'Quote\'s author',
+                    },
+                },
+
+                /*
+                * 分隔符工具
+                */
+
+                delimiter: Delimiter,
+
+                /*
+                * 网页链接工具
+                */
+
+                linkTool: {
+                    class: LinkTool,
+                    config: {
+                        endpoint: 'http://localhost:8008/fetchUrl', // Your backend endpoint for url data fetching
+                    }
+                },
+
+                /*
+                * 列表工具
+                */
+                list: {
+                    class: NestedList,
+                    inlineToolbar: true,
+                },
+
+                /*
+                * 任务清单工具
+                */
+                checklist: {
+                    class: Checklist,
+                    inlineToolbar: true,
+                },
+
+
+                /*
+                * 任务清单工具
+                */
+
+                Marker: {
+                    class: Marker,
+                    shortcut: 'CMD+SHIFT+M',
+                },
+                /*
+               * 下划线工具
+               */
+
+                underline: Underline,
+                /*
+                               * 表格工具
+                               */
+
+                table: {
+                    class: Table,
+                    inlineToolbar: true,
+                    config: {
+                        rows: 2,
+                        cols: 3,
+                    },
+                },
+
+            }
+        });
+        editor.isReady
+            .then(() => {
+                console.log('Editor.js is ready to work!')
+                /** Do anything you need after editor initialization */
+            })
+            .catch((reason) => {
+                console.log(`Editor.js initialization failed because of ${reason}`)
+            });
+    </script>
+</head>
+
+<body>
+    <div id="editor"></div>
+</body>
+
+</html>
