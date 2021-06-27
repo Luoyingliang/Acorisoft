@@ -5,10 +5,15 @@
     <UseWPF>true</UseWPF>
 
     <RootNamespace>Acorisoft.Studio</RootNamespace>
+
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="cef.redist.x86" Version="91.1.21" />
+    <PackageReference Include="CefSharp.Wpf.NETCore" Version="91.1.210" />
     <PackageReference Include="LiteDB" Version="5.0.10" />
+    <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="NLog" Version="4.7.10" />
     <PackageReference Include="ReactiveUI" Version="14.1.1" />
     <PackageReference Include="ReactiveUI.Validation" Version="2.1.1" />

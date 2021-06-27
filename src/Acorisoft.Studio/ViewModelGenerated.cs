@@ -13,4 +13,5 @@ namespace Acorisoft.Studio
         /// <param name="container">Ioc容器</param>
         public static partial void RegisterViewModelsAndViews(IContainer container);
     }
+      
 }

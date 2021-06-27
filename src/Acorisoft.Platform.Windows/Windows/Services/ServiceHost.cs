@@ -1,5 +1,6 @@
 using System;
 using DryIoc;
+using MediatR;
 using Splat.DryIoc;
 
 namespace Acorisoft.Platform.Windows.Services
@@ -21,10 +22,17 @@ namespace Acorisoft.Platform.Windows.Services
 
         public static void Initialize()
         {
+            //
+            // 注册中介者。
+            var serviceFactory = new ServiceFactory(Container.Resolve);
+            var mediator = new Mediator(serviceFactory);
+            Container.RegisterInstance<IMediator>(mediator);
+            
             Container.RegisterInstance<INavigateSupportService>(NavigateSupportService);
-            Container.RegisterInstance<IDialogSupportService>(DialogSupportService);
-            Container.RegisterInstance<IPromptSupportService>(PromptSupportService);
+            // Container.RegisterInstance<IDialogSupportService>(DialogSupportService);
+            // Container.RegisterInstance<IPromptSupportService>(PromptSupportService);
             Container.RegisterInstance<IExtraViewSupportService>(ExtraViewSupportService);
+
         }
         
         

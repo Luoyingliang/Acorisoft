@@ -1,5 +1,4 @@
 using Acorisoft.Platform.Windows.ViewModels;
-using Acorisoft.Windows.ViewModels;
 using ReactiveUI;
 
 namespace Acorisoft.Platform.Windows.Views
