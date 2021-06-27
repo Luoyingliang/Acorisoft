@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Acorisoft.Platform.Generators.VMGen": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\Acorisoft.Studio\\Acorisoft.Studio.csproj"
+    }
+  }
+}

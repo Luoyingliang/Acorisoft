@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>Acorisoft.Studio</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acorisoft.Foundation\Acorisoft.Foundation.csproj" />
+    <ProjectReference Include="..\Acorisoft.Platform.Generators.VMGen\Acorisoft.Platform.Generators.VMGen.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Acorisoft.Platform.Windows.Components\Acorisoft.Platform.Windows.Components.csproj" />
+    <ProjectReference Include="..\Acorisoft.Platform.Windows\Acorisoft.Platform.Windows.csproj" />
+    <ProjectReference Include="..\Acorisoft.Studio.Document.Core\Acorisoft.Studio.Document.Core.csproj" />
+    <ProjectReference Include="..\Acorisoft.Studio.Document\Acorisoft.Studio.Document.csproj" />
+    <ProjectReference Include="..\Acorisoft.Studio.Integrating\Acorisoft.Studio.Integrating.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="LiteDB" Version="5.0.10" />
+    <PackageReference Include="NLog" Version="4.7.10" />
+    <PackageReference Include="ReactiveUI" Version="14.1.1" />
+    <PackageReference Include="ReactiveUI.Validation" Version="2.1.1" />
+    <PackageReference Include="ReactiveUI.WPF" Version="14.1.1" />
+    <PackageReference Include="Splat" Version="11.1.1" />
+    <PackageReference Include="Splat.DryIoc" Version="11.1.1" />
+    <PackageReference Include="Splat.NLog" Version="11.1.1" />
+    <PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+
+</Project>
