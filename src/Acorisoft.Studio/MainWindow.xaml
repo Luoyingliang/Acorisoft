@@ -11,7 +11,8 @@
         mc:Ignorable="d"
         DataContext="{x:Static app:ViewModelLocator.AppViewModel}"
         Title="{Binding Title,Mode=OneWay}"
-        Height="1600" Width="900">
+        Height="1600" Width="900"
+        MinWidth="1366" MinHeight="768">
     <Grid>
         <controls:AppServiceHost x:Name="Host">
             <Grid>
@@ -22,7 +23,8 @@
                 </Grid.ColumnDefinitions>
                 
                 <Image Grid.Column="1" x:Name="Thumbnail"></Image>
-                <wv2:WebView2 x:Name="Browser" Grid.Column="1" Source="file://E:/罗应良/Acorisoft/src/Hybrid/HyperMD/index.html"/>
+                <wv2:WebView2 x:Name="Browser" Grid.Column="1" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/HyperMD/index.html"/>
+                <wv2:WebView2  Grid.Column="2" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/>
             </Grid>
         </controls:AppServiceHost>
     </Grid>

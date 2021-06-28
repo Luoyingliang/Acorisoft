@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Acorisoft.Platform.Windows.Host"
         mc:Ignorable="d"
         xmlns:w="https://github.com/Luoyingliang/Acorisoft"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:g="clr-namespace:GraphShape.Controls;assembly=GraphShape.Controls"
+        Title="MainWindow" MinHeight="768" MinWidth="1280">
     <Grid>
-        <w:AppServiceHost x:Name="appSrvHost"/>
     </Grid>
 </Window>

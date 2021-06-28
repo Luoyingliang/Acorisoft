@@ -29,16 +29,7 @@ namespace Acorisoft.Platform.Windows.Host
         private bool _flag;
         private void MainWindow_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            if (_flag)
-            {
-                _flag = false;
-                appSrvHost.Cancel();
-            }
-            else
-            {
-                _flag = true;
-                appSrvHost.Await();
-            }
+           
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using Acorisoft.Platform.Windows.Services;
+using Acorisoft.Platform.Windows.ViewModels;
 using ReactiveUI;
 
 namespace Acorisoft.Platform.Windows.Controls
@@ -129,6 +130,7 @@ namespace Acorisoft.Platform.Windows.Controls
 
         #region Dialog
 
+        private IDisposable _dialogDisposable;
 
         private static void OnDialogServiceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -144,7 +146,15 @@ namespace Acorisoft.Platform.Windows.Controls
                 return;
             }
 
-            
+            host._dialogDisposable?.Dispose();
+            host._dialogDisposable = newServ.DialogStream
+                                     /*   */.ObserveOn(RxApp.MainThreadScheduler)
+                                     /*   */.Subscribe(host.OnReceiveDialogParam);
+        }
+
+        private void OnReceiveDialogParam(IDialogViewModel dialog)
+        {
+            Dialog = dialog;
         }
 
         public static readonly RoutedEvent DialogOpeningEvent = EventManager.RegisterRoutedEvent("DialogOpening", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(AppServiceHost));

@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Acorisoft.Platform.Windows;
+using Acorisoft.Studio.Imgur;
 using LiteDB;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Core.Raw;
@@ -35,10 +36,12 @@ namespace Acorisoft.Studio
     public partial class MainWindow : Window
     {
         private MarkdownDocument _document;
+        private LocalImgurSystem _local;
 
         public MainWindow()
         {
             InitializeComponent();
+            _local = new LocalImgurSystem();
             this.Loaded += OnLoaded;
             this.MouseDoubleClick += (o, e) => SaveMarkdownDocument();
             //Browser.NavigationStarting += OnNavigationStarting;

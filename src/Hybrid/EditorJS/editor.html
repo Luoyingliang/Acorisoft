@@ -19,6 +19,30 @@
     <script src="table.js"></script>
     <script src="editor.js"></script>
     <script type="module">
+
+        function myAjax(url, fn, fnload) {
+            function ajax() {
+                if (window.XMLHttpRequest) {
+                    var xhr = new XMLHttpRequest();
+                } else {
+                    //IE6
+                    var xhr = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                return xhr;
+            }
+            var request = ajax();
+            request.open("get", url, true);
+            request.send(null);
+            request.onload = function () {
+                if (request.readyState == 4) {
+                    if (request.status == 200) {
+                        fn(request.responseText);
+                    } else {
+                        fnload("失败" + request.status);
+                    }
+                }
+            }
+        }
         const editor = new EditorJS({
             /** 
             * 承载编辑器的元素id
@@ -67,6 +91,39 @@
                         endpoints: {
                             byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
                             byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+                        },
+                        uploader: {
+                            /**
+                             * Upload file to the server and return an uploaded image data
+                             * @param {File} file - file selected from the device or pasted by drag-n-drop
+                             * @return {Promise.<{success, file: {url}}>}
+                             */
+                            uploadByFile(file) {
+                                // your own uploading logic here
+                                return {
+                                    success: 1,
+                                    file: {
+                                        url: 'file:///E:/%E5%A3%81%E7%BA%B8/1%20(2).jpg',
+                                        // any other image data you want to store, such as width, height, color, extension, etc
+                                    }
+                                };
+                            },
+
+                            /**
+                             * Send URL-string to the server. Backend should load image by this URL and return an uploaded image data
+                             * @param {string} url - pasted image URL
+                             * @return {Promise.<{success, file: {url}}>}
+                             */
+                            uploadByUrl(url) {
+                                // your ajax request for uploading
+                                return {
+                                    success: 1,
+                                    file: {
+                                        url: 'file:///E:/%E5%A3%81%E7%BA%B8/1%20(2).jpg',
+                                        // any other image data you want to store, such as width, height, color, extension, etc
+                                    }
+                                };
+                            }
                         }
                     }
                 },
