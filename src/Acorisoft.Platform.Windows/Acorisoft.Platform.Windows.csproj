@@ -5,13 +5,11 @@
     <RootNamespace>Acorisoft</RootNamespace>
     <UseWPF>true</UseWPF>
     <Platforms>x86;x64;AnyCPU</Platforms>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Themes\NotoSansCJKsc-Regular.otf" />
     <Resource Include="Themes\NotoSansCJKsc-Regular.otf" />
-    <None Remove="Themes\NotoSansCJKsc-Light.otf" />
     <Resource Include="Themes\NotoSansCJKsc-Light.otf" />
-    <None Remove="Themes\NotoSansCJKsc-Bold.otf" />
     <Resource Include="Themes\NotoSansCJKsc-Bold.otf" />
   </ItemGroup>
 
@@ -32,5 +30,4 @@
     <PackageReference Include="Splat.NLog" Version="11.1.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
   </ItemGroup>
-
 </Project>

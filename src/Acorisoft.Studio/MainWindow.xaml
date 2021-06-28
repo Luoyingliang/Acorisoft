@@ -6,11 +6,24 @@
         xmlns:app="clr-namespace:Acorisoft.Studio"
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:rx="http://reactiveui.net"
+        xmlns:w="https://github.com/Luoyingliang/Acorisoft"
+        xmlns:controls="clr-namespace:Acorisoft.Platform.Windows.Controls;assembly=Acorisoft.Platform.Windows"
         mc:Ignorable="d"
         DataContext="{x:Static app:ViewModelLocator.AppViewModel}"
         Title="{Binding Title,Mode=OneWay}"
         Height="1600" Width="900">
     <Grid>
-        <rx:RoutedViewHost Router="{Binding Router,Mode=OneWay}" />
+        <controls:AppServiceHost x:Name="Host">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="320"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="320"/>
+                </Grid.ColumnDefinitions>
+                
+                <Image Grid.Column="1" x:Name="Thumbnail"></Image>
+                <wv2:WebView2 x:Name="Browser" Grid.Column="1" Source="file://E:/罗应良/Acorisoft/src/Hybrid/HyperMD/index.html"/>
+            </Grid>
+        </controls:AppServiceHost>
     </Grid>
 </Window>
