@@ -78,10 +78,7 @@ namespace Acorisoft.Platform.Generators
             var set = new HashSet<string>();
             var builder = new StringBuilder();
 
-            if (string.IsNullOrEmpty(assemblyInfoVisitor.Xmlns))
-            {
-                return;
-            }            
+                    
                 
             //
             // 遍历
@@ -104,6 +101,15 @@ namespace Acorisoft.Platform.Generators
             foreach (var skip in assemblyInfoVisitor.SkipNamespaces)
             {
                 set.Remove(skip);
+            }
+
+            //
+            // 移除XamlGeneratedNamespace
+            set.Remove("XamlGeneratedNamespace");
+
+            if (string.IsNullOrEmpty(assemblyInfoVisitor.Xmlns))
+            {
+                return;
             }
 
             const string attrPattern = "[assembly: XmlnsDefinition({0},{1}{2}{3})]\n";

@@ -2,7 +2,7 @@
   "profiles": {
     "Acorisoft.Generators": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\Acorisoft.Studio\\Acorisoft.Studio.csproj"
+      "targetProject": "..\\Acorisoft.Platform.Windows\\Acorisoft.Platform.Windows.csproj"
     }
   }
 }

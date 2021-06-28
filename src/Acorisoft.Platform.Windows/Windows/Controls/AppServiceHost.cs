@@ -61,6 +61,21 @@ namespace Acorisoft.Platform.Windows.Controls
             AwaitToolTips = content;
         }
 
+        public void Await()
+        {
+            RaiseEvent(new RoutedEventArgs { RoutedEvent = ActivityStartEvent });
+        }
+
+        public void Cancel()
+        {
+            RaiseEvent(new RoutedEventArgs { RoutedEvent = ActivityStopEvent });
+        }
+        
+        public void UpdateToolTips(string toolTips)
+        {
+            AwaitToolTips = toolTips;
+        }
+
         private void OnStartAwaitView(Unit unit)
         {
             RaiseEvent(new RoutedEventArgs {RoutedEvent = ActivityStartEvent});
@@ -107,6 +122,69 @@ namespace Acorisoft.Platform.Windows.Controls
         {
             get => (IAwaitService) GetValue(AwaitServiceProperty);
             set => SetValue(AwaitServiceProperty, value);
+        }
+
+        #endregion
+
+
+        #region Dialog
+
+
+        private static void OnDialogServiceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var host = (AppServiceHost)d;
+
+            if(e.NewValue is not IDialogSupportService newServ)
+            {
+                return;
+            }
+
+            if (ReferenceEquals(e.OldValue, e.NewValue))
+            {
+                return;
+            }
+
+            
+        }
+
+        public static readonly RoutedEvent DialogOpeningEvent = EventManager.RegisterRoutedEvent("DialogOpening", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(AppServiceHost));
+        public static readonly RoutedEvent DialogClosingEvent = EventManager.RegisterRoutedEvent("DialogClosing", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(AppServiceHost));
+
+        public static readonly DependencyProperty DialogServiceProperty = DependencyProperty.Register(
+            "DialogService",
+            typeof(IDialogSupportService),
+            typeof(AppServiceHost),
+            new PropertyMetadata(OnDialogServiceChanged));
+
+
+        public static readonly DependencyPropertyKey DialogProperty = DependencyProperty.RegisterReadOnly(
+            "Dialog",
+            typeof(object),
+            typeof(AppServiceHost),
+            new PropertyMetadata(null));
+
+        public event RoutedEventHandler DialogOpening
+        {
+            add => AddHandler(DialogOpeningEvent, value);
+            remove => RemoveHandler(DialogOpeningEvent, value);
+        }
+
+        public event RoutedEventHandler DialogClosing
+        {
+            add => AddHandler(DialogClosingEvent, value);
+            remove => RemoveHandler(DialogClosingEvent, value);
+        }
+
+        public object Dialog
+        {
+            get { return (object)GetValue(DialogProperty.DependencyProperty); }
+            private set { SetValue(DialogProperty, value); }
+        }
+
+        public IDialogSupportService DialogService
+        {
+            get { return (IDialogSupportService)GetValue(DialogServiceProperty); }
+            set { SetValue(DialogServiceProperty, value); }
         }
 
         #endregion

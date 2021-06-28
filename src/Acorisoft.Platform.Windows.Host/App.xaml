@@ -4,6 +4,12 @@
              xmlns:local="clr-namespace:Acorisoft.Platform.Windows.Host"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Light-Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Controls.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

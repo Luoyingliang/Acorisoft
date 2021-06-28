@@ -21,7 +21,7 @@ namespace Acorisoft.Platform.Generators
 
         public override void VisitClassDeclaration(ClassDeclarationSyntax node)
         {
-            foreach (var attr in  node.AttributeLists)
+            foreach (AttributeListSyntax attr in  node.AttributeLists)
             {
                 var paring = attr.Attributes.FirstOrDefault(x => x.Name.ToFullString() == "ViewModelParing");
                 if (paring?.ArgumentList == null)
@@ -51,6 +51,7 @@ namespace Acorisoft.Platform.Generators
                     vmNameRawStr.Substring(7, vmNameRawStr.Length - 8)));
             }           
         }
+
         public IReadOnlyCollection<string> Paring => _paring;
     }
 
@@ -104,7 +105,7 @@ namespace Acorisoft.Platform.Generators
                     /// <summary>
                     /// 调用该方法可以实现注册程序中所有的视图模型，并且实现视图模型与视图之间的关联。
                     /// </summary>
-                    public static partial void RegisterViewModelsAndViews(IContainer container)
+                    public static void RegisterViewModelsAndViews(IContainer container)
                     {{
                         {2}
                     }}

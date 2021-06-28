@@ -24,10 +24,4 @@
     <FontFamily x:Key="App.Fonts.Regular">pack://application:,,,/Acorisoft.Studio;component/Resources/Fonts/NotoSansCJKsc-Regular.otf#Noto Sans CJK SC Regular</FontFamily>
     <FontFamily x:Key="App.Fonts.Light">pack://application:,,,/Acorisoft.Studio;component/Resources/Fonts/NotoSansCJKsc-Light.otf#Noto Sans CJK SC Light</FontFamily>
     <FontFamily x:Key="App.Fonts.Bold">pack://application:,,,/Acorisoft.Studio;component/Resources/Fonts/NotoSansCJKsc-Bold.otf#Noto Sans CJK SC Bold</FontFamily>
-    
-    <!-- 合并资源字典 -->
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/AppServiceHost.xaml"/>
-        <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/ExtraViewHost.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>

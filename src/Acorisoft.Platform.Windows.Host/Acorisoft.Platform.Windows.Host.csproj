@@ -6,4 +6,12 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\Acorisoft.Foundation\Acorisoft.Foundation.csproj" />
+      <ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" />
+      <ProjectReference Include="..\Acorisoft.Platform.Windows.Components\Acorisoft.Platform.Windows.Components.csproj" />
+      <ProjectReference Include="..\Acorisoft.Platform.Windows\Acorisoft.Platform.Windows.csproj" />
+      <ProjectReference Include="..\Acorisoft.Platform\Acorisoft.Platform.csproj" />
+    </ItemGroup>
+
 </Project>
