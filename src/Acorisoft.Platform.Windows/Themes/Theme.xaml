@@ -1,0 +1,33 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    
+    <!-- 枚举 -->
+    <Visibility x:Key="App.Visibility.Visible">Visible</Visibility>
+    <Visibility x:Key="App.Visibility.Collapsed">Collapsed</Visibility>
+    <Visibility x:Key="App.Visibility.Hidden">Hidden</Visibility>
+    
+    
+    <!-- 值类型 -->
+    <Thickness x:Key="App.Margin.Unified16">16</Thickness>
+    <CornerRadius x:Key="App.CornerRadius.Main">3</CornerRadius>
+    
+    <SolidColorBrush x:Key="App.Brushes.White">#FFFFFF</SolidColorBrush>
+    <SolidColorBrush x:Key="App.Brushes.Black">#000000</SolidColorBrush>
+    
+    <!-- 透明背景的深色的遮罩层 -->
+    <SolidColorBrush x:Key="App.Brushes.Dark">#30000000</SolidColorBrush>
+    
+    <!-- 透明背景的更暗的遮罩层 -->
+    <SolidColorBrush x:Key="App.Brushes.DeepDark">#80000000</SolidColorBrush>
+    
+    <!-- 字体 -->
+    <FontFamily x:Key="App.Fonts.Regular">pack://application:,,,/Acorisoft.Studio;component/Resources/Fonts/NotoSansCJKsc-Regular.otf#Noto Sans CJK SC Regular</FontFamily>
+    <FontFamily x:Key="App.Fonts.Light">pack://application:,,,/Acorisoft.Studio;component/Resources/Fonts/NotoSansCJKsc-Light.otf#Noto Sans CJK SC Light</FontFamily>
+    <FontFamily x:Key="App.Fonts.Bold">pack://application:,,,/Acorisoft.Studio;component/Resources/Fonts/NotoSansCJKsc-Bold.otf#Noto Sans CJK SC Bold</FontFamily>
+    
+    <!-- 合并资源字典 -->
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/AppServiceHost.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/ExtraViewHost.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>

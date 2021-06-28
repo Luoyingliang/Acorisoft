@@ -34,6 +34,11 @@ namespace Acorisoft.Platform.Windows.Services
             Container.RegisterInstance<IExtraViewSupportService>(ExtraViewSupportService);
 
         }
+
+        public static void EnableLogger()
+        {
+            
+        }
         
         
         /// <summary>

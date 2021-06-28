@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using LiteDB;
 
 namespace Acorisoft.Studio
 {
@@ -35,7 +36,7 @@ namespace Acorisoft.Studio
             InitializeComponent();
             this.Loaded += OnLoaded;
             this.MouseDoubleClick += (o, e) => SaveMarkdownDocument();
-            Browser.NavigationStarting += OnNavigationStarting;
+            //Browser.NavigationStarting += OnNavigationStarting;
         }
 
         private void OnNavigationStarting(object sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs e)
@@ -52,15 +53,15 @@ namespace Acorisoft.Studio
             // Browser.JavascriptObjectRepository.Register("host", _document, BindingOptions.DefaultBinder);
             // Browser.Address = @"file://D:/Repo/HyperMD/ai1.html";
             // Browser.ShowDevTools();
-            Browser.Source = new Uri(@"file://D:/Repo/HyperMD/ai1.html");
+            // Browser.Source = new Uri(@"file://D:/Repo/HyperMD/ai1.html");
         }
 
         //
         // Test for Post value to Dom
-        public async void SaveMarkdownDocument()
+        public void SaveMarkdownDocument()
         {
-
-            const string save = "saveImpl()";
+            
+            //const string save = "saveImpl()";
             // var response = await Browser.EvaluateScriptAsync(save);
             // dynamic result = response.Success ? response.Result ?? "null" : response.Message;
             // var md = response.Result.ToString();
@@ -75,7 +76,7 @@ namespace Acorisoft.Studio
             //     })();
             //     ";
             // response = await Browser.EvaluateScriptAsync(load);
-            await Browser.ExecuteScriptAsync(save);
+            // await Browser.ExecuteScriptAsync(save);
         }
     }
 }

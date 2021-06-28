@@ -1,14 +1,129 @@
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Acorisoft.Platform.Windows.Services;
 using ReactiveUI;
+using Splat;
 
 namespace Acorisoft.Platform.Windows.ViewModels
 {
-    public abstract class ViewModel : ReactiveObject, IRoutableViewModel
+    public abstract class ViewModel : ReactiveObject, IRoutableViewModel, IViewModel
     {
-        public static void Navigate<TViewModel>()
+        
+        private bool _disposedValue;
+        
+        
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Navigate Methods
+        //
+        //--------------------------------------------------------------------------------------------------------------
+        #region Navigate Methods
+        
+        public void Navigate<TViewModel>() where TViewModel : PageViewModel, IPageViewModel
+        {
+            ServiceHost.NavigateSupportService.Navigate<TViewModel>();
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="param"></param>
+        /// <typeparam name="TViewModel"></typeparam>
+        public void Navigate<TViewModel>(ViewModelParameter param) where TViewModel : IPageViewModel
+        {
+            ServiceHost.NavigateSupportService.Navigate<TViewModel>(param);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="param"></param>
+        public void Navigate(Type type, ViewModelParameter param)
+        {
+            ServiceHost.NavigateSupportService.Navigate(type, param);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="vm"></param>
+        /// <param name="param"></param>
+        public void Navigate(IPageViewModel vm, ViewModelParameter param)
+        {
+            ServiceHost.NavigateSupportService.Navigate(vm, param);
+        }
+        
+        #endregion
+        
+        
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // IDisposable Interface Members
+        //
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region IDisposable Interface Members
+
+        
+
+        protected virtual void OnDisposeManagedCore()
         {
             
+        }
+
+        protected virtual void OnDisposeUnmanagedCore()
+        {
+            
+        }
+        
+        protected void Dispose(bool disposing)
+        {
+            if (_disposedValue)
+            {
+                return;
+            }
+            
+            if (disposing)
+            {
+                OnDisposeManagedCore();
+            }
+
+            OnDisposeUnmanagedCore();
+            _disposedValue = true;
+        }
+
+        // TODO: 仅当“Dispose(bool disposing)”拥有用于释放未托管资源的代码时才替代终结器
+        ~ViewModel()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: false);
+        }
+
+        public void Dispose()
+        {
+            // 不要更改此代码。请将清理代码放入“Dispose(bool disposing)”方法中
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+        
+        
+        #endregion
+        
+        
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Navigate Methods
+        //
+        //--------------------------------------------------------------------------------------------------------------
+        
+        public virtual void Start()
+        {
+        }
+
+        public virtual void Stop()
+        {
         }
 
         /// <summary>
@@ -50,8 +165,15 @@ namespace Acorisoft.Platform.Windows.ViewModels
             this.RaisePropertyChanged(name);
         }
         
+        /// <summary>
+        /// 
+        /// </summary>
         public virtual string UrlPathSegment => string.Empty;
 
-        public IScreen HostScreen { get; }
+        /// <summary>
+        /// 
+        /// </summary>
+        public IScreen HostScreen => Locator.Current.GetService<IScreen>();
+
     }
 }

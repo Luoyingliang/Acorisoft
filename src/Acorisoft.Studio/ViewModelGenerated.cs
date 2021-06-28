@@ -1,3 +1,4 @@
+using Acorisoft.Platform.Windows.Services;
 using DryIoc;
 
 namespace Acorisoft.Studio
@@ -7,11 +8,15 @@ namespace Acorisoft.Studio
     /// </summary>
     public partial class ViewModelGenerated
     {
-        /// <summary>
-        /// 调用该方法可以实现注册程序中所有的视图模型，并且实现视图模型与视图之间的关联。
-        /// </summary>
-        /// <param name="container">Ioc容器</param>
-        public static partial void RegisterViewModelsAndViews(IContainer container);
+
+        public static void Initialize()
+        {
+            //
+            // 激活静态构造函数，完成视图模型注册
+            Version++;
+        }
+
+        internal static int Version { get; private set; }
     }
       
 }

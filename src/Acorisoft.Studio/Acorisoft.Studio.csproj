@@ -36,4 +36,15 @@
 		<PackageReference Include="System.Reactive" Version="5.0.0" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Resources" />
+	  <Folder Include="Views\Settings" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Fonts\NotoSansCJKsc-Regular.otf" />
+	  <None Remove="Resources\Fonts\NotoSansCJKsc-Light.otf" />
+	  <None Remove="Resources\Fonts\NotoSansCJKsc-Bold.otf" />
+	</ItemGroup>
+
 </Project>

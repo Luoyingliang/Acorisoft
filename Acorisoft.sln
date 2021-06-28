@@ -29,7 +29,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Hybrid", "Hybrid", "{3BA878
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HyperMD", "HyperMD", "{6ED201B0-703A-46E7-B9C7-8C6F60768B9B}"
 	ProjectSection(SolutionItems) = preProject
-		src\Hybrid\HyperMD\ai1.html = src\Hybrid\HyperMD\ai1.html
+		src\Hybrid\HyperMD\index.html = src\Hybrid\HyperMD\index.html
 		src\Hybrid\HyperMD\ai1.js = src\Hybrid\HyperMD\ai1.js
 		src\Hybrid\HyperMD\basic.css = src\Hybrid\HyperMD\basic.css
 		src\Hybrid\HyperMD\codemirror.css = src\Hybrid\HyperMD\codemirror.css
@@ -88,6 +88,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EditorJS", "EditorJS", "{5E
 		src\Hybrid\EditorJS\table.js = src\Hybrid\EditorJS\table.js
 		src\Hybrid\EditorJS\underline.js = src\Hybrid\EditorJS\underline.js
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acorisoft.Platform.Windows.Host", "src\Acorisoft.Platform.Windows.Host\Acorisoft.Platform.Windows.Host.csproj", "{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -207,6 +209,18 @@ Global
 		{DC07F19D-1D94-46CC-88B0-09A82C902BCD}.Release|x64.Build.0 = Release|x64
 		{DC07F19D-1D94-46CC-88B0-09A82C902BCD}.Release|x86.ActiveCfg = Release|x86
 		{DC07F19D-1D94-46CC-88B0-09A82C902BCD}.Release|x86.Build.0 = Release|x86
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Debug|x64.Build.0 = Debug|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Debug|x86.Build.0 = Debug|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x64.ActiveCfg = Release|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x64.Build.0 = Release|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x86.ActiveCfg = Release|Any CPU
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -223,6 +237,7 @@ Global
 		{3BA87847-D2AF-412D-81D3-44CEA68B4F59} = {75849264-A8C3-42CE-9148-7DFD9FA7A2B1}
 		{6ED201B0-703A-46E7-B9C7-8C6F60768B9B} = {3BA87847-D2AF-412D-81D3-44CEA68B4F59}
 		{5EEC39BC-6B4F-4423-9A2D-C0CDF4E88B7B} = {3BA87847-D2AF-412D-81D3-44CEA68B4F59}
+		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6} = {056CA9FB-AE15-4A5E-AD2D-B16428C69E0D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C30DC5-4C06-490C-863C-74D7F7B152A7}

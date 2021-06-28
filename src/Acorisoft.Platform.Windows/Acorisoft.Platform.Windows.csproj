@@ -6,9 +6,13 @@
     <UseWPF>true</UseWPF>
     <Platforms>x86;x64;AnyCPU</Platforms>
   </PropertyGroup>
-
   <ItemGroup>
-    <Folder Include="Windows\Controls" />
+    <None Remove="Themes\NotoSansCJKsc-Regular.otf" />
+    <Resource Include="Themes\NotoSansCJKsc-Regular.otf" />
+    <None Remove="Themes\NotoSansCJKsc-Light.otf" />
+    <Resource Include="Themes\NotoSansCJKsc-Light.otf" />
+    <None Remove="Themes\NotoSansCJKsc-Bold.otf" />
+    <Resource Include="Themes\NotoSansCJKsc-Bold.otf" />
   </ItemGroup>
 
   <ItemGroup>

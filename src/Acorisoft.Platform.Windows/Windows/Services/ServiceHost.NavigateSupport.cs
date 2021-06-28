@@ -3,7 +3,6 @@ using System.Reactive.Subjects;
 using Acorisoft.ComponentModel;
 using Acorisoft.Platform.Windows.ViewModels;
 using Acorisoft.Platform.Windows;
-using Acorisoft.Platform.Windows.ViewModels;
 using ReactiveUI;
 using Splat;
 

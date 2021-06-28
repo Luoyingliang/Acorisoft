@@ -86,11 +86,24 @@ namespace Acorisoft.Platform.Generators
         private const string FileHeader = @"
             using DryIoc;
             using ReactiveUI;
+            using Acorisoft.Platform.Windows.Services;
             {0}
             namespace {1}
             {{  
                 public partial class ViewModelGenerated
                 {{
+                    static ViewModelGenerated()
+                    {{
+                        ServiceHost.Initialize();
+                        
+                        //
+                        //
+                        ViewModelGenerated.RegisterViewModelsAndViews(ServiceHost.Container);
+                    }}
+
+                    /// <summary>
+                    /// 调用该方法可以实现注册程序中所有的视图模型，并且实现视图模型与视图之间的关联。
+                    /// </summary>
                     public static partial void RegisterViewModelsAndViews(IContainer container)
                     {{
                         {2}

@@ -1,0 +1,112 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:p="clr-namespace:Acorisoft.Platform.Windows.Panels"
+                    xmlns:c="clr-namespace:Acorisoft.Platform.Windows.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Theme.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
+    <Style TargetType="{x:Type c:AppServiceHost}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type c:AppServiceHost}">
+                    <p:TilePanel>
+                        
+                        <!-- 内容视图 -->
+                        <ContentPresenter ContentSource="Content"/>
+                        
+                        <!-- Toast -->
+                        
+                        
+                        <!-- Dialog -->
+                        
+                        <!-- BusyActivity -->
+                        <Border x:Name="PART_Border"
+                                Background="{StaticResource App.Brushes.DeepDark}"
+                                Visibility="{StaticResource App.Visibility.Collapsed}">
+                            <Border Background="{StaticResource App.Brushes.White}"
+                                    Padding="{StaticResource App.Margin.Unified16}"
+                                    CornerRadius="{StaticResource App.CornerRadius.Main}"
+                                    VerticalAlignment="Center"
+                                    HorizontalAlignment="Center"
+                                    MinWidth="160">
+                                <StackPanel>
+                                    <TextBlock Text="{TemplateBinding AwaitToolTips}"
+                                               Padding="0 0 0 8"
+                                               FontSize="13"
+                                               TextWrapping="Wrap" />
+                                    
+                                    <ProgressBar x:Name="PART_Indicator"
+                                                 IsIndeterminate="False"
+                                                 Height="6" />
+                                </StackPanel>
+                            </Border>
+                        </Border>
+                    </p:TilePanel>
+                    <ControlTemplate.Triggers>
+                        <!-- 活动启动 -->
+                        <EventTrigger RoutedEvent="ActivityStart">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!-- 背景层显示 -->
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource App.Visibility.Visible}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                    
+                                    
+                                    <!-- 背景层淡入 -->
+                                    <DoubleAnimationUsingKeyFrames  Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="0" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.400" Value="1" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                    
+                                    <!-- 启动进度条 -->
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Indicator"
+                                                                   Storyboard.TargetProperty="(ProgressBar.IsIndeterminate)">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <sys:Boolean>True</sys:Boolean>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        
+                        
+                        <!-- 活动关闭 -->
+                        <EventTrigger RoutedEvent="ActivityStop">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <!-- 背景层显示 -->
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(UIElement.Visibility)">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0" Value="{StaticResource App.Visibility.Collapsed}"/>
+                                    </ObjectAnimationUsingKeyFrames>
+                                    
+                                    
+                                    <!-- 背景层淡出 -->
+                                    <DoubleAnimationUsingKeyFrames  Storyboard.TargetName="PART_Border" Storyboard.TargetProperty="(UIElement.Opacity)">
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0" Value="1" />
+                                        <EasingDoubleKeyFrame KeyTime="0:0:0.400" Value="0" />
+                                    </DoubleAnimationUsingKeyFrames>
+                                    
+                                    <!-- 关闭进度条 -->
+                                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="PART_Indicator"
+                                                                   Storyboard.TargetProperty="(ProgressBar.IsIndeterminate)">
+                                        <DiscreteObjectKeyFrame KeyTime="0:0:0">
+                                            <DiscreteObjectKeyFrame.Value>
+                                                <sys:Boolean>False</sys:Boolean>
+                                            </DiscreteObjectKeyFrame.Value>
+                                        </DiscreteObjectKeyFrame>
+                                    </ObjectAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+</ResourceDictionary>

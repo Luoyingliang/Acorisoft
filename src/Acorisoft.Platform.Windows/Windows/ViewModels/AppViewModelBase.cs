@@ -12,7 +12,7 @@ namespace Acorisoft.Platform.Windows.ViewModels
     /// <summary>
     /// <see cref="AppViewModelBase"/> 表示一个应用视图模型基类。
     /// </summary>
-    public class AppViewModelBase : ViewModel, IAppViewModel, IScreen
+    public class AppViewModelBase : ViewModel, IAppViewModel, IScreen ,IDisposable
     {
         //--------------------------------------------------------------------------------------------------------------
         //
@@ -23,6 +23,17 @@ namespace Acorisoft.Platform.Windows.ViewModels
         protected readonly CompositeDisposable Disposable;
         protected readonly IFullLogger Logger;
 
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Private Fields
+        //
+        //--------------------------------------------------------------------------------------------------------------
+        
+        private string _title;
+        
+        
+        
+        
         
         //--------------------------------------------------------------------------------------------------------------
         //
@@ -46,13 +57,19 @@ namespace Acorisoft.Platform.Windows.ViewModels
             Disposable.Add(disposable1);
             Disposable.Add(disposable2);
         }
-        
-        
-        
-        
-        
-        
-        
+
+
+        protected override void OnDisposeManagedCore()
+        {
+            //
+            //
+            _newPageTitleDisposable?.Dispose();
+            
+            //
+            //
+            base.OnDisposeManagedCore();
+        }
+
 
         //--------------------------------------------------------------------------------------------------------------
         //
@@ -64,9 +81,11 @@ namespace Acorisoft.Platform.Windows.ViewModels
 
         private IPageViewModel _oldPage;
         private IPageViewModel _newPage;
+        private IDisposable _newPageTitleDisposable;
 
-        private void OnNavigating(IPageViewModel page)
+        private async void OnNavigating(IPageViewModel page)
         {
+            // ReSharper disable once MergeCastWithTypeCheck
             if (page is not IRoutableViewModel)
             {
                 return;
@@ -76,7 +95,10 @@ namespace Acorisoft.Platform.Windows.ViewModels
             {
                 _oldPage = _newPage;
                 _newPage = page;
-                Router.Navigate.Execute((IRoutableViewModel) page);
+                _newPageTitleDisposable?.Dispose();
+                _newPageTitleDisposable = _newPage.TitleStream.ObserveOn(RxApp.MainThreadScheduler).Subscribe(x => Title = x);
+                Title = await _newPage.TitleStream.LastAsync();
+                var result = await Router.Navigate.Execute((IRoutableViewModel) page);
             }
             else
             {
@@ -94,6 +116,15 @@ namespace Acorisoft.Platform.Windows.ViewModels
         /// Screen
         /// </summary>
         public RoutingState Router { get; }
+        
+        /// <summary>
+        /// 获取或设置当前程序的标题。
+        /// </summary>
+        public string Title
+        {
+            get => _title;
+            set => Set(ref _title, value);
+        }
 
         #endregion
 
@@ -153,8 +184,7 @@ namespace Acorisoft.Platform.Windows.ViewModels
         #endregion
         
         
-        
-        
+
         
         
         
