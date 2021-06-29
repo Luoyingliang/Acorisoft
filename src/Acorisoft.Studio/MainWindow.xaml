@@ -7,6 +7,7 @@
         xmlns:wv2="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
         xmlns:rx="http://reactiveui.net"
         xmlns:w="https://github.com/Luoyingliang/Acorisoft"
+        xmlns:wc="https://github.com/Luoyingliang/Acorisoft/Components"
         xmlns:controls="clr-namespace:Acorisoft.Platform.Windows.Controls;assembly=Acorisoft.Platform.Windows"
         mc:Ignorable="d"
         DataContext="{x:Static app:ViewModelLocator.AppViewModel}"
@@ -22,9 +23,9 @@
                     <ColumnDefinition Width="320"/>
                 </Grid.ColumnDefinitions>
                 
-                <Image Grid.Column="1" x:Name="Thumbnail"></Image>
-                <wv2:WebView2 x:Name="Browser" Grid.Column="1" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/HyperMD/index.html"/>
-                <wv2:WebView2  Grid.Column="2" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/>
+                <wc:MarkdownEditor x:Name="Browser" Grid.Column="1" Url="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/>
+                <!-- <wv2:WebView2 x:Name="Browser" Grid.Column="1" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/HyperMD/index.html"/> -->
+                <!-- <wv2:WebView2  Grid.Column="2" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/> -->
             </Grid>
         </controls:AppServiceHost>
     </Grid>

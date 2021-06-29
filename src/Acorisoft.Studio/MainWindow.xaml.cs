@@ -72,17 +72,13 @@ namespace Acorisoft.Studio
             if (_flag)
             {
                 Host.Cancel();
-                await Task.Delay(400);
-                Browser.Visibility = Visibility.Visible;
+                Browser.DisableOverlayBehavior();
+                Browser.Refresh();
             }
             else
             {
-                var ms = new MemoryStream();
-                await Browser.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, ms);
-                var bi = Interop.GetImageSourceFromStream(ms);
-                Thumbnail.Source = bi;
-                Browser.Visibility = Visibility.Collapsed;
-                Host.Await();
+               Browser.EnableOverlayBehavior();
+               Host.Await();
             }
 
             _flag = !_flag;

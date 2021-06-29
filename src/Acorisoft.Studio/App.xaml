@@ -9,6 +9,7 @@
                 <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Theme.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Light-Theme.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows.Components;component/Themes/Components.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>
