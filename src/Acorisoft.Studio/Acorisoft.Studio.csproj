@@ -17,17 +17,19 @@
 		<ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
 		<ProjectReference Include="..\Acorisoft.Platform.Windows.Components\Acorisoft.Platform.Windows.Components.csproj" />
 		<ProjectReference Include="..\Acorisoft.Platform.Windows\Acorisoft.Platform.Windows.csproj" />
-		<ProjectReference Include="..\Acorisoft.Studio.Document.Core\Acorisoft.Studio.Document.Core.csproj" />
-		<ProjectReference Include="..\Acorisoft.Studio.Document\Acorisoft.Studio.Document.csproj" />
-		<ProjectReference Include="..\Acorisoft.Studio.Integrating\Acorisoft.Studio.Integrating.csproj" />
+		<ProjectReference Include="..\Acorisoft.Morisa.Xaml\Acorisoft.Morisa.Xaml.csproj" />
+		<ProjectReference Include="..\Acorisoft.Morisa\Acorisoft.Morisa.csproj" />
+		<ProjectReference Include="..\Acorisoft.Morisa.Core\Acorisoft.Morisa.Core.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="gong-wpf-dragdrop" Version="2.3.2" />
 		<PackageReference Include="GraphShape" Version="1.2.0" />
 		<PackageReference Include="GraphShape.Controls" Version="1.2.0" />
 		<PackageReference Include="LiteDB" Version="5.0.10" />
 		<PackageReference Include="MediatR" Version="9.0.0" />
 		<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.864.35" />
+		<PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
 		<PackageReference Include="NLog" Version="4.7.10" />
 		<PackageReference Include="ReactiveUI" Version="14.1.1" />
 		<PackageReference Include="ReactiveUI.Validation" Version="2.1.1" />
@@ -47,6 +49,11 @@
 	  <None Remove="Resources\Fonts\NotoSansCJKsc-Regular.otf" />
 	  <None Remove="Resources\Fonts\NotoSansCJKsc-Light.otf" />
 	  <None Remove="Resources\Fonts\NotoSansCJKsc-Bold.otf" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\splash.jpg" />
+	  <Resource Include="Resources\Images\splash.jpg" />
 	</ItemGroup>
 
 </Project>

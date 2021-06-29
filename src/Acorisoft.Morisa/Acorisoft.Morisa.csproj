@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Acorisoft.Studio</RootNamespace>
+    <RootNamespace>Acorisoft</RootNamespace>
     <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
 
@@ -13,6 +13,11 @@
     <PackageReference Include="Splat" Version="11.1.1" />
     <PackageReference Include="Splat.DryIoc" Version="11.1.1" />
     <PackageReference Include="System.Reactive" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Acorisoft.Foundation\Acorisoft.Foundation.csproj" />
+    <ProjectReference Include="..\Acorisoft.Morisa.Core\Acorisoft.Morisa.Core.csproj" />
   </ItemGroup>
 
 </Project>

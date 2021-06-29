@@ -7,13 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Platform.Windows"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Platform", "src\Acorisoft.Platform\Acorisoft.Platform.csproj", "{93D34422-9FC4-4C81-80A5-1090A3128BB4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Studio.Document", "src\Acorisoft.Studio.Document\Acorisoft.Studio.Document.csproj", "{F794EC0B-6063-43B6-ACA1-74352A5991B1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Morisa", "src\Acorisoft.Morisa\Acorisoft.Morisa.csproj", "{F794EC0B-6063-43B6-ACA1-74352A5991B1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Studio.Document.Core", "src\Acorisoft.Studio.Document.Core\Acorisoft.Studio.Document.Core.csproj", "{69A768D8-CD90-4D5F-B0E9-54682865C193}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Morisa.Xaml", "src\Acorisoft.Morisa.Xaml\Acorisoft.Morisa.Xaml.csproj", "{69A768D8-CD90-4D5F-B0E9-54682865C193}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Studio", "src\Acorisoft.Studio\Acorisoft.Studio.csproj", "{3D86DA95-D5B0-4041-8BFF-9E8EE12E1883}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Studio.Integrating", "src\Acorisoft.Studio.Integrating\Acorisoft.Studio.Integrating.csproj", "{6929F151-A101-4D23-BDF1-453CA3A4713A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Morisa.Core", "src\Acorisoft.Morisa.Core\Acorisoft.Morisa.Core.csproj", "{6929F151-A101-4D23-BDF1-453CA3A4713A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Acorisoft.Platform.Windows.Components", "src\Acorisoft.Platform.Windows.Components\Acorisoft.Platform.Windows.Components.csproj", "{7F5856CE-BBA6-4641-9C29-6D669FCBC644}"
 EndProject
@@ -90,6 +90,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "EditorJS", "EditorJS", "{5E
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acorisoft.Platform.Windows.Host", "src\Acorisoft.Platform.Windows.Host\Acorisoft.Platform.Windows.Host.csproj", "{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Acorisoft.Morisa.Integrating.PoW", "src\Acorisoft.Morisa.Integrating.PoW\Acorisoft.Morisa.Integrating.PoW.csproj", "{34F58046-59D8-4C86-ADA6-5377E250AA35}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -221,6 +223,18 @@ Global
 		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x64.Build.0 = Release|Any CPU
 		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x86.ActiveCfg = Release|Any CPU
 		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6}.Release|x86.Build.0 = Release|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Debug|x64.Build.0 = Debug|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Debug|x86.Build.0 = Debug|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Release|x64.ActiveCfg = Release|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Release|x64.Build.0 = Release|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Release|x86.ActiveCfg = Release|Any CPU
+		{34F58046-59D8-4C86-ADA6-5377E250AA35}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -238,6 +252,7 @@ Global
 		{6ED201B0-703A-46E7-B9C7-8C6F60768B9B} = {3BA87847-D2AF-412D-81D3-44CEA68B4F59}
 		{5EEC39BC-6B4F-4423-9A2D-C0CDF4E88B7B} = {3BA87847-D2AF-412D-81D3-44CEA68B4F59}
 		{1CFA3CF3-2AB9-4735-8145-5B21A49C96B6} = {056CA9FB-AE15-4A5E-AD2D-B16428C69E0D}
+		{34F58046-59D8-4C86-ADA6-5377E250AA35} = {75849264-A8C3-42CE-9148-7DFD9FA7A2B1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {05C30DC5-4C06-490C-863C-74D7F7B152A7}
