@@ -2,10 +2,18 @@
 namespace Acorisoft.Morisa
 {
     
-    public enum ResourcePermission
+    public enum ResourcePermission : int
     {
-        None,
+        #region Version1
+        
+        V1_None,
         V1_FullControl,
-        V1_ReadOnly
+        V1_ReadOnly,
+        
+        #endregion
+        
+        Denied,
+        ReadOnly,
+        FullControl,
     }
 }

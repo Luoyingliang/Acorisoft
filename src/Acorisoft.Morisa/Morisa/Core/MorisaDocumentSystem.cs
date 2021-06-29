@@ -20,32 +20,31 @@ namespace Acorisoft.Morisa.Core
     // ReSharper disable InvertIf
     // ReSharper disable ConvertToAutoPropertyWithPrivateSetter
     // ReSharper disable ArrangeDefaultValueWhenTypeNotEvident
+    // ReSharper disable ArrangeObjectCreationWhenTypeEvident
     //
     /// <summary>
     /// 
     /// </summary>
-    public class MorisaDocumentSystem : Disposable, IMorisaDocumentSystem
+    public class MorisaDocumentSystem : Disposable, IMorisaDocumentSystem, IMorisaObjectManager
     {
         //--------------------------------------------------------------------------------------------------------------
         //
         // Constants
         //
         //--------------------------------------------------------------------------------------------------------------
-        
-        
-        
+
+
         private const string MainDatabaseName = "Morisa.md2v1";
-        
-        
-        
-        
+        private const string ObjectCollectionName = "Metadatas";
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Private Readonly Fields
         //
         //--------------------------------------------------------------------------------------------------------------
-        
-        
+
+
         private readonly CompositeDisposable _disposable;
         private readonly Subject<Unit> _composeOpening;
         private readonly Subject<Unit> _composeOpenCompleted;
@@ -53,20 +52,25 @@ namespace Acorisoft.Morisa.Core
         private readonly BehaviorSubject<bool> _isOpenStream;
         private readonly BehaviorSubject<IMorisaCompose> _composeStream;
         private readonly IMediator _mediator;
-        private readonly Dictionary<Type, ResourcePermission> _composePermission; 
+        
+        [Obsolete]
+        private readonly Dictionary<Type, ResourcePermission> _composePermission;
+
+        private readonly PermissionManager _permissionManager;
 
         //--------------------------------------------------------------------------------------------------------------
         //
         // Private Fields
         //
         //--------------------------------------------------------------------------------------------------------------
-        
-        
+
+
         //
         // 用于实现等待全局子模块的读取操作。
         private int _waitingRequestCount;
         private bool _isOpen;
         private IMorisaCompose _compose;
+        private ILiteCollection<BsonDocument> _objCollection;
 
 
         //--------------------------------------------------------------------------------------------------------------
@@ -82,6 +86,7 @@ namespace Acorisoft.Morisa.Core
             _isOpenStream = new BehaviorSubject<bool>(false);
             _composeStream = new BehaviorSubject<IMorisaCompose>(null);
             _composePermission = new Dictionary<Type, ResourcePermission>();
+            _permissionManager = new PermissionManager();
             _propertyStream = new BehaviorSubject<MorisaComposeProperty>(null);
             _waitingRequestCount = 0;
             _mediator = mediator;
@@ -93,12 +98,8 @@ namespace Acorisoft.Morisa.Core
             _disposable.Add(_composeStream);
             _disposable.Add(_propertyStream);
         }
-        
-        
-        
-        
-        
-        
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Singleton
@@ -130,8 +131,333 @@ namespace Acorisoft.Morisa.Core
         }
 
         #endregion
-        
-        
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // MorisaObjectManager Implementations
+        // 
+        //--------------------------------------------------------------------------------------------------------------
+
+        #region MorisaObjectManager Implementations
+
+        internal BsonDocument GetObjectIntern(string key)
+        {
+            if (!_isOpen)
+            {
+                return null;
+            }
+
+            if (_compose == null)
+            {
+                return null;
+            }
+
+            //
+            // 获取对象集合
+            _objCollection ??= (_compose as MorisaCompose)?.GetDatabase()?.GetCollection(ObjectCollectionName);
+
+            if (_objCollection == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            return _objCollection.FindById(key);
+        }
+
+        internal void SetObjectIntern(string key, BsonDocument document)
+        {
+            if (!_isOpen)
+            {
+                return;
+            }
+
+            if (_compose == null)
+            {
+                return;
+            }
+
+            _objCollection.Upsert(key, document);
+        }
+
+        /// <summary>
+        /// 获取一个对象。
+        /// </summary>
+        /// <typeparam name="T">将要获取的对象实例类型。</typeparam>
+        /// <returns>返回该类型的对象实例。如果对象不存在则返回 default 。</returns>
+        public T GetObject<T>() where T : notnull
+        {
+            if (!_isOpen)
+            {
+                return default(T);
+            }
+
+            if (_compose == null)
+            {
+                return default(T);
+            }
+
+            //
+            // 获取对象集合
+            _objCollection ??= (_compose as MorisaCompose)?.GetDatabase()?.GetCollection(ObjectCollectionName);
+
+            if (_objCollection == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            //
+            // 获取键
+            var key = typeof(T).ToString();
+
+            //
+            // 序列化
+            var bson = _objCollection.FindById(key);
+
+            //
+            // 返回默认值 或者 反序列化
+            return bson == null ? default(T) : BsonMapper.Global.Deserialize<T>(bson);
+        }
+
+        /// <summary>
+        /// 获取一个对象。
+        /// </summary>
+        /// <param name="type">要获取的对象类型。</param>
+        /// <returns>返回该类型的对象实例。如果对象不存在则返回 default 。</returns>
+        public object GetObject(Type type)
+        {
+            if (!_isOpen)
+            {
+                return null;
+            }
+
+            if (_compose == null)
+            {
+                return null;
+            }
+
+            if (type == null)
+            {
+                return null;
+            }
+
+            //
+            // 获取对象集合
+            _objCollection ??= (_compose as MorisaCompose)?.GetDatabase()?.GetCollection(ObjectCollectionName);
+
+            if (_objCollection == null)
+            {
+                throw new InvalidOperationException();
+            }
+
+            //
+            // 获取键
+            var key = type.ToString();
+
+            //
+            // 序列化
+            var bson = _objCollection.FindById(key);
+
+            //
+            // 返回默认值 或者 反序列化
+            return bson == null ? null : BsonMapper.Global.ToObject(type, bson);
+        }
+
+        /// <summary>
+        /// 在异步操作中完成获取一个对象的方法。
+        /// </summary>
+        /// <typeparam name="T">将要获取的对象实例类型。</typeparam>
+        /// <returns>返回可等待获取对象操作的任务实例。</returns>
+        public Task<T> GetObjectAsync<T>() where T : notnull
+        {
+            return Task.Run(GetObject<T>);
+        }
+
+        /// <summary>
+        /// 在异步操作中完成获取一个对象。
+        /// </summary>
+        /// <param name="type">要获取的对象类型。</param>
+        /// <returns>返回可等待获取对象操作的任务实例。</returns>
+        public Task<object> GetObjectAsync(Type type)
+        {
+            object GetObjectAsyncImpl()
+            {
+                return GetObject(type);
+            }
+
+            return Task.Run(GetObjectAsyncImpl);
+        }
+
+
+        /// <summary>
+        /// 设置一个对象。
+        /// </summary>
+        /// <typeparam name="T">要设置的对象类型。</typeparam>
+        /// <returns>返回设置的该对象。</returns>
+        public T SetObject<T>()
+        {
+            if (!_isOpen)
+            {
+                return default(T);
+            }
+
+            if (_compose == null)
+            {
+                return default(T);
+            }
+            //
+            // 获取实例
+            var instance = Activator.CreateInstance<T>();
+
+            //
+            // 获取键
+            var key = typeof(T).ToString();
+
+            //
+            // 获得BsonDocument
+            var bson = BsonMapper.Global.Serialize(instance).AsDocument;
+
+            //
+            // 插入操作
+            _objCollection.Upsert(key, bson);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// 设置一个对象。
+        /// </summary>
+        /// <param name="instance">要设置的类型实例。</param>
+        /// <typeparam name="T">要设置的对象类型。</typeparam>
+        /// <returns>返回设置的该对象。</returns>
+        public T SetObject<T>(T instance)
+        {
+            if (!_isOpen)
+            {
+                return default(T);
+            }
+
+            if (_compose == null)
+            {
+                return default(T);
+            }
+            
+            if (EqualityComparer<T>.Default.Equals(instance, default(T)))
+            {
+                return instance;
+            }
+
+            //
+            // 获取键
+            var key = typeof(T).ToString();
+
+            //
+            // 获得BsonDocument
+            var bson = BsonMapper.Global.Serialize(instance).AsDocument;
+
+            //
+            // 插入操作
+            _objCollection.Upsert(key, bson);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// 设置一个对象。
+        /// </summary>
+        /// <param name="factory">返回要设置实例的工厂方法。</param>
+        /// <typeparam name="T">要设置的对象类型。</typeparam>
+        /// <returns>返回设置的该对象。</returns>
+        public T SetObject<T>(Func<T> factory)
+        {
+            if (!_isOpen)
+            {
+                return default(T);
+            }
+
+            if (_compose == null)
+            {
+                return default(T);
+            }
+            
+            if (factory == null)
+            {
+                return default(T);
+            }
+
+            var instance = factory();
+
+            if (EqualityComparer<T>.Default.Equals(instance, default(T)))
+            {
+                return instance;
+            }
+
+            //
+            // 获取键
+            var key = typeof(T).ToString();
+
+            //
+            // 获得BsonDocument
+            var bson = BsonMapper.Global.Serialize(instance).AsDocument;
+
+            //
+            // 插入操作
+            _objCollection.Upsert(key, bson);
+
+            return instance;
+        }
+
+        /// <summary>
+        /// 在异步操作中完成设置对象。
+        /// </summary>
+        /// <typeparam name="T">要设置的对象类型。</typeparam>
+        /// <returns>返回可等待设置对象操作的任务实例。</returns>
+        public Task<T> SetObjectAsync<T>()
+        {
+            return Task.Run(SetObject<T>);
+        }
+
+        /// <summary>
+        /// 在异步操作中完成设置对象。
+        /// </summary>
+        /// <param name="instance"></param>
+        /// <typeparam name="T"></typeparam>
+        /// <returns>返回可等待设置对象操作的任务实例。</returns>
+        public Task<T> SetObjectAsync<T>(T instance)
+        {
+            T SetObjectAsyncImpl()
+            {
+                return SetObject<T>(instance);
+            }
+
+            return Task.Run(SetObjectAsyncImpl);
+        }
+
+        /// <summary>
+        /// 在异步操作中完成设置对象。
+        /// </summary>
+        /// <param name="factory">返回要设置实例的工厂方法。</param>
+        /// <typeparam name="T">要设置的对象类型。</typeparam>
+        /// <returns>返回可等待设置对象操作的任务实例。</returns>
+        public Task<T> SetObjectAsync<T>(Func<T> factory)
+        {
+            if (factory == null)
+            {
+                return Task.FromResult(default(T));
+            }
+
+            T SetObjectAsyncImpl()
+            {
+                var instance = factory();
+                return SetObject<T>(instance);
+            }
+
+            return Task.Run(SetObjectAsyncImpl);
+        }
+
+        #endregion
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Permission Implementations
@@ -139,14 +465,15 @@ namespace Acorisoft.Morisa.Core
         //--------------------------------------------------------------------------------------------------------------
 
 
-
-        #region Permission
+        #region Permission Ver1
 
         private const string PermissionDictionaryKey = "69CBEFF8-809B-41AC-B2DF-C9D7AE0FBACB";
-        private const string ObjectCollectionName = "Metadatas";
-        
-        private ILiteCollection<BsonDocument> _objCollection;
 
+        //
+        // 第一版的权限管理操作伴随着风险，我们还是实验起了第二种权限管理方式
+        //
+        // 
+        [Obsolete]
         private void LoadPermissiongDictionary()
         {
             if (!_isOpen || _compose is not MorisaCompose compose)
@@ -154,7 +481,7 @@ namespace Acorisoft.Morisa.Core
                 ThrowHelper.ThrowInvalidOperation();
                 return;
             }
-            
+
             //
             // 清空权限
             _composePermission.Clear();
@@ -162,11 +489,11 @@ namespace Acorisoft.Morisa.Core
             //
             // Resharper disable 
             var database = compose.GetDatabase();
-            
+
             //
             //
             _objCollection = database.GetCollection(ObjectCollectionName);
-            
+
             //
             //
             var bson = _objCollection.FindById(PermissionDictionaryKey);
@@ -190,21 +517,23 @@ namespace Acorisoft.Morisa.Core
             }
         }
 
+        [Obsolete]
         private void InitializePermissionDictionary()
         {
             if (_objCollection == null)
             {
                 return;
             }
-            
+
             _composePermission.Add(typeof(MorisaDocumentSystem), ResourcePermission.V1_FullControl);
             _composePermission.Add(typeof(IMorisaDocumentSystem), ResourcePermission.V1_FullControl);
-            
+
             //
             // 保存
             SavePermissiongDictionary();
         }
 
+        [Obsolete]
         private void SavePermissiongDictionary()
         {
             if (_composePermission.Count <= 0)
@@ -215,14 +544,12 @@ namespace Acorisoft.Morisa.Core
             //
             // 序列化
             var bson = BsonMapper.Global.ToDocument(_composePermission);
-            
+
             //
             //
             _objCollection.Upsert(PermissionDictionaryKey, bson);
         }
 
-        
-        
 
         /// <summary>
         /// 获取指定类型的权限。
@@ -231,7 +558,9 @@ namespace Acorisoft.Morisa.Core
         /// <returns></returns>
         public ResourcePermission GetPermission<T>()
         {
-            return !_composePermission.TryGetValue(typeof(T), out var permission) ? ResourcePermission.None : permission;
+            return !_composePermission.TryGetValue(typeof(T), out var permission)
+                ? ResourcePermission.V1_None
+                : permission;
         }
 
         /// <summary>
@@ -241,14 +570,189 @@ namespace Acorisoft.Morisa.Core
         /// <returns></returns>
         public ResourcePermission GetPermission(Type type)
         {
-            return  type == null ? ResourcePermission.None : !_composePermission.TryGetValue(type, out var permission) ? ResourcePermission.None : permission;
+            return type == null ? ResourcePermission.V1_None :
+                !_composePermission.TryGetValue(type, out var permission) ? ResourcePermission.V1_None : permission;
+        }
+
+
+        public void UpdatePermission()
+        {
+        }
+
+        #endregion
+
+
+        #region Permission Ver2
+
+        private const string PermissionVersion2Key = "Permission@7AFAE979-7DAD-4A4E-82A4-EC4F1B483391";
+
+        internal class PermissionPersistent
+        {
+            [BsonField("o")] public Type Owner { get; set; }
+
+            [BsonField("t")] public Type Target { get; set; }
+
+            [BsonField("p")] public ResourcePermission Permission { get; set; }
+        }
+
+        internal sealed class PermissionList : Dictionary<Type, ResourcePermission>
+        {
+        }
+
+        internal class PermissionManager
+        {
+            private const string PermissionPersistentListCountName = "c";
+            private const string PermissionPersistentListDataName = "a";
+            private const string P2OwnerName = "o";
+            private const string P2TargetName = "t";
+            private const string P2PersistentName = "p";
+            private readonly List<PermissionPersistent> _p2List;
+            private readonly Dictionary<Type, PermissionList> _pVec;
+
+            public PermissionManager()
+            {
+                _p2List = new List<PermissionPersistent>();
+                _pVec = new Dictionary<Type, PermissionList>();
+            }
+
+            public void Load(IEnumerable<PermissionPersistent> pl)
+            {
+                foreach (var permission in pl)
+                {
+                    if (!_pVec.TryGetValue(permission.Owner, out var vec))
+                    {
+                        vec = new PermissionList();
+                        vec.Add(permission.Target, permission.Permission);
+                    }
+                    else
+                    {
+                        if (!vec.TryGetValue(permission.Target, out var rp))
+                        {
+                            vec.TryAdd(permission.Target,permission.Permission);
+                        }
+                    }
+                }
+            }
+
+            public ResourcePermission GetPermission(Type operatorType, Type targetType)
+            {
+                return ResourcePermission.Denied;
+            }
+
+            public BsonDocument Save() => Serialize(_p2List);
+
+            //
+            // 序列化 PermissionPersistent
+            public static BsonDocument Serialize(PermissionPersistent p2)
+            {
+                return new BsonDocument
+                {
+                    {P2OwnerName, p2.Owner.AssemblyQualifiedName},
+                    {P2TargetName, p2.Target.AssemblyQualifiedName},
+                    {P2PersistentName, new BsonValue((int) p2.Permission)}
+                };
+            }
+            
+            //
+            // 序列化 List<PermissionPersistent>
+            public static BsonDocument Serialize(List<PermissionPersistent> pl)
+            {
+                return new BsonDocument()
+                {
+                    {PermissionPersistentListCountName, pl.Count},
+                    {PermissionPersistentListDataName, new BsonArray(pl.Select(Serialize))}
+                };
+            }
+
+            public static PermissionPersistent DeserializePermissionPersistent(BsonValue value)
+            {
+                var document = value.AsDocument;
+                return new PermissionPersistent
+                {
+                    Owner = Type.GetType(document[P2OwnerName].AsString),
+                    Target = Type.GetType(document[P2TargetName].AsString),
+                    Permission = (ResourcePermission) document[P2PersistentName].AsInt32
+                };
+            }
+
+            public static List<PermissionPersistent> DeserializeAll(BsonValue value)
+            {
+                var document = value.AsDocument;
+                var count = document[PermissionPersistentListCountName].AsInt32;
+                var list = new List<PermissionPersistent>(count);
+                var array = document[PermissionPersistentListDataName].AsArray;
+                for (var i = 0; i < count; i++)
+                {
+                    list.Add(DeserializePermissionPersistent(array[i]));
+                }
+
+                return list;
+            }
+        }
+
+        internal void LoadPermission()
+        {
+            if (!_isOpen)
+            {
+                return;
+            }
+
+            if (_compose == null)
+            {
+                return;
+            }
+
+            if (_objCollection.Exists(Query.EQ("_id", PermissionVersion2Key)))
+            {
+                //
+                // 序列化
+                var document = GetObjectIntern(PermissionVersion2Key);
+
+                //
+                // 序列化全部
+                var pl = PermissionManager.DeserializeAll(document);
+
+                //
+                // 加载全部
+                _permissionManager.Load(pl);
+            }
+            else
+            {
+                InitializePermission();
+                SavePermission();
+            }
+        }
+
+        internal void InitializePermission()
+        {
+            
+        }
+
+        internal void SavePermission()
+        {
+            if (!_isOpen)
+            {
+                return;
+            }
+
+            if (_compose == null)
+            {
+                return;
+            }
+
+            //
+            //
+            var document = _permissionManager.Save();
+            
+            //
+            //
+            _objCollection.Upsert(PermissionVersion2Key, document);
         }
         
+        
         #endregion
-        
-        
-        
-        
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // IMorisaPropertyManager Implementations
@@ -257,53 +761,18 @@ namespace Acorisoft.Morisa.Core
 
         #region IMorisaPropertyManager Implementations
 
-
-        /// <summary>
-        /// 内部写入操作
-        /// </summary>
-        /// <param name="property">要写入的属性实例。</param>
-        internal void SetProperty(object property) => SetProperty(property, GetType());
-
-        /// <summary>
-        /// 内部写入操作
-        /// </summary>
-        /// <param name="property">要写入的属性实例。</param>
-        internal void SetProperty(MorisaComposeProperty property)
-        {
-            SetProperty((object)property);
-            _propertyStream.OnNext(property);
-        }
-
-        /// <summary>
-        /// 内部读取属性
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        internal T GetProperty<T>() => GetProperty<T>(GetType());
-
-        
-        /// <summary>
-        /// 内部读取属性
-        /// </summary>
-        internal MorisaComposeProperty GetProperty()
-        {
-            var property = GetProperty<MorisaComposeProperty>();
-            _propertyStream.OnNext(property);
-            return property;
-        }
-        
         /// <summary>
         /// 同步写入方法
         /// </summary>
         /// <param name="property">要写入的属性实例。</param>
-        /// <param name="operatorType">操作此方法的类型。传递调用该方法的实例类型。</param>
-        public void SetProperty(object property, Type operatorType)
+        public void SetProperty(object property)
         {
             if (property == null)
             {
                 return;
             }
 
-            if (!_isOpen ||_compose == null)
+            if (!_isOpen || _compose == null)
             {
                 return;
             }
@@ -312,7 +781,7 @@ namespace Acorisoft.Morisa.Core
             {
                 return;
             }
-            
+
             //
             // 序列化为BsonDocument
             var bson = BsonMapper.Global.ToDocument(property);
@@ -327,13 +796,14 @@ namespace Acorisoft.Morisa.Core
                 // TODO : add another serialize method
                 return;
             }
-            
+
             //
             // 检测权限
-            if (GetPermission(operatorType) != ResourcePermission.V1_FullControl)
-            {
-                return;
-            }
+            // TODO : Considering About enable User Data ACL
+            // if (GetPermission(operatorType) != ResourcePermission.V1_FullControl)
+            // {
+            //     return;
+            // }
 
             //
             // 写入属性
@@ -341,15 +811,28 @@ namespace Acorisoft.Morisa.Core
         }
 
         /// <summary>
+        /// 在一个异步操作中写入属性
+        /// </summary>
+        /// <param name="property">要写入的属性实例。</param>
+        /// <returns>返回一个可以等待的实例</returns>
+        public Task SetPropertyAsync(object property)
+        {
+            void SetPropertyAsyncImpl()
+            {
+                SetProperty(property);
+            }
+
+            return Task.Run(SetPropertyAsyncImpl);
+        }
+
+        /// <summary>
         /// 
         /// </summary>
-        /// <param name="operatorType"></param>
         /// <typeparam name="T"></typeparam>
         /// <returns></returns>
-        public T GetProperty<T>(Type operatorType)
+        public T GetProperty<T>()
         {
-
-            if (!_isOpen ||_compose == null)
+            if (!_isOpen || _compose == null)
             {
                 throw new InvalidOperationException("无效的操作");
             }
@@ -361,31 +844,41 @@ namespace Acorisoft.Morisa.Core
 
             //
             // 检测权限
-            if (GetPermission(operatorType) == ResourcePermission.None)
-            {
-                return default(T);
-            }
+            // TODO : Considering About enable User Data ACL
+            // if (GetPermission(operatorType) == ResourcePermission.V1_None)
+            // {
+            //     return default(T);
+            // }
 
             var key = typeof(T).ToString();
             var bson = _objCollection.FindById(key);
-            
+
             return BsonMapper.Global.Deserialize<T>(bson);
         }
 
 
         /// <summary>
+        /// 在一个异步操作中写入属性
+        /// </summary>
+        /// <returns>返回一个可以等待的实例</returns>
+        public Task<T> GetPropertyAsync<T>()
+        {
+            T GetPropertyAsyncImpl()
+            {
+                return GetProperty<T>();
+            }
+
+            return Task.Run(GetPropertyAsyncImpl);
+        }
+        
+        /// <summary>
         /// 获取属性流。
         /// </summary>
         public IObservable<MorisaComposeProperty> PropertyStream => _propertyStream;
-        
-        
+
         #endregion
-        
-        
-        
-        
-        
-        
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // IMorisaDocumentSystem Implementations
@@ -394,11 +887,22 @@ namespace Acorisoft.Morisa.Core
 
         #region IMorisaDocumentSystem Implementations
 
-        
-
         private static string GetDatabaseNameFromFolder(string folder)
         {
             return Path.Combine(folder, MainDatabaseName);
+        }
+
+        public async Task CreateAsync(string folder, string name)
+        {
+            await CreateAsync(new NewDiskItem<MorisaComposeProperty>(
+                folder, 
+                GetDatabaseNameFromFolder(folder),
+                name, 
+                new MorisaComposeProperty
+                {
+                    Name = name,
+                    
+                }));
         }
         
         /// <summary>
@@ -430,7 +934,7 @@ namespace Acorisoft.Morisa.Core
             }
 
             var folder = newItem.Directory;
-            
+
             //
             // 判断目录是否存在，如果不存在则创建
             if (!Directory.Exists(newItem.Directory))
@@ -453,8 +957,8 @@ namespace Acorisoft.Morisa.Core
             {
                 //
                 // 打开创作集
-                var compose = MorisaCompose.Open(dbFileName);
-                
+                var compose = MorisaCompose.Open(folder, dbFileName);
+
                 //
                 // 构建项目结构
                 compose.BuildHierarchy();
@@ -463,33 +967,36 @@ namespace Acorisoft.Morisa.Core
                 // 更改
                 _compose = compose;
                 _isOpen = true;
-                
-                
+
+
                 //
                 // 加载权限
-                InitializePermissionDictionary();
-                
+                // TODO : Considering About enable User Data ACL
+                // InitializePermission();
+                // SavePermission();
+
                 //
                 // 写入属性
                 SetProperty(newItem.Info);
-                
+                _propertyStream.OnNext(newItem.Info);
+
                 //
                 // 推送更改通知到数据流
                 _composeStream.OnNext(_compose);
                 _isOpenStream.OnNext(_isOpen);
-                
-                
+
+
                 //
                 // 推送更改通知到子模块
                 await _mediator.Publish(new ComposeCloseRequest());
                 await _mediator.Publish(new ComposeOpenRequest(compose));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new AggregateException("打开创作集的时候遇到错误", ex);
             }
         }
-        
+
         /// <summary>
         /// 加载指定的创作集。
         /// </summary>
@@ -519,8 +1026,8 @@ namespace Acorisoft.Morisa.Core
             {
                 //
                 // 打开创作集
-                var compose = MorisaCompose.Open(dbFileName);
-                
+                var compose = MorisaCompose.Open(folder, dbFileName);
+
                 //
                 // 构建项目结构
                 compose.BuildHierarchy();
@@ -529,34 +1036,33 @@ namespace Acorisoft.Morisa.Core
                 // 更改
                 _compose = compose;
                 _isOpen = true;
-                
+
                 //
                 // 推送更改通知到数据流
                 _composeStream.OnNext(_compose);
                 _isOpenStream.OnNext(_isOpen);
-                
+
                 //
                 // 加载权限
-                LoadPermissiongDictionary();
+                // TODO : Considering About enable User Data ACL
+                // LoadPermission();
 
                 //
                 // 读取属性
-                GetProperty();
-                
+                var property = GetProperty<MorisaComposeProperty>();
+                _propertyStream.OnNext(property);
+
                 //
                 // 推送更改通知到子模块
                 await _mediator.Publish(new ComposeCloseRequest());
                 await _mediator.Publish(new ComposeOpenRequest(compose));
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 throw new AggregateException("打开创作集的时候遇到错误", ex);
             }
         }
-        
-        
-        
-        
+
 
         /// <summary>
         /// 获取当前文档系统是否已经打开创作。
@@ -572,7 +1078,7 @@ namespace Acorisoft.Morisa.Core
         /// 获取当前的打开创作
         /// </summary>
         public IMorisaCompose Compose => _compose;
-        
+
         /// <summary>
         /// 获取当前的文档系统的打开文件操作标志数据流
         /// </summary>
@@ -594,33 +1100,18 @@ namespace Acorisoft.Morisa.Core
         public IObservable<Unit> ComposeOpenCompleted => _composeOpenCompleted;
 
         #endregion
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Protected Properties
         //
         //--------------------------------------------------------------------------------------------------------------
-        
-        
+
+
         protected CompositeDisposable Disposable => _disposable;
-        
-        
-        
-        
-        
-        
-        
-        
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // ISubmoduleAwaiter Implementations
@@ -656,23 +1147,12 @@ namespace Acorisoft.Morisa.Core
         }
 
         #endregion
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Public Properties
         //
         //--------------------------------------------------------------------------------------------------------------
-        
     }
 }

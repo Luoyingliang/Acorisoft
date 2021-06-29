@@ -7,14 +7,10 @@
     <Platforms>x86;x64;AnyCPU</Platforms>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
   </PropertyGroup>
-  <ItemGroup>
-    <Resource Include="Themes\NotoSansCJKsc-Regular.otf" />
-    <Resource Include="Themes\NotoSansCJKsc-Light.otf" />
-    <Resource Include="Themes\NotoSansCJKsc-Bold.otf" />
-  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\Acorisoft.Platform.Windows.Resources\Acorisoft.Platform.Windows.Resources.csproj" />
     <ProjectReference Include="..\Acorisoft.Platform\Acorisoft.Platform.csproj" />
   </ItemGroup>
 

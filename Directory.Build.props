@@ -1,0 +1,10 @@
+<Project>
+	<PropertyGroup>
+		<Authors>Acoris</Authors>
+		<Company>Acorisoft</Company>
+		<OutDir>$(MSBuildThisFileDirectory)\bin</OutDir>
+		<Copyright>MIT</Copyright>
+		<IncludeDebugSymbolsProjectOutputGroup>True</IncludeDebugSymbolsProjectOutputGroup>
+		<TargetFramework>net5.0-Windows</TargetFramework>
+	</PropertyGroup>
+</Project>
