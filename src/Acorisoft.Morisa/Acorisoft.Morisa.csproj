@@ -20,4 +20,8 @@
     <ProjectReference Include="..\Acorisoft.Morisa.Core\Acorisoft.Morisa.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Documents" />
+  </ItemGroup>
+
 </Project>
