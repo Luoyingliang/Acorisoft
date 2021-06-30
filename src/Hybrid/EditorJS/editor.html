@@ -201,9 +201,9 @@
            chrome.webview.addEventListener('message', event => 
            {
                 if(event.data =="save"){
-                  chrome.webview.postMessage(savedData);
                 editor.save()
                   .then((savedData) => {
+                  chrome.webview.postMessage(savedData);
                     console.log(savedData);
                   });
                 }
