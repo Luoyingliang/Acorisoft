@@ -69,17 +69,19 @@ namespace Acorisoft.Studio
         // Test for Post value to Dom
         public async void SaveMarkdownDocument()
         {
-            if (_flag)
-            {
-                Host.Cancel();
-                Browser.DisableOverlayBehavior();
-                Browser.Refresh();
-            }
-            else
-            {
-               Browser.EnableOverlayBehavior();
-               Host.Await();
-            }
+            //if (_flag)
+            //{
+            //    Host.Cancel();
+            //    Browser.DisableOverlayBehavior();
+            //    Browser.Refresh();
+            //}
+            //else
+            //{
+            //   Browser.EnableOverlayBehavior();
+            //   Host.Await();
+            //}
+
+            Browser.Save();
 
             _flag = !_flag;
             //const string save = "saveImpl()";

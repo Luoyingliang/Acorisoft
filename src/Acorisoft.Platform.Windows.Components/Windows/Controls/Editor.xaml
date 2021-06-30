@@ -16,4 +16,17 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+    <Style TargetType="{x:Type c:RichTextEditor}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type c:EditorBase}">
+                    <w:TilePanel>
+                        <Image x:Name="PART_Thumbnail" Visibility="Collapsed"/>
+                        <wv2:WebView2 x:Name="PART_Browser" Visibility="Visible"/>
+                    </w:TilePanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

@@ -19,30 +19,6 @@
     <script src="table.js"></script>
     <script src="editor.js"></script>
     <script type="module">
-
-        function myAjax(url, fn, fnload) {
-            function ajax() {
-                if (window.XMLHttpRequest) {
-                    var xhr = new XMLHttpRequest();
-                } else {
-                    //IE6
-                    var xhr = new ActiveXObject("Microsoft.XMLHTTP");
-                }
-                return xhr;
-            }
-            var request = ajax();
-            request.open("get", url, true);
-            request.send(null);
-            request.onload = function () {
-                if (request.readyState == 4) {
-                    if (request.status == 200) {
-                        fn(request.responseText);
-                    } else {
-                        fnload("失败" + request.status);
-                    }
-                }
-            }
-        }
         const editor = new EditorJS({
             /** 
             * 承载编辑器的元素id
@@ -222,6 +198,14 @@
             .catch((reason) => {
                 console.log(`Editor.js initialization failed because of ${reason}`)
             });
+
+
+            async function save(){
+                editor.save().then((savedData)=>{
+                     chrome.webview.postMessage(savedData);
+                     console.log(savedData);
+                });
+            }
     </script>
 </head>
 

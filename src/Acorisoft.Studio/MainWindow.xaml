@@ -23,7 +23,7 @@
                     <ColumnDefinition Width="320"/>
                 </Grid.ColumnDefinitions>
                 
-                <wc:MarkdownEditor x:Name="Browser" Grid.Column="1" Url="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/>
+                <wc:RichTextEditor x:Name="Browser" Grid.Column="1" Url="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/>
                 <!-- <wv2:WebView2 x:Name="Browser" Grid.Column="1" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/HyperMD/index.html"/> -->
                 <!-- <wv2:WebView2  Grid.Column="2" Source="file://C:/Users/Administrator/Documents/Acorisoft/src/Hybrid/EditorJS/editor.html"/> -->
             </Grid>
