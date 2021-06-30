@@ -13,14 +13,13 @@ using LiteDB;
 using Unit = System.Reactive.Unit;
 using Disposable = Acorisoft.ComponentModel.Disposable;
 
+// ReSharper disable InvertIf
+// ReSharper disable ConvertToAutoPropertyWithPrivateSetter
+// ReSharper disable ArrangeDefaultValueWhenTypeNotEvident
+// ReSharper disable ArrangeObjectCreationWhenTypeEvident
 namespace Acorisoft.Morisa.Core
 {
-    // ##Resharper diable comments
-    //
-    // ReSharper disable InvertIf
-    // ReSharper disable ConvertToAutoPropertyWithPrivateSetter
-    // ReSharper disable ArrangeDefaultValueWhenTypeNotEvident
-    // ReSharper disable ArrangeObjectCreationWhenTypeEvident
+
     //
     /// <summary>
     /// 

@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0-windows</TargetFramework>
-    <RootNamespace>Acorisoft</RootNamespace>
+    <RootNamespace>Acorisoft.Platform</RootNamespace>
     <UseWPF>true</UseWPF>
     <Platforms>x86;x64;AnyCPU</Platforms>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>

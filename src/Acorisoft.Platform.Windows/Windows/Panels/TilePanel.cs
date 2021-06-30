@@ -13,7 +13,7 @@ namespace Acorisoft.Platform.Windows.Panels
     {
         // ReSharper disable once MemberCanBePrivate.Global
         protected static readonly Point Zero = new(0, 0);
-        
+
         protected sealed override Size MeasureOverride(Size availableSize)
         {
             foreach (FrameworkElement element in Children)
@@ -28,7 +28,7 @@ namespace Acorisoft.Platform.Windows.Panels
         {
             foreach (FrameworkElement element in Children)
             {
-                element.Arrange(new Rect(Zero, finalSize));
+                element.Arrange(new Rect(Xaml.Point_Zero, finalSize));
             }
 
             return base.ArrangeOverride(finalSize); 

@@ -1,4 +1,5 @@
 using System;
+using System.Windows;
 
 namespace Acorisoft.Platform
 {
@@ -7,6 +8,8 @@ namespace Acorisoft.Platform
     /// </summary>
     public static class Xaml
     {
+        public static readonly Point Point_Zero = new Point(0, 0);
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Avoid Boxing Methods
