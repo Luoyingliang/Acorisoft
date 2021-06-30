@@ -19,11 +19,11 @@
     <script src="table.js"></script>
     <script src="editor.js"></script>
     <script type="module">
-        const editor = new EditorJS({
+        var editor = new EditorJS({
             /** 
             * 承载编辑器的元素id
             */
-            holder: 'editor',
+            holder: 'editorjs',
             placeholder: "这里输入文字",
             /*
             * 开启自动焦点
@@ -198,19 +198,21 @@
             .catch((reason) => {
                 console.log(`Editor.js initialization failed because of ${reason}`)
             });
-
-
-            async function save(){
-                editor.save().then((savedData)=>{
-                     chrome.webview.postMessage(savedData);
-                     console.log(savedData);
-                });
-            }
+           chrome.webview.addEventListener('message', event => 
+           {
+                if(event.data =="save"){
+                  chrome.webview.postMessage(savedData);
+                editor.save()
+                  .then((savedData) => {
+                    console.log(savedData);
+                  });
+                }
+           });
     </script>
 </head>
 
 <body>
-    <div id="editor"></div>
+    <div id="editorjs"></div>
 </body>
 
 </html>
