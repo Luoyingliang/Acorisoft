@@ -55,6 +55,7 @@ namespace Acorisoft.Platform.Windows.Controls
             Browser.CoreWebView2.WebMessageReceived -= OnWebMessageReceived;
             Browser.CoreWebView2.WebResourceRequested -= OnWebResourceRequested;
             Browser.CoreWebView2.WebResourceResponseReceived -= OnWebResourceResponseReceived;
+            Browser.CoreWebView2InitializationCompleted -= OnCoreWebView2InitializationCompleted;
         }
 
         protected virtual async Task OnInitialized(WebView2 webView)
@@ -84,6 +85,11 @@ namespace Acorisoft.Platform.Windows.Controls
 
 
         protected virtual void OnWebResourceResponseReceived(object? sender, CoreWebView2WebResourceResponseReceivedEventArgs e)
+        {
+        }
+        
+        
+        protected virtual void OnCoreWebView2InitializationCompleted(object? sender, CoreWebView2InitializationCompletedEventArgs e)
         {
         }
 
@@ -146,6 +152,7 @@ namespace Acorisoft.Platform.Windows.Controls
             Browser.CoreWebView2.WebResourceRequested += OnWebResourceRequested;
             Browser.CoreWebView2.WebResourceResponseReceived += OnWebResourceResponseReceived;
             Browser.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.Image);
+            Browser.CoreWebView2InitializationCompleted += OnCoreWebView2InitializationCompleted;
             //
             // 初始化
             await OnInitialized(Browser);
@@ -154,6 +161,7 @@ namespace Acorisoft.Platform.Windows.Controls
             // 基类调用
             base.OnApplyTemplate();
         }
+
 
 
         /// <summary>

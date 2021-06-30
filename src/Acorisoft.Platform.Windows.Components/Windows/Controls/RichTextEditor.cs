@@ -275,6 +275,8 @@ namespace Acorisoft.Platform.Windows.Controls
 
         private readonly EditorJsUploadHook _hook;
         private readonly Subject<UploadDataPacket> _upload;
+        private string _internRtfText;
+        private TaskCompletionSource<string> _saveTask;
 
 
 
@@ -293,7 +295,15 @@ namespace Acorisoft.Platform.Windows.Controls
             _hook.OnUploaded += OnUploaded;
         }
 
-
+        protected override void OnWebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+            _internRtfText = e.WebMessageAsJson;
+            if(_saveTask != null)
+            {
+                _saveTask.SetResult(_internRtfText);
+                _saveTask = null;
+            }
+        }
 
 
         private string OnUploaded(byte[] data)
@@ -309,10 +319,61 @@ namespace Acorisoft.Platform.Windows.Controls
             return "resx://d.jpg";
         }
 
-        public void Save()
+
+        /// <summary>
+        /// 保存当前编辑器的内容。
+        /// </summary>
+        /// <returns>返回当前编辑器的内容字符串。</returns>
+        public async Task<string> SaveAsync()
         {
+            if(Browser.CoreWebView2 == null)
+            {
+                await Browser.EnsureCoreWebView2Async();
+            }
+
+            //
+            //
             Browser.CoreWebView2.PostWebMessageAsString("save");
+
+            //
+            //
+            _saveTask = new TaskCompletionSource<string>();
+
+            //
+            //
+            return await _saveTask.Task;
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public async Task ToggleReadOnlyMode()
+        {
+            if(Browser.CoreWebView2 == null)
+            {
+                await Browser.EnsureCoreWebView2Async();
+            }
+
+            //
+            //
+            Browser.CoreWebView2.PostWebMessageAsString("toggle");
+        }
+
+        public async Task Load(string json)
+        {
+            if (Browser.CoreWebView2 == null)
+            {
+                await Browser.EnsureCoreWebView2Async();
+            }
+
+            //
+            //
+            Browser.CoreWebView2.PostWebMessageAsJson(json);
+
+        }
+
+
 
 
         //--------------------------------------------------------------------------------------------------------------
@@ -331,6 +392,7 @@ namespace Acorisoft.Platform.Windows.Controls
             if (!string.IsNullOrEmpty(Url))
             {
                 webView.CoreWebView2.Navigate(Url);
+                webView.CoreWebView2.PostWebMessageAsJson(@"{ ""blocks"" :[]}");
             }
         }
 

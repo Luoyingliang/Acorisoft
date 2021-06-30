@@ -114,7 +114,9 @@ All built-in features are ready-to-go. You may manipulate the editor via `cm` or
     // now you get a `editor` and you can do whatever you want
     editor.setSize(null, window.screen.height) // set height
     editor.focus()
-    
+      function saveImpl(){
+    return editor.getValue();
+  }
   </script>
 
 <script>

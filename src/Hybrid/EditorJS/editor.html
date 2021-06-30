@@ -19,7 +19,9 @@
     <script src="table.js"></script>
     <script src="editor.js"></script>
     <script type="module">
-        var editor = new EditorJS({
+     
+        function newEditor(rtf){
+            return new EditorJS({
             /** 
             * 承载编辑器的元素id
             */
@@ -68,50 +70,6 @@
                            byFile: 'http://localhost:8008/uploadFile', // Your backend file uploader endpoint
                            byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
                        },
-                       
-                        // uploader: {
-                        //     /**
-                        //      * Upload file to the server and return an uploaded image data
-                        //      * @param {File} file - file selected from the device or pasted by drag-n-drop
-                        //      * @return {Promise.<{success, file: {url}}>}
-                        //      */
-                        //     async uploadByFile(file) {
-                        //         // return {
-                        //         //     success: 1,
-                        //         //     file: {
-                        //         //         url: 'file:///E:/%E5%A3%81%E7%BA%B8/1%20(2).jpg',
-                        //         //         // any other image data you want to store, such as width, height, color, extension, etc
-                        //         //     }
-                        //         // };
-
-                        //         return MyAjax.upload(file).then(() => {
-                        //                     return {
-                        //                         success: 1,
-                        //                         file: {
-                        //                         url: 'file:///E:/%E5%A3%81%E7%BA%B8/1%20(2).jpg',
-                        //                         // any other image data you want to store, such as width, height, color, extension, etc
-                        //                         }
-                        //                     };
-                        //                 });
-                        //     },
-
-                        //     /**
-                        //      * Send URL-string to the server. Backend should load image by this URL and return an uploaded image data
-                        //      * @param {string} url - pasted image URL
-                        //      * @return {Promise.<{success, file: {url}}>}
-                        //      */
-                        //     uploadByUrl(url) {
-                        //         // your ajax request for uploading
-                        //         return {
-                        //             success: 1,
-                        //             file: {
-                        //                 url: 'file:///E:/%E5%A3%81%E7%BA%B8/1%20(2).jpg',
-                        //                 // any other image data you want to store, such as width, height, color, extension, etc
-                        //             }
-                        //         };
-                        //     }
-                            
-                        // }
                     }
                 },
 
@@ -188,8 +146,11 @@
                     },
                 },
 
-            }
+            },
+            data : rtf
         });
+        }
+        var editor = newEditor({ block : []}); 
         editor.isReady
             .then(() => {
                 console.log('Editor.js is ready to work!')
@@ -200,12 +161,21 @@
             });
            chrome.webview.addEventListener('message', event => 
            {
-                if(event.data =="save"){
-                editor.save()
-                  .then((savedData) => {
-                  chrome.webview.postMessage(savedData);
-                    console.log(savedData);
-                  });
+               if(event.data =="save"){
+                    editor.save()
+                      .then((savedData) => {
+                      chrome.webview.postMessage(savedData);
+                      });
+                }
+                else if(event.data == "toggle"){
+                      editor.readOnly.toggle();
+                }
+                else{
+                    document.getElementById('editorjs').remove();
+                    let newChild = document.createElement('div');
+                    newChild.setAttribute("id", "editorjs");                    
+                    document.body.appendChild(newChild);
+                    editor = newEditor(event.data);
                 }
            });
     </script>
