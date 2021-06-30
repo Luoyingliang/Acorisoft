@@ -130,6 +130,11 @@ All built-in features are ready-to-go. You may manipulate the editor via `cm` or
   function saveImpl(){
     return editor.getValue();
   }
+
+  chrome.webview.addEventListener('message', event => 
+           {
+               editor.setValue(event.data);
+           });
   </script>
 </body>
 

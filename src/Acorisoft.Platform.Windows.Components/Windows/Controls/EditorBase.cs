@@ -96,15 +96,15 @@ namespace Acorisoft.Platform.Windows.Controls
         protected virtual async void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
             var uri = new Uri(e.Request.Uri);
-            using var stream = new FileStream(@"E:\壁纸\1.png", FileMode.Open);
-            var ms = new MemoryStream();
-            stream.CopyTo(ms);
-            ms.Position = 0;
-            var response = Browser.CoreWebView2.Environment.CreateWebResourceResponse(ms, 200, "OK", "");
-            e.Response = response;
+            //using var stream = new FileStream(@"E:\壁纸\1.png", FileMode.Open);
+            //var ms = new MemoryStream();
+            //stream.CopyTo(ms);
+            //ms.Position = 0;
+            //var response = Browser.CoreWebView2.Environment.CreateWebResourceResponse(ms, 200, "OK", "");
+            //e.Response = response;
             //
             // if request failed will turn to this
-            e.Response.StatusCode = 200;
+            // e.Response.StatusCode = 200;
             
         }
 

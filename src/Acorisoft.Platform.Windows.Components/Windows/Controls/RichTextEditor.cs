@@ -360,7 +360,7 @@ namespace Acorisoft.Platform.Windows.Controls
             Browser.CoreWebView2.PostWebMessageAsString("toggle");
         }
 
-        public async Task Load(string json)
+        public async Task LoadAsync(string json)
         {
             if (Browser.CoreWebView2 == null)
             {

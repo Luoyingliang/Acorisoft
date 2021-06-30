@@ -76,7 +76,7 @@ namespace Acorisoft.Studio
                 //Host.Cancel();
                 //Browser.DisableOverlayBehavior();
                 //Browser.Refresh();
-                await Browser.Load(json);
+                await Browser.LoadAsync(json);
             }
             else
             {

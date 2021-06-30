@@ -28,10 +28,32 @@ namespace Acorisoft.Platform.Windows.Controls
 
         }
 
-        public void GetMarkdown()
+        /// <summary>
+        /// 保存当前编辑器的内容。
+        /// </summary>
+        /// <returns>返回当前编辑器的内容字符串。</returns>
+        public async Task<string> SaveAsync()
         {
-            
+            if (Browser.CoreWebView2 == null)
+            {
+                await Browser.EnsureCoreWebView2Async();
+            }
+
+            return await Browser.ExecuteScriptAsync("saveImpl()");
         }
-        
+
+        public async Task LoadAsync(string json)
+        {
+            if (Browser.CoreWebView2 == null)
+            {
+                await Browser.EnsureCoreWebView2Async();
+            }
+
+            //
+            //
+            Browser.CoreWebView2.PostWebMessageAsString(json);
+
+        }
+
     }
 }
