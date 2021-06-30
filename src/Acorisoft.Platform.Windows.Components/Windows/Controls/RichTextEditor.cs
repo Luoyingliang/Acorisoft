@@ -172,7 +172,7 @@ namespace Acorisoft.Platform.Windows.Controls
             public static async Task Feedback(HttpListenerContext context, string file)
             {
                 var reponse = context.Response;
-                var content = $@"{{success: 1,file: {{ url: '{file}' }}";
+                var content = $@"{{ ""success"": 1,""file"": {{ ""url"": ""{file}"" }} }}";
                 context.Response.ContentType = "application/json"; //告诉客户端返回的ContentType类型为纯文本格式，编码为UTF-8
                 context.Response.AddHeader("Content-type", "application/json"); //添加响应头信息
                 context.Response.StatusCode = 200;
@@ -204,18 +204,26 @@ namespace Acorisoft.Platform.Windows.Controls
 
             private async void Loop()
             {
+                // image.js 262
                 while (_continue)
                 {
-                    var context = await _server.GetContextAsync();
-                    var packet = PostDataPacketReader.GetPostDataPackets(context).FirstOrDefault(x => x.Type == 1);
-                    if (packet == null)
+                    try
                     {
-                        continue;
-                    }
+                        var context = await _server.GetContextAsync();
+                        var packet = PostDataPacketReader.GetPostDataPackets(context).FirstOrDefault(x => x.Type == 1);
+                        if (packet == null)
+                        {
+                            continue;
+                        }
 
-                    var result = OnUploaded?.Invoke(packet.Datas);
-                    await PostDataPacketReader.Feedback(context, result);
+                        var result = OnUploaded?.Invoke(packet.Datas);
+                        await PostDataPacketReader.Feedback(context, result);
+                    }
+                    catch
+                    {
+                    }
                 }
+                
             }
 
             protected override void OnDisposeManagedCore()
@@ -298,7 +306,7 @@ namespace Acorisoft.Platform.Windows.Controls
 
             _upload.OnNext(info);
             
-            return "file://d:/1.jpg";
+            return "resx://d.jpg";
         }
 
         public void Save()

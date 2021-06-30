@@ -14,8 +14,6 @@ using Acorisoft.ComponentModel;
 using Acorisoft.Platform.Windows;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
-using Titanium.Web.Proxy;
-using Titanium.Web.Proxy.Models;
 
 // ReSharper disable MemberCanBePrivate.Global
 
@@ -37,25 +35,9 @@ namespace Acorisoft.Platform.Windows.Controls
         private const string BrowserName = "PART_Browser";
         private const string ThumbnailName = "PART_Thumbnail";
 
-
-        private ProxyServer _server;
-
         protected EditorBase()
         {
-            _server = new ProxyServer();
-            _server.BeforeRequest += OnBeforeRequest;
-            _server.BeforeResponse += OnBeforeResponse;
-            _server.AddEndPoint(new ExplicitProxyEndPoint(IPAddress.Loopback, 8009));
-            _server.Start();
             this.Unloaded += OnUnloaded;
-        }
-
-        private async Task OnBeforeResponse(object sender, Titanium.Web.Proxy.EventArguments.SessionEventArgs e)
-        {
-        }
-
-        private async Task OnBeforeRequest(object sender, Titanium.Web.Proxy.EventArguments.SessionEventArgs e)
-        {
         }
 
         protected virtual void OnUnloaded(object sender, RoutedEventArgs e)
@@ -101,13 +83,23 @@ namespace Acorisoft.Platform.Windows.Controls
         }
 
 
-        protected virtual void OnWebResourceResponseReceived(object? sender,
-            CoreWebView2WebResourceResponseReceivedEventArgs e)
+        protected virtual void OnWebResourceResponseReceived(object? sender, CoreWebView2WebResourceResponseReceivedEventArgs e)
         {
         }
 
-        protected virtual void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
+        protected virtual async void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
+            var uri = new Uri(e.Request.Uri);
+            using var stream = new FileStream(@"E:\壁纸\1.png", FileMode.Open);
+            var ms = new MemoryStream();
+            stream.CopyTo(ms);
+            ms.Position = 0;
+            var response = Browser.CoreWebView2.Environment.CreateWebResourceResponse(ms, 200, "OK", "");
+            e.Response = response;
+            //
+            // if request failed will turn to this
+            e.Response.StatusCode = 200;
+            
         }
 
         protected virtual void OnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
@@ -153,7 +145,7 @@ namespace Acorisoft.Platform.Windows.Controls
             Browser.CoreWebView2.WebMessageReceived += OnWebMessageReceived;
             Browser.CoreWebView2.WebResourceRequested += OnWebResourceRequested;
             Browser.CoreWebView2.WebResourceResponseReceived += OnWebResourceResponseReceived;
-
+            Browser.CoreWebView2.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.Image);
             //
             // 初始化
             await OnInitialized(Browser);
