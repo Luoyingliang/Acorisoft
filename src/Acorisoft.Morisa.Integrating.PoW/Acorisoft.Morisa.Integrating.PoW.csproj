@@ -3,7 +3,7 @@
     <PropertyGroup>
         <TargetFramework>net5.0-windows</TargetFramework>
         <UseWPF>true</UseWPF>
-		<RootNamespace>Acorisoft.Morisa</RootNamespace>
+		<RootNamespace>Acorisoft</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -20,6 +20,12 @@
     <ItemGroup>
       <PackageReference Include="gong-wpf-dragdrop" Version="2.3.2" />
       <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Morisa\Engines" />
+      <Folder Include="Morisa\Integrating" />
+      <Folder Include="Morisa\Serializations" />
     </ItemGroup>
 
 </Project>
