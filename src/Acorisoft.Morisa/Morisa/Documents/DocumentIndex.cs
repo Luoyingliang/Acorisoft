@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Acorisoft.Morisa.Documents
 {
-    public abstract class DocumentIndex
+    public abstract class DocumentIndex : IDocumentIndex
     {
         /// <summary>
         /// 

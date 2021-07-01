@@ -5,6 +5,6 @@ namespace Acorisoft.Morisa
     /// </summary>
     internal static class Constants
     {
-        
+        internal const string IdMoniker = "_id";
     }
 }

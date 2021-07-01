@@ -10,6 +10,8 @@
         <ProjectReference Include="..\Acorisoft.Foundation\Acorisoft.Foundation.csproj" />
 
         <ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+
+        <ProjectReference Include="..\Acorisoft.Morisa.Integrating.PoW\Acorisoft.Morisa.Integrating.PoW.csproj" />
         <ProjectReference Include="..\Acorisoft.Platform.Windows.Components\Acorisoft.Platform.Windows.Components.csproj" />
         <ProjectReference Include="..\Acorisoft.Platform.Windows\Acorisoft.Platform.Windows.csproj" />
         <ProjectReference Include="..\Acorisoft.Platform\Acorisoft.Platform.csproj" />

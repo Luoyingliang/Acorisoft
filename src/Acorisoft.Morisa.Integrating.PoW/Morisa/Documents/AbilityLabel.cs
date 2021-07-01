@@ -1,6 +1,6 @@
 namespace Acorisoft.Morisa.Documents
 {
-    public class AbilityIndex : DocumentIndex
+    public class AbilityLabel
     {
         
     }
