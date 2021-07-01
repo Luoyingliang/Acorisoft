@@ -23,11 +23,11 @@
             <!-- 列表模式 -->
 
             <StackPanel Orientation="Horizontal" Margin="32 0">
-                <powXaml:AbilityListItemView AbilityName="天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺" Rarity="{x:Static pow:AbilityRarity.One}" Margin="3"/>
-                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Two}" Margin="3"/>
-                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Three}" Margin="3"/>
-                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Four}" Margin="3"/>
-                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
+                <powXaml:AbilityItemView AbilityName="天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺" Rarity="{x:Static pow:AbilityRarity.One}" Margin="3"/>
+                <powXaml:AbilityItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Two}" Margin="3"/>
+                <powXaml:AbilityItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Three}" Margin="3"/>
+                <powXaml:AbilityItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Four}" Margin="3"/>
+                <powXaml:AbilityItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
 
                 <Border CornerRadius="5" Background="White"
                         Height="800"
@@ -115,7 +115,11 @@
                 </Border>
             </StackPanel>
 
-           
+            <powXaml:AbilityListItemView AbilityName="天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺" Rarity="{x:Static pow:AbilityRarity.One}" Margin="3"/>
+            <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Two}" Margin="3"/>
+            <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Three}" Margin="3"/>
+            <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Four}" Margin="3"/>
+            <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
         </StackPanel>
     </ScrollViewer>
 </Window>
