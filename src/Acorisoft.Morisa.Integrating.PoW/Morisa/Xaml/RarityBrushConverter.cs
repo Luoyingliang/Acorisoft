@@ -29,7 +29,6 @@ namespace Acorisoft.Morisa.Xaml
                 Rarity.Three => _three,
                 Rarity.Four => _four,
                 Rarity.Five => _five,
-                Rarity.One => throw new NotImplementedException(),
                 _ => _one
             };
 

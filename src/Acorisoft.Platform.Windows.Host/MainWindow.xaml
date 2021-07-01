@@ -13,9 +13,9 @@
     <Window.Resources>
         <pow:Ability x:Key="Five" Rarity="{x:Static pow:AbilityRarity.Five}"/>
         <pow:Ability x:Key="Four" Rarity="{x:Static pow:AbilityRarity.Four}"/>
-        <pow:Ability x:Key="three" Rarity="{x:Static pow:AbilityRarity.three}"/>
-        <pow:Ability x:Key="two" Rarity="{x:Static pow:AbilityRarity.two}"/>
-        <pow:Ability x:Key="one" Rarity="{x:Static pow:AbilityRarity.one}"/>
+        <pow:Ability x:Key="three" Rarity="{x:Static pow:AbilityRarity.Three}"/>
+        <pow:Ability x:Key="two" Rarity="{x:Static pow:AbilityRarity.Two}"/>
+        <pow:Ability x:Key="one" Rarity="{x:Static pow:AbilityRarity.One}"/>
     </Window.Resources>
     <StackPanel>
         <Border Padding="8">
