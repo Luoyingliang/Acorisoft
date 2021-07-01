@@ -21,7 +21,7 @@
     <SolidColorBrush x:Key="App.Brushes.DeepDark">#80000000</SolidColorBrush>
     
     <!-- 字体 -->
-    <FontFamily x:Key="App.Fonts.Regular">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Resources/Fonts/NotoSansCJKsc-Regular.otf#Noto Sans CJK SC Regular</FontFamily>
-    <FontFamily x:Key="App.Fonts.Light">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Resources/Fonts/NotoSansCJKsc-Light.otf#Noto Sans CJK SC Light</FontFamily>
-    <FontFamily x:Key="App.Fonts.Bold">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Resources/Fonts/NotoSansCJKsc-Bold.otf#Noto Sans CJK SC Bold</FontFamily>
+    <FontFamily x:Key="App.Fonts.Regular">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/NotoSansCJKsc-Regular.otf#Noto Sans CJK SC Regular</FontFamily>
+    <FontFamily x:Key="App.Fonts.Light">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/NotoSansCJKsc-Light.otf#Noto Sans CJK SC Light</FontFamily>
+    <FontFamily x:Key="App.Fonts.Bold">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/NotoSansCJKsc-Bold.otf#Noto Sans CJK SC Bold</FontFamily>
 </ResourceDictionary>

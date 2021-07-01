@@ -17,91 +17,105 @@
         <pow:Ability x:Key="two" Rarity="{x:Static pow:AbilityRarity.Two}"/>
         <pow:Ability x:Key="one" Rarity="{x:Static pow:AbilityRarity.One}"/>
     </Window.Resources>
-    <StackPanel>
-        <Border Padding="8">
-            <Grid Width="256" Height="192">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="72" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+    <ScrollViewer>
+        <StackPanel Background="#E1E1E1">
 
-                <TextBlock Text="德特里安的救赎">
-                    <TextBlock.Foreground>
-                        <Binding Source="{StaticResource one}" Path="Rarity" Converter="{x:Static powXaml:RarityBackgroundBrushConverter.Current}">
-                            
-                        </Binding>
-                    </TextBlock.Foreground>
-                </TextBlock>
-            </Grid>
-        </Border>
-        <Border Padding="8">
-            <Grid Width="256" Height="192">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="72" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+            <!-- 列表模式 -->
 
-                <TextBlock Text="德特里安的救赎">
-                    <TextBlock.Foreground>
-                        <Binding Source="{StaticResource two}" Path="Rarity" Converter="{x:Static powXaml:RarityBackgroundBrushConverter.Current}">
+            <StackPanel Orientation="Horizontal" Margin="32 0">
+                <powXaml:AbilityListItemView AbilityName="天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺" Rarity="{x:Static pow:AbilityRarity.One}" Margin="3"/>
+                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Two}" Margin="3"/>
+                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Three}" Margin="3"/>
+                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Four}" Margin="3"/>
+                <powXaml:AbilityListItemView AbilityName="天刑之刺" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
 
-                        </Binding>
-                    </TextBlock.Foreground>
-                </TextBlock>
-            </Grid>
-        </Border>
-        <Border Padding="8">
-            <Grid Width="256" Height="192">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="72" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+                <Border CornerRadius="5" Background="White"
+                        Height="800"
+                        Width="640"
+                        Margin="8"
+                        Padding="16">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="144" />
+                            <RowDefinition Height="1*" />
+                        </Grid.RowDefinitions>
 
-                <TextBlock Text="德特里安的救赎">
-                    <TextBlock.Foreground>
-                        <Binding Source="{StaticResource three}" Path="Rarity" Converter="{x:Static powXaml:RarityBackgroundBrushConverter.Current}">
+                        <!-- 图标与名称 -->
+                        <DockPanel>
+                            <Border Grid.Row="0" CornerRadius="5" Background="#9132C8" DockPanel.Dock="Left" Margin="0 0 8 0" Width="144">
+                                <w:TilePanel>
+                                    <Image x:Name="PART_Decorative" Source="{StaticResource Pow.Decorative.Three}"/>
+                                    <Path Data="{StaticResource Pow.Sword.Cross}" Stretch="Uniform" Fill="#FFFFFF" Margin="32"/>
+                                </w:TilePanel>
+                            </Border>
 
-                        </Binding>
-                    </TextBlock.Foreground>
-                </TextBlock>
-            </Grid>
-        </Border>
-        <Border Padding="8">
-            <Grid Width="256" Height="192">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="72" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+                            <DockPanel DockPanel.Dock="Right" LastChildFill="True" Margin="16 0 0 0">
 
-                <TextBlock Text="德特里安的救赎">
-                    <TextBlock.Foreground>
-                        <Binding Source="{StaticResource Four}" Path="Rarity" Converter="{x:Static powXaml:RarityBackgroundBrushConverter.Current}">
+                                <TextBlock Grid.Row="0" Text="天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺天刑之刺" TextWrapping="Wrap" 
+                                           FontSize="23" FontFamily="{StaticResource App.Fonts.Regular}" TextTrimming="CharacterEllipsis"
+                                           DockPanel.Dock="Top"
+                                           Height="96"/>
+                                
+                                <powXaml:RarityView DockPanel.Dock="Bottom"
+                                                    Height="32"
+                                                    Rarity="{x:Static pow:AbilityRarity.Three}"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalContentAlignment="Left"/>
 
-                        </Binding>
-                    </TextBlock.Foreground>
-                </TextBlock>
-            </Grid>
-        </Border>
-        <Border Padding="8">
-            <Grid Width="256" Height="192">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="72" />
-                    <ColumnDefinition Width="1*" />
-                    <ColumnDefinition Width="1*" />
-                </Grid.ColumnDefinitions>
+                            </DockPanel>
+                        </DockPanel>
+                        
+                        <!-- 内容 -->
+                        <StackPanel Grid.Row="1">
+                            <DockPanel Margin="0 8">
+                                <TextBlock FontSize="20" Text="技能描述" DockPanel.Dock="Top" Margin="0 10"/>
+                                <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
+                                    <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
+                                    <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
+                                           Text="常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述" 
+                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </DockPanel>
+                            <DockPanel Margin="0 8">
+                                <TextBlock FontSize="20" Text="解锁部分" DockPanel.Dock="Top" Margin="0 10"/>
+                                <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
+                                    <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
+                                    <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
+                                           Text="常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述" 
+                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </DockPanel>
+                            <DockPanel Margin="0 8">
+                                <TextBlock FontSize="20" Text="进化部分" DockPanel.Dock="Top" Margin="0 10"/>
+                                <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
+                                    <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
+                                    <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
+                                           Text="常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述" 
+                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </DockPanel>
+                            <DockPanel Margin="0 8">
+                                <TextBlock FontSize="20" Text="领域部分" DockPanel.Dock="Top" Margin="0 10"/>
+                                <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
+                                    <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
+                                    <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
+                                           Text="常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述" 
+                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
+                                </DockPanel>
+                            </DockPanel>
+                            <DockPanel Margin="0 8">
+                                <TextBlock FontSize="20" Text="代价" DockPanel.Dock="Top" Margin="0 10"/>
+                                <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
+                                           Text="常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述常规部分描述" 
+                                           DockPanel.Dock="Bottom" TextAlignment="Left" TextWrapping="Wrap"/>
+                            </DockPanel>
+                           
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </StackPanel>
 
-                <TextBlock Text="德特里安的救赎">
-                    <TextBlock.Foreground>
-                        <Binding Source="{StaticResource Five}" Path="Rarity" Converter="{x:Static powXaml:RarityBackgroundBrushConverter.Current}">
-
-                        </Binding>
-                    </TextBlock.Foreground>
-                </TextBlock>
-            </Grid>
-        </Border>
-    </StackPanel>
+           
+        </StackPanel>
+    </ScrollViewer>
 </Window>

@@ -86,7 +86,7 @@ namespace Acorisoft.Morisa.Documents
         /// <summary>
         /// 常规部分
         /// </summary>
-        public AbilityEntry Regular { get; set; }
+        public IEnumerable<AbilityEntry> Regular { get; set; }
         
         /// <summary>
         /// 解锁部分
