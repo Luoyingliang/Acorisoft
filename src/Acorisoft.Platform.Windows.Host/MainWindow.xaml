@@ -23,7 +23,7 @@
             <ColumnDefinition Width="640" />
         </Grid.ColumnDefinitions>
         <ScrollViewer>
-            <StackPanel Background="#E1E1E1">
+            <StackPanel Background="#FAFAFA">
 
                 <!-- 列表模式 -->
 
@@ -65,7 +65,7 @@
                 </w:TilePanel>
             </Border>
         </Grid>-->
-        <Border CornerRadius="5" Background="White" Grid.Column="1"
+        <!--<Border CornerRadius="5" Background="White" Grid.Column="1"
                         Height="800"
                         Width="640"
                         Margin="8"
@@ -76,7 +76,7 @@
                     <RowDefinition Height="1*" />
                 </Grid.RowDefinitions>
 
-                 图标与名称 
+                 --><!--图标与名称--><!-- 
                 <DockPanel>
                     <Border Grid.Row="0" CornerRadius="5" Background="#9132C8" DockPanel.Dock="Left" Margin="0 0 8 0" Width="144">
                         <w:TilePanel>
@@ -112,7 +112,7 @@
                     </Grid>
                 </DockPanel>
 
-                 内容 
+                 --><!--内容--><!-- 
                 <StackPanel Grid.Row="1">
                     <TextBlock FontSize="24" Text="愿群星照亮你的前路" TextAlignment="Center" DockPanel.Dock="Top" Margin="0 32 0 0"/>
                     <DockPanel Margin="0 8">
@@ -160,6 +160,20 @@
                     </DockPanel>
 
                 </StackPanel>
+            </Grid>
+        </Border>-->
+
+        <Border Grid.Column="1" Background="{StaticResource Pow.White}" Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="320" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <DockPanel Grid.Row="0">
+                    
+                </DockPanel>
             </Grid>
         </Border>
     </Grid>

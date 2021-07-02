@@ -58,6 +58,11 @@ namespace Acorisoft.Morisa.Documents
         /// 获取或设置能力的名称。
         /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// 获取或设置情绪。
+        /// </summary>
+        public string Emotion { get; set; }
         
         /// <summary>
         /// 获取或设置能力的图标。
