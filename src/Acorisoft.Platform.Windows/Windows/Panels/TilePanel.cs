@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -16,19 +17,26 @@ namespace Acorisoft.Platform.Windows.Panels
 
         protected sealed override Size MeasureOverride(Size availableSize)
         {
+            var height = 0d;
+            var width = 0d;
+
             foreach (FrameworkElement element in Children)
             {
                 element.Measure(availableSize);
-            }
 
-            return availableSize;
+                height = Math.Max(height, element.DesiredSize.Height);
+                width = Math.Max(width, element.DesiredSize.Width);
+            }            
+
+            return new Size(width, height);
         }
 
         protected sealed override Size ArrangeOverride(Size finalSize)
         {
             foreach (FrameworkElement element in Children)
             {
-                element.Arrange(new Rect(Xaml.Point_Zero, finalSize));
+                
+                element.Arrange(new Rect(Xaml.Point_Zero,finalSize));
             }
 
             return base.ArrangeOverride(finalSize); 

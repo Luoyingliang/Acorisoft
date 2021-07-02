@@ -19,12 +19,7 @@ namespace Acorisoft.Morisa.Documents
         /// <summary>
         /// 获取或设置能力词条的能力描述。
         /// </summary>
-        public string Description { get; set; }
-        
-        /// <summary>
-        /// 获取或设置能力词条的代价描述。
-        /// </summary>
-        public string Cost { get; set; }
+        public string Description { get; set; }        
         
         /// <summary>
         /// 动作描述
@@ -32,7 +27,7 @@ namespace Acorisoft.Morisa.Documents
         public string Motion { get; set; }
         
         /// <summary>
-        /// 主管描述
+        /// 主观描述
         /// </summary>
         public string Subjectivity { get; set; }
     }
