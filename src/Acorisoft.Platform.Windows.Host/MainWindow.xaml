@@ -16,165 +16,84 @@
         <pow:Ability x:Key="three" Rarity="{x:Static pow:AbilityRarity.Three}"/>
         <pow:Ability x:Key="two" Rarity="{x:Static pow:AbilityRarity.Two}"/>
         <pow:Ability x:Key="one" Rarity="{x:Static pow:AbilityRarity.One}"/>
+        <pow:Ability x:Key="Ability" Rarity="{x:Static pow:AbilityRarity.Five}" Name="德特里安的救赎" Emotion="“愿群星照亮你的前路”">
+            <pow:Ability.StorySet>
+                <pow:AbilityStorySet Name="德特里安"/>
+            </pow:Ability.StorySet>
+            <pow:Ability.Regular>
+                <pow:AbilityPart>
+                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
+                </pow:AbilityPart>
+            </pow:Ability.Regular>
+            <pow:Ability.Unlock>
+                <pow:AbilityPart>
+                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
+                </pow:AbilityPart>
+            </pow:Ability.Unlock>
+            <pow:Ability.Evolution>
+                <pow:AbilityPart>
+                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
+                </pow:AbilityPart>
+            </pow:Ability.Evolution>
+            <pow:Ability.Cost>
+                <pow:AbilityPart>
+                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
+                </pow:AbilityPart>
+            </pow:Ability.Cost>
+            <pow:Ability.Zone>
+                <pow:AbilityPart>
+                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
+                </pow:AbilityPart>
+            </pow:Ability.Zone>
+        </pow:Ability>
+        <pow:Ability x:Key="Ability.Empty" Rarity="{x:Static pow:AbilityRarity.Five}" Name="德特里安的救赎" Emotion="“愿群星照亮你的前路”">
+            <pow:Ability.StorySet>
+                <pow:AbilityStorySet Name="德特里安"/>
+            </pow:Ability.StorySet>
+            <pow:Ability.Regular>
+                <pow:AbilityPart>
+                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
+                </pow:AbilityPart>
+            </pow:Ability.Regular>
+            <pow:Ability.Unlock>
+                <pow:AbilityPart>
+                </pow:AbilityPart>
+            </pow:Ability.Unlock>
+            <pow:Ability.Evolution>
+                <pow:AbilityPart>
+                </pow:AbilityPart>
+            </pow:Ability.Evolution>
+            <pow:Ability.Cost>
+                <pow:AbilityPart>
+                </pow:AbilityPart>
+            </pow:Ability.Cost>
+            <pow:Ability.Zone>
+                <pow:AbilityPart>
+                </pow:AbilityPart>
+            </pow:Ability.Zone>
+        </pow:Ability>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="1*" />
             <ColumnDefinition Width="640" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="384" />
         </Grid.ColumnDefinitions>
-        <ScrollViewer>
-            <StackPanel Background="#FAFAFA">
-
-                <!-- 列表模式 -->
-
-                <StackPanel Orientation="Horizontal" Margin="32 0">
-                    <powXaml:AbilityItemView Icon="{StaticResource Pow.Battle}" AbilityName="神剑御雷真诀" Rarity="{x:Static pow:AbilityRarity.One}" Margin="3"/>
-                    <powXaml:AbilityItemView Icon="{StaticResource Pow.Chess}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Two}" Margin="3"/>
-                    <powXaml:AbilityItemView Icon="{StaticResource Pow.Cock}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Three}" Margin="3"/>
-                    <powXaml:AbilityItemView Icon="{StaticResource Pow.Curseforge}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Four}" Margin="3"/>
-                    <powXaml:AbilityItemView Icon="{StaticResource Pow.Eye}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
-
-                </StackPanel>
-
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Fedora}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.One}" Margin="3"/>
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Healing}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Two}" Margin="3"/>
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Intelligence}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Three}" Margin="3"/>
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Mushroom}" AbilityName="技能名" Rarity="{x:Static pow:AbilityRarity.Four}" Margin="3"/>
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Wizard}" AbilityName="技能名`" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Shield}" AbilityName="技能名`" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
-                <powXaml:AbilityListItemView Icon="{StaticResource Pow.Zencart}" AbilityName="技能名`" Rarity="{x:Static pow:AbilityRarity.Five}" Margin="3"/>
+        
+        <!-- 左边预览 -->
+        <powXaml:AbilityCardView Grid.Column="0" Ability="{StaticResource Ability.Empty}"/>
+        
+        <!-- 右边编辑 -->
+        <Grid Grid.Column="1"/>
+        <Grid Grid.Column="2">
+            <StackPanel>
+                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
+                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
+                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
+                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
+                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
+                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
             </StackPanel>
-        </ScrollViewer>
-
-        <!--<Grid Grid.Column="1" Background="{StaticResource Pow.White}"
-              UseLayoutRounding="True">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="1*" />
-                <RowDefinition Height="1*" />
-            </Grid.RowDefinitions>
-
-            <Border Grid.Row="0" Background="#9132C8" Padding="16 8">
-                <TextBlock Text="技能名称" Foreground="{StaticResource Pow.White}" FontSize="20" FontWeight="Bold"/>
-            </Border>
-
-            <Border Grid.Row="1" Background="#9132C8" DockPanel.Dock="Left">
-                <w:TilePanel>
-                    <Image x:Name="PART_Decorative" Source="{StaticResource Pow.Decorative.Three}"/>
-                    <Path Data="{StaticResource Pow.Sword.Cross}" Stretch="Uniform" Fill="#FFFFFF" Margin="32"/>
-                </w:TilePanel>
-            </Border>
-        </Grid>-->
-        <!--<Border CornerRadius="5" Background="White" Grid.Column="1"
-                        Height="800"
-                        Width="640"
-                        Margin="8"
-                        Padding="16">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="144" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-
-                 --><!--图标与名称--><!-- 
-                <DockPanel>
-                    <Border Grid.Row="0" CornerRadius="5" Background="#9132C8" DockPanel.Dock="Left" Margin="0 0 8 0" Width="144">
-                        <w:TilePanel>
-                            <Image x:Name="PART_Decorative" Source="{StaticResource Pow.Decorative.Three}"/>
-                            <Path Data="{StaticResource Pow.Sword.Cross}" Stretch="Uniform" Fill="#FFFFFF" Margin="32"/>
-                        </w:TilePanel>
-                    </Border>
-
-                    <Grid DockPanel.Dock="Right" Margin="16 0 0 0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="48" />
-                            <RowDefinition Height="48" />
-                            <RowDefinition Height="1*" />
-                        </Grid.RowDefinitions>
-
-
-                        <TextBlock Grid.Row="0" Text="技能名(德特里安)" TextWrapping="Wrap" 
-                                           FontSize="23" FontFamily="{StaticResource App.Fonts.Regular}" TextTrimming="CharacterEllipsis"/>
-
-                        <powXaml:RarityView DockPanel.Dock="Bottom"
-                                                    Grid.Row="2"
-                                                    Height="32"
-                                                    Rarity="{x:Static pow:AbilityRarity.Three}"
-                                                    VerticalAlignment="Top"
-                                                    HorizontalContentAlignment="Left"/>
-
-                        <TextBlock FontSize="16" 
-                                           Grid.Row="1"
-                                           Foreground="#969696" 
-                                           FontWeight="Light"
-                                           Text="德特里安" 
-                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
-                    </Grid>
-                </DockPanel>
-
-                 --><!--内容--><!-- 
-                <StackPanel Grid.Row="1">
-                    <TextBlock FontSize="24" Text="愿群星照亮你的前路" TextAlignment="Center" DockPanel.Dock="Top" Margin="0 32 0 0"/>
-                    <DockPanel Margin="0 8">
-                        <TextBlock FontSize="20" Text="代价" DockPanel.Dock="Top" Margin="0 10"/>
-                        <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
-                                           Text="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. " 
-                                           DockPanel.Dock="Bottom" TextAlignment="Left" TextWrapping="Wrap"/>
-                    </DockPanel>
-                    <DockPanel Margin="0 8">
-                        <TextBlock FontSize="20" Text="技能描述" DockPanel.Dock="Top" Margin="0 10"/>
-                        <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
-                            <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
-                            <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
-                                           Text="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. " 
-                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
-                        </DockPanel>
-                    </DockPanel>
-                    <DockPanel Margin="0 8">
-                        <TextBlock FontSize="20" Text="解锁部分" DockPanel.Dock="Top" Margin="0 10"/>
-                        <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
-                            <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
-                            <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
-                                           Text="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. " 
-                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
-                        </DockPanel>
-                    </DockPanel>
-                    <DockPanel Margin="0 8">
-                        <TextBlock FontSize="20" Text="进化部分" DockPanel.Dock="Top" Margin="0 10"/>
-                        <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
-                            <TextBlock FontSize="16" Text="贪婪：" DockPanel.Dock="Left"/>
-                            <TextBlock FontSize="16"  Foreground="#969696" FontWeight="Light"
-                                           Text="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs. " 
-                                           DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
-                        </DockPanel>
-                    </DockPanel>
-                    <DockPanel Margin="0 8">
-                        <TextBlock FontSize="20" Text="领域部分" DockPanel.Dock="Top" Margin="0 10"/>
-                        <StackPanel>
-                            <powXaml:AbilityEntryView>
-                                <powXaml:AbilityEntryView.Entry>
-                                    <pow:AbilityEntry Name="厄运拥抱" Description="所有幸运点-1"/>
-                                </powXaml:AbilityEntryView.Entry>
-                            </powXaml:AbilityEntryView>
-                        </StackPanel>
-                    </DockPanel>
-
-                </StackPanel>
-            </Grid>
-        </Border>-->
-
-        <Border Grid.Column="1" Background="{StaticResource Pow.White}" Padding="16">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="160" />
-                    <RowDefinition Height="320" />
-                    <RowDefinition Height="1*" />
-                </Grid.RowDefinitions>
-
-                <DockPanel Grid.Row="0">
-                    
-                </DockPanel>
-            </Grid>
-        </Border>
+        </Grid>
     </Grid>
 </Window>

@@ -5,6 +5,9 @@ namespace Acorisoft.Morisa.Documents
     /// </summary>
     public enum AbilityCategory : int
     {
-        
+        /// <summary>
+        /// 战斗系
+        /// </summary>        
+        Battle,
     }
 }

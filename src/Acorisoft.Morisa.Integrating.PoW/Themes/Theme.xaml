@@ -275,6 +275,7 @@
     
     <!-- 稀有度视图 -->
     <Style TargetType="{x:Type pow:RarityView}">
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Height" Value="32" />
         <Setter Property="MinWidth" Value="128" />
         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -284,11 +285,11 @@
                 <ControlTemplate TargetType="{x:Type pow:RarityView}">
                     <Border>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}">
-                            <Path x:Name="One" Margin="3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
-                            <Path x:Name="Two" Margin="3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
-                            <Path x:Name="Three" Margin="3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
-                            <Path x:Name="Four" Margin="3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
-                            <Path x:Name="Five" Margin="3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
+                            <Path x:Name="One" Margin="0 3 3 3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
+                            <Path x:Name="Two" Margin="0 3 3 3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
+                            <Path x:Name="Three" Margin="0 3 3 3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
+                            <Path x:Name="Four" Margin="0 3 3 3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
+                            <Path x:Name="Five" Margin="0 3 3 3" Stretch="Uniform" Data="{StaticResource Pow.Star}" Fill="DarkOrange" Visibility="Collapsed"/>
                         </StackPanel>
                     </Border>
                     <ControlTemplate.Triggers>
@@ -336,7 +337,7 @@
     <!--  -->
     <Style TargetType="{x:Type pow:AbilityItemView}">
         <Setter Property="Width" Value="192" />
-        <Setter Property="Icon" Value="{StaticResource Pow.Sword.Cross.Image}" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Height" Value="230" />
         <Setter Property="Template">
             <Setter.Value>
@@ -355,13 +356,13 @@
                                             <RotateTransform CenterX="89.5" CenterY="80"/>
                                         </Image.RenderTransform>
                                     </Image>
-                                    <Image Source="{TemplateBinding Icon}" Stretch="Uniform" Margin="32"/>
+                                    <Image Source="{TemplateBinding Icon, Converter={x:Static pow:AbilityIconConverter.Current}}" Stretch="Uniform" Margin="32"/>
                                 </w:TilePanel>
                             </Border>
 
                             <pow:RarityView x:Name="PART_Rarity" Grid.Row="1" Rarity="{TemplateBinding Rarity}" Height="25"/>
 
-                            <TextBlock Grid.Row="2" Text="{TemplateBinding AbilityName}" TextWrapping="Wrap" 
+                            <TextBlock Grid.Row="2" Text="{TemplateBinding Title}" TextWrapping="Wrap" 
                                        FontSize="17" FontFamily="{StaticResource App.Fonts.Regular}" TextAlignment="Center" Margin="12 4 12 12" TextTrimming="CharacterEllipsis"/>
                         </Grid>
                     </Border>
@@ -399,7 +400,7 @@
 
     <!--  -->
     <Style TargetType="{x:Type pow:AbilityListItemView}">
-        <Setter Property="Icon" Value="{StaticResource Pow.Sword.Cross.Image}" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Height" Value="84" />
         <Setter Property="Template">
             <Setter.Value>
@@ -413,7 +414,7 @@
                             <Border Grid.Column="0" CornerRadius="5" Background="{TemplateBinding Rarity,Converter={x:Static pow:RarityBackgroundBrushConverter.Current}}">
                                 <w:TilePanel>
                                     <Image x:Name="PART_Decorative" Source="{StaticResource Pow.Decorative.Five}"/>
-                                    <Image Source="{TemplateBinding Icon}" Stretch="Uniform" Margin="16"/>
+                                    <Image Source="{TemplateBinding Icon, Converter={x:Static pow:AbilityIconConverter.Current}}" Stretch="Uniform" Margin="16"/>
                                 </w:TilePanel>
                             </Border>
 
@@ -422,7 +423,7 @@
                                                 Rarity="{TemplateBinding Rarity}" Height="25" HorizontalContentAlignment="Left"/>
 
                                 <TextBlock DockPanel.Dock="Bottom"
-                                           Text="{TemplateBinding AbilityName}" TextWrapping="Wrap" 
+                                           Text="{TemplateBinding Title}" TextWrapping="Wrap" 
                                            FontSize="17" FontFamily="{StaticResource App.Fonts.Regular}"
                                            TextTrimming="CharacterEllipsis"/>
                             </DockPanel>
@@ -453,12 +454,17 @@
     <!--  -->
     <Style TargetType="{x:Type pow:AbilityEntryView}">
         <Setter Property="MinHeight" Value="36" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type pow:AbilityEntryView}">
-                    <Border CornerRadius="5" Background="{StaticResource Pow.White}">
-                        <DockPanel Margin="0 8" DockPanel.Dock="Bottom">
-                            <TextBlock FontSize="16" Text="{TemplateBinding EntryName}" DockPanel.Dock="Left"/>
+                    <Border CornerRadius="5"
+                            Background="{StaticResource Pow.White}">
+                        <DockPanel Margin="0 8"
+                                   DockPanel.Dock="Bottom">
+                            <TextBlock FontSize="16"
+                                       Text="{TemplateBinding EntryName}" 
+                                       DockPanel.Dock="Left"/>
                             <TextBlock FontSize="16" 
                                        Foreground="#969696" 
                                        FontWeight="Light"
@@ -476,15 +482,24 @@
     <!--  -->
     <Style TargetType="{x:Type pow:AbilityPartView}">
         <Setter Property="MinHeight" Value="36" />
+        <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type pow:AbilityPartView}">
                     <Border CornerRadius="5" Background="{StaticResource Pow.White}">
                         <DockPanel Margin="0 8">
-                            <TextBlock FontSize="20" Text="{TemplateBinding Title}" DockPanel.Dock="Top" Margin="0 10"/>
+                            <TextBlock FontSize="20" 
+                                       Text="{TemplateBinding Title}" 
+                                       FontWeight="Bold" 
+                                       DockPanel.Dock="Top"
+                                       Margin="0 10"/>
                             <w:TilePanel DockPanel.Dock="Bottom">
-                                <ItemsPresenter x:Name="PART_Items" Margin="0 8"/>
-                                <TextBlock x:Name="PART_Empty" Text="无" TextAlignment="Center" FontSize="20"/>
+                                <ItemsPresenter x:Name="PART_Items" 
+                                                Margin="0 8"/>
+                                <TextBlock x:Name="PART_Empty" 
+                                           Text="无" 
+                                           FontSize="20" 
+                                           Foreground="#969696" />
                             </w:TilePanel>
                         </DockPanel>
                     </Border>
@@ -509,4 +524,130 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+    <Style TargetType="{x:Type pow:AbilityCardView}">
+        <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="MinHeight" Value="36" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type pow:AbilityCardView}">
+                    <Border Background="{StaticResource Pow.White}" Padding="16">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="144" />
+                                <RowDefinition Height="1*" />
+                            </Grid.RowDefinitions>
+
+                            <!-- 技能图标 -->
+                            <DockPanel Grid.Row="0">
+                                <Border Grid.Row="1" 
+                                        CornerRadius="5" 
+                                        Background="{TemplateBinding Rarity,Converter={x:Static pow:RarityBackgroundBrushConverter.Current}}"
+                                        DockPanel.Dock="Left"
+                                        Width="144">
+                                    <w:TilePanel>
+                                        <Image x:Name="PART_Decorative" Source="{StaticResource Pow.Decorative.Three}"/>
+                                        <Image Source="{TemplateBinding Icon, Converter={x:Static pow:AbilityIconConverter.Current}}" Stretch="Uniform" Margin="32"/>
+                                    </w:TilePanel>
+                                </Border>
+
+                                <Grid DockPanel.Dock="Right" Margin="16 0 0 0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="auto" />
+                                        <RowDefinition Height="128" />
+                                    </Grid.RowDefinitions>
+
+                                    <TextBlock Grid.Row="0" 
+                                               Text="{TemplateBinding Title}" 
+                                               TextWrapping="Wrap" 
+                                               FontSize="23" 
+                                               FontFamily="{StaticResource App.Fonts.Regular}" 
+                                               TextTrimming="CharacterEllipsis"/>
+
+                                    <TextBlock Grid.Row="1"
+                                               FontSize="16" 
+                                               Foreground="#969696" 
+                                               FontWeight="Light"
+                                               Text="{TemplateBinding StorySet}" 
+                                               TextAlignment="Left"
+                                               TextWrapping="Wrap"
+                                               Margin="0 8"/>
+
+                                    <pow:RarityView x:Name="PART_Rarity"
+                                                    Grid.Row="2"
+                                                    Height="32"
+                                                    Rarity="{TemplateBinding Rarity}"
+                                                    VerticalAlignment="Top"
+                                                    HorizontalContentAlignment="Left"/>
+
+                                </Grid>
+                            </DockPanel>
+
+
+                            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+                                <StackPanel>
+                                    <!-- 情绪 -->
+                                    <TextBlock Grid.Row="1" FontSize="24" Text="{TemplateBinding Emotion}" TextAlignment="Center" Margin="0 32"/>
+                                    <DockPanel Margin="0 4" DockPanel.Dock="Bottom">
+                                        <TextBlock FontSize="16" Text="故事：" DockPanel.Dock="Left"/>
+                                        <TextBlock FontSize="16" 
+                                                   Foreground="#969696" 
+                                                   FontWeight="Light"
+                                                   Margin="8 0 0 0"
+                                                   Text="{TemplateBinding StorySet}" 
+                                                   DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
+                                    </DockPanel>
+                                    <DockPanel Margin="0 4" DockPanel.Dock="Bottom">
+                                        <TextBlock FontSize="16" Text="标签：" DockPanel.Dock="Left"/>
+                                        <TextBlock FontSize="16" 
+                                                   Foreground="#969696" 
+                                                   FontWeight="Light"
+                                                   Margin="8 0 0 0"
+                                                   Text="{TemplateBinding Labels}" 
+                                                   DockPanel.Dock="Right"
+                                                   TextAlignment="Left" 
+                                                   TextWrapping="Wrap"/>
+                                    </DockPanel>
+                                    <pow:AbilityPartView Title="代价" 
+                                                         ItemsSource="{TemplateBinding Cost}"
+                                                         Margin="0 8"/>
+                                    <pow:AbilityPartView Title="常规部分" 
+                                                         ItemsSource="{TemplateBinding Regular}" 
+                                                         Margin="0 8"/>
+                                    <pow:AbilityPartView Title="解锁部分"
+                                                         ItemsSource="{TemplateBinding Unlock}" 
+                                                         Margin="0 8"/>
+                                    <pow:AbilityPartView Title="进化部分"
+                                                         ItemsSource="{TemplateBinding Evolution}" 
+                                                         Margin="0 8"/>
+                                    <pow:AbilityPartView Title="领域部分" 
+                                                         ItemsSource="{TemplateBinding Zone}" 
+                                                         Margin="0 8"/>
+                                </StackPanel>
+                            </ScrollViewer>
+                        </Grid>
+                    </Border>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="RarityValue" Value="One" SourceName="PART_Rarity">
+                            <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.One}"/>
+                        </Trigger>
+                        <Trigger Property="RarityValue" Value="Two" SourceName="PART_Rarity">
+                            <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.Two}"/>
+                        </Trigger>
+                        <Trigger Property="RarityValue" Value="Three" SourceName="PART_Rarity">
+                            <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.Three}"/>
+                        </Trigger>
+                        <Trigger Property="RarityValue" Value="Four" SourceName="PART_Rarity">
+                            <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.Four}"/>
+                        </Trigger>
+                        <Trigger Property="RarityValue" Value="Five" SourceName="PART_Rarity">
+                            <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.Five}"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
 </ResourceDictionary>

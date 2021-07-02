@@ -54,4 +54,47 @@ namespace Acorisoft.Morisa.Xaml
             }
         }
     }
+
+    public class AbilityIconConverter: IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if(value is not Ability ability)
+            {
+                return FallbackWithNullAbility();
+            }
+
+            return ability.Icon == null ? FallbackWithCategory(ability.Category) : ability.Icon;
+        }
+
+        protected object FallbackWithNullAbility()
+        {
+            return Acorisoft.Platform.Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image");
+        }
+
+        protected object FallbackWithCategory(AbilityCategory category)
+        {
+            return Acorisoft.Platform.Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image");
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+
+        private static AbilityIconConverter _instance;
+
+        public static IValueConverter Current
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new AbilityIconConverter();
+                }
+
+                return _instance;
+            }
+        }
+    }
 }

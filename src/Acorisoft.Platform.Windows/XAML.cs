@@ -29,7 +29,9 @@ namespace Acorisoft.Platform
         public static object Box(bool condition) => condition ? True : False;
 
         #endregion
-        
+
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Visual Tree Operation Methods
@@ -40,5 +42,22 @@ namespace Acorisoft.Platform
 
 
         #endregion
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Resource Methods
+        //
+        //--------------------------------------------------------------------------------------------------------------
+
+        public static T GetResource<T>(string key)
+        {
+            if(Application.Current.TryFindResource(key) is T value)
+            {
+                return value;
+            }
+
+            return default(T);
+        }
     }
 }

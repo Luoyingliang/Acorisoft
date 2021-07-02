@@ -7,6 +7,11 @@ using LiteDB;
 
 namespace Acorisoft.Morisa.Documents
 {
+    public class AbilityPart : List<AbilityEntry>
+    {
+
+    }
+
     /// <summary>
     /// <see cref="Ability"/> 类型表示能力。
     /// </summary>
@@ -89,6 +94,11 @@ namespace Acorisoft.Morisa.Documents
         public AbilityRarity Rarity { get; set; }
         
         /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<AbilityEntry> Cost { get; set; }
+
+        /// <summary>
         /// 常规部分
         /// </summary>
         public IEnumerable<AbilityEntry> Regular { get; set; }
@@ -107,7 +117,12 @@ namespace Acorisoft.Morisa.Documents
         /// 隐藏部分
         /// </summary>
         public IEnumerable<AbilityEntry> Hidden { get; set; }
-        
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public IEnumerable<AbilityEntry> Zone { get; set; }
+
         /// <summary>
         /// 故事集
         /// </summary>
