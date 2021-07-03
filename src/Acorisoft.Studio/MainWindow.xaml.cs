@@ -16,7 +16,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Acorisoft.Platform.Windows;
-using Acorisoft.Studio.Imgur;
 using LiteDB;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Core.Raw;
@@ -35,13 +34,10 @@ namespace Acorisoft.Studio
     /// </summary>
     public partial class MainWindow : Window
     {
-        private MarkdownDocument _document;
-        private LocalImgurSystem _local;
 
         public MainWindow()
         {
             InitializeComponent();
-            _local = new LocalImgurSystem();
             this.Loaded += OnLoaded;
             this.MouseDoubleClick += (o, e) => SaveMarkdownDocument();
             //Browser.NavigationStarting += OnNavigationStarting;
@@ -53,11 +49,6 @@ namespace Acorisoft.Studio
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            _document = new MarkdownDocument
-            {
-                Markdown = "### Helow"
-            };
-
             // Browser.JavascriptObjectRepository.Register("host", _document, BindingOptions.DefaultBinder);
             // Browser.Address = @"file://D:/Repo/HyperMD/ai1.html";
             // Browser.ShowDevTools();
@@ -73,36 +64,15 @@ namespace Acorisoft.Studio
         {
             if (_flag)
             {
-                //Host.Cancel();
-                //Browser.DisableOverlayBehavior();
-                //Browser.Refresh();
                 await Browser.LoadAsync(json);
             }
             else
             {
                 json = await Browser.SaveAsync();
-                //Browser.EnableOverlayBehavior();
-                //Host.Await();
             }
 
 
             _flag = !_flag;
-            //const string save = "saveImpl()";
-            // var response = await Browser.EvaluateScriptAsync(save);
-            // dynamic result = response.Success ? response.Result ?? "null" : response.Message;
-            // var md = response.Result.ToString();
-            //
-            // const string load = @"
-            //     (async function()
-            //     {
-            //             await CefSharp.BindObjectAsync(""host"");
-            //             host.getMarkdown().then(function(md){                            
-            //             editor.setValue(md)
-            //             })
-            //     })();
-            //     ";
-            // response = await Browser.EvaluateScriptAsync(load);
-            // await Browser.ExecuteScriptAsync(save);
         }
     }
 }

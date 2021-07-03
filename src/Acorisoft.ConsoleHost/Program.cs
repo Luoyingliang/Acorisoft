@@ -1,44 +1,53 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Acorisoft.ConsoleHost;
+using Acorisoft.Morisa.Core;
+
 // ReSharper disable ReplaceSubstringWithRangeIndexer
 // ReSharper disable MergeIntoNegatedPattern
 
 namespace Acorisoft.ConsoleHost
 {
+    public class Name
+    {
+        public void Execute()
+        {
+            Program.GetCallee();
+        }
+    }
+
+    public class Name1 : Name
+    {
+        
+    }
     
     class Program
     {
-        private static HttpListener _server;
-
         static void Main(string[] args)
         {
-            _server = new HttpListener();
-            _server.Prefixes.Add("http://localhost:8008/");
-            _server.Start();
-            Task.Run(Loop);
-            Console.ReadLine();
         }
 
-        static async void Loop()
+        public static void GetCallee()
         {
-            var array = new List<byte>();
-            var buffer = new byte[4096];
-        
-            while (true)
-            {
-                array.Clear();
+            var stackTrace = new StackTrace(true);
             
-                var context = await _server.GetContextAsync();
-            
-            }
+            //
+            // 获取最顶上的堆栈信息
+            var methodInfo = stackTrace.GetFrame(1)!.GetMethod();
 
+            //
+            //
+            var acl = methodInfo?.DeclaringType!.AssemblyQualifiedName;
+
+            Console.WriteLine(acl);
         }
     }
     

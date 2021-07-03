@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="CannotSerializeDocument" xml:space="preserve">
+        <value>无法序列化{0}类型的实例</value>
+    </data>
+    <data name="CannotDeserializeDocument" xml:space="preserve">
+        <value>无法反序列化{0}类型的实例</value>
+    </data>
+    <data name="CannotSetProperty" xml:space="preserve">
+        <value>无法写入属性{0}类型的实例，没有权限</value>
+    </data>
+    <data name="CannotInitializeCollection" xml:space="preserve">
+        <value>权限检测警告，你错误的调用该方法，已经被阻止</value>
+    </data> 
+    <data name="CannotInitializeCollectionWithoutOpenCompose" xml:space="preserve">
+        <value>无法在未打开创作集的情况下初始化集合</value>
+    </data> 
+    <data name="CannotGetPermission" xml:space="preserve">
+        <value>无法在未打开创作集的情况下初始化集合</value>
+    </data>
+    <data name="CannotCreateDatabaseInExitsProject" xml:space="preserve">
+        <value>不能在现存的项目中创建新的项目</value>
+    </data>
+    <data name="CannotWrite" xml:space="preserve">
+        <value>权限检测警告，你没有足够的权限</value>
+    </data>
+
+    <data name="DocumentEngine.PropertyWasNull" xml:space="preserve">
+        <value>无法创建创作集，属性为空。</value>
+    </data>
+
+    <data name="DocumentEngine.FolderWasNull" xml:space="preserve">
+        <value>无法创建创作集，创建的目标路径为空。</value>
+    </data>
+
+    <data name="DocumentEngine.Load.FolderWasNull" xml:space="preserve">
+        <value>无法打开创作集，创建的目标路径为空。</value>
+    </data>
+
+    <data name="DocumentEngine.Load.Again" xml:space="preserve">
+        <value>无法重复打开创作集。</value>
+    </data>
+</root>

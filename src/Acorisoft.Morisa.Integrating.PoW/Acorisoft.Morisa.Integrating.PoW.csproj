@@ -23,11 +23,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Morisa\Engines" />
-      <Folder Include="Morisa\Integrating" />
-    </ItemGroup>
-
-    <ItemGroup>
       <EmbeddedResource Update="Properties\SR.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SR.Designer.cs</LastGenOutput>

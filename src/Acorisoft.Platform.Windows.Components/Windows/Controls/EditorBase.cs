@@ -1,21 +1,19 @@
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 using System.Windows.Media;
-using Acorisoft.ComponentModel;
-using Acorisoft.Platform.Windows;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Wpf;
 
+// ReSharper disable VirtualMemberNeverOverridden.Global
 // ReSharper disable MemberCanBePrivate.Global
+// ReSharper disable UnusedMember.Global
+// ReSharper disable CheckNamespace
+
+#nullable enable
 
 namespace Acorisoft.Platform.Windows.Controls
 {
@@ -23,11 +21,6 @@ namespace Acorisoft.Platform.Windows.Controls
     [TemplatePart(Name = ThumbnailName, Type = typeof(Image))]
     public abstract class EditorBase : Control
     {
-
-        private static string GetBoundary(string ctype)
-        {
-            return "--" + ctype.Split(';')[1].Split('=')[1];
-        }
         //
         // 引用:
         // https://www.cnblogs.com/TianFang/p/14398424.html
@@ -42,7 +35,7 @@ namespace Acorisoft.Platform.Windows.Controls
 
         protected virtual void OnUnloaded(object sender, RoutedEventArgs e)
         {
-            if (Browser.CoreWebView2 == null)
+            if (Browser!.CoreWebView2 == null)
             {
                 return;
             }
@@ -95,7 +88,6 @@ namespace Acorisoft.Platform.Windows.Controls
 
         protected virtual async void OnWebResourceRequested(object? sender, CoreWebView2WebResourceRequestedEventArgs e)
         {
-            var uri = new Uri(e.Request.Uri);
             //using var stream = new FileStream(@"E:\壁纸\1.png", FileMode.Open);
             //var ms = new MemoryStream();
             //stream.CopyTo(ms);
@@ -110,7 +102,6 @@ namespace Acorisoft.Platform.Windows.Controls
 
         protected virtual void OnWebMessageReceived(object? sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
-            Debug.WriteLine(e.WebMessageAsJson);
         }
 
 
@@ -122,11 +113,11 @@ namespace Acorisoft.Platform.Windows.Controls
             // _listenMethods = Task.Run(Loop);
             //
             //
-            Thumbnail = (Image) GetTemplateChild(ThumbnailName);
+            Thumbnail = (Image) GetTemplateChild(ThumbnailName)!;
 
             //
             // 获取
-            Browser = (WebView2) GetTemplateChild(BrowserName);
+            Browser = (WebView2) GetTemplateChild(BrowserName)!;
 
             var op = new CoreWebView2EnvironmentOptions("--disable-web-security");
             //op.AdditionalBrowserArguments = "--proxy-server=http://localhost:8009";
@@ -169,7 +160,7 @@ namespace Acorisoft.Platform.Windows.Controls
         /// </summary>
         public async void EnableOverlayBehavior()
         {
-            if (Browser.CoreWebView2 == null)
+            if (Browser!.CoreWebView2 == null)
             {
                 //
                 // 确认WebView2正确加载。
@@ -182,21 +173,21 @@ namespace Acorisoft.Platform.Windows.Controls
 
             //
             //
-            Thumbnail.Source = bitmap;
+            Thumbnail!.Source = bitmap;
             Thumbnail.Visibility = Visibility.Visible;
             Browser.Visibility = Visibility.Collapsed;
         }
 
         public async void Refresh()
         {
-            if (Browser.CoreWebView2 == null)
+            if (Browser!.CoreWebView2 == null)
             {
                 //
                 // 确认WebView2正确加载。
                 await Browser.EnsureCoreWebView2Async();
             }
 
-            Browser.CoreWebView2.Navigate(Url);
+            Browser.CoreWebView2!.Navigate(Url);
         }
 
         /// <summary>
@@ -205,7 +196,7 @@ namespace Acorisoft.Platform.Windows.Controls
         /// <returns></returns>
         public async Task<ImageSource> CaptureAsync()
         {
-            if (Browser.CoreWebView2 == null)
+            if (Browser!.CoreWebView2 == null)
             {
                 //
                 // 确认WebView2正确加载。
@@ -218,7 +209,7 @@ namespace Acorisoft.Platform.Windows.Controls
 
             //
             // 等待创建完成
-            await Browser.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, ms);
+            await Browser.CoreWebView2!.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, ms);
 
             //
             // 导出图片
@@ -230,23 +221,29 @@ namespace Acorisoft.Platform.Windows.Controls
         /// </summary>
         public async void DisableOverlayBehavior()
         {
+            if (Browser!.CoreWebView2 == null)
+            {
+                //
+                // 确认WebView2正确加载。
+                await Browser.EnsureCoreWebView2Async();
+            }
             //
             // 等待动画完成
             await Task.Delay(400);
 
-            Thumbnail.Visibility = Visibility.Collapsed;
-            Browser.Visibility = Visibility.Visible;
+            Thumbnail!.Visibility = Visibility.Collapsed;
+            Browser!.Visibility = Visibility.Visible;
         }
 
         /// <summary>
         /// 获取缩略图
         /// </summary>
-        protected Image Thumbnail { get; private set; }
+        protected Image? Thumbnail { get; private set; }
 
         /// <summary>
         /// 获取浏览器实例
         /// </summary>
-        protected WebView2 Browser { get; private set; }
+        protected WebView2? Browser { get; private set; }
 
 
         public string Url { get; set; }                 

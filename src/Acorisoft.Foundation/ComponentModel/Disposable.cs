@@ -1,5 +1,6 @@
 using System;
 
+// ReSharper disable ConvertToAutoProperty
 namespace Acorisoft.ComponentModel
 {
     public abstract class Disposable : IDisposable
@@ -44,5 +45,7 @@ namespace Acorisoft.ComponentModel
             Dispose(disposing: true);
             GC.SuppressFinalize(this);
         }
+
+        public bool IsDisposed => _disposedValue;
     }
 }
