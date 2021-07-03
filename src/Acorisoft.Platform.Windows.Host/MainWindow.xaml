@@ -7,10 +7,9 @@
         mc:Ignorable="d"
         xmlns:w="https://github.com/Luoyingliang/Acorisoft"
         xmlns:g="clr-namespace:GraphShape.Controls;assembly=GraphShape.Controls"
-        xmlns:powXaml="clr-namespace:Acorisoft.Morisa.Xaml;assembly=Acorisoft.Morisa.Integrating.PoW"
-        xmlns:pow="clr-namespace:Acorisoft.Morisa.Documents;assembly=Acorisoft.Morisa.Integrating.PoW"
         xmlns:gu="https://github.com/GuOrg/Gu.Wpf.FlipView"
         xmlns:mXaml="https://github.com/Luoyingliang/Acorisoft/Studio"
+        xmlns:doc="clr-namespace:Acorisoft.Morisa.Documents;assembly=Acorisoft.Morisa"
         xmlns:res="clr-namespace:Acorisoft.Morisa.Resources;assembly=Acorisoft.Morisa.Core"
         xmlns:system="clr-namespace:System;assembly=System.Runtime"
         Title="MainWindow" MinHeight="768" MinWidth="1280">
@@ -18,13 +17,61 @@
 
     </Window.Resources>
     <Grid>
-
-        <mXaml:ImageViewer>
-            <mXaml:ImageViewer.Image>
-                <res:ImageResource>
-                    <system:Guid></system:Guid>
-                </res:ImageResource>
-            </mXaml:ImageViewer.Image>
-        </mXaml:ImageViewer>
+        <WrapPanel>
+            <HeaderedContentControl Header="RankViewer">
+                <StackPanel>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="1"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="2"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="3"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="4"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="5"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="6"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="7"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="8"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="9"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                    <mXaml:RankViewer>
+                        <mXaml:RankViewer.Rarity>
+                            <doc:Rarity Rank="10"/>
+                        </mXaml:RankViewer.Rarity>
+                    </mXaml:RankViewer>
+                </StackPanel>
+            </HeaderedContentControl>
+        </WrapPanel>
     </Grid>
 </Window>

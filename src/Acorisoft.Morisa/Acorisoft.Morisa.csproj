@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Morisa\Documents" />
+    <Folder Include="Morisa\Engines\" />
   </ItemGroup>
 
 </Project>

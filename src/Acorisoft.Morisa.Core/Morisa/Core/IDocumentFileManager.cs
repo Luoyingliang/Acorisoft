@@ -11,5 +11,7 @@ namespace Acorisoft.Morisa.Core
     public interface IDocumentFileManager
     {
         Stream OpenImage(ImageResource resource);
+
+        Task<Guid> UploadImageAsync(string sourceFileName);
     }
 }

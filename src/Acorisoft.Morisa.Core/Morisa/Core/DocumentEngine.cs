@@ -5,15 +5,18 @@ using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Acorisoft.Morisa.IO;
 using Acorisoft.Morisa.Resources;
+using DryIoc;
 using MediatR;
+using Unit = System.Reactive.Unit;
 using Disposable = Acorisoft.ComponentModel.Disposable;
+using System.Threading;
 // ReSharper disable ClassNeverInstantiated.Global
 
 // ReSharper disable UnusedMember.Global
 
 namespace Acorisoft.Morisa.Core
 {
-    public class DocumentEngine : Disposable
+    public class DocumentEngine : Disposable , IDocumentEngine , IDocumentEngineAwaiter
     {
         //--------------------------------------------------------------------------------------------------------------
         //
@@ -22,6 +25,8 @@ namespace Acorisoft.Morisa.Core
         //--------------------------------------------------------------------------------------------------------------
         private readonly BehaviorSubject<ICompose> _composeStream;
         private readonly BehaviorSubject<bool> _isOpenStream;
+        private readonly Subject<Unit> _composeOpenStream;
+        private readonly Subject<Unit> _composeOpenCompletedStream;
         private readonly Subject<ComposeProperty> _propertyStream;
         private readonly CompositeDisposable _disposable;
         private readonly IMediator _mediator;
@@ -40,6 +45,7 @@ namespace Acorisoft.Morisa.Core
         private bool _isOpen;
         private string _path;
         private PropertyCollection _propertyCollection;
+        private int _requestCount;
 
         
         //--------------------------------------------------------------------------------------------------------------
@@ -52,11 +58,16 @@ namespace Acorisoft.Morisa.Core
             _composeStream = new BehaviorSubject<ICompose>(null);
             _isOpenStream = new BehaviorSubject<bool>(false);
             _propertyStream = new Subject<ComposeProperty>();
+            _composeOpenCompletedStream = new Subject<Unit>();
+            _composeOpenStream = new Subject<Unit>();
+
             _disposable = new CompositeDisposable
             {
                 _composeStream,
                 _isOpenStream,
-                _propertyStream
+                _propertyStream,
+                _composeOpenStream,
+                _composeOpenCompletedStream
             };
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
         }
@@ -84,14 +95,26 @@ namespace Acorisoft.Morisa.Core
         }
 
 
+        protected CompositeDisposable Disposables => _disposable;
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Public Methods
         //
         //--------------------------------------------------------------------------------------------------------------
 
+
+        #region Public Methods
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        //  CreateAsync & LoadAsync & CloseAsync
+        //
+        //--------------------------------------------------------------------------------------------------------------
+
         #region CreateAsync & LoadAsync & CloseAsync
-        
+
 
         public async Task CreateAsync(string folder, ComposeProperty property , bool isOverride = false)
         {
@@ -207,9 +230,16 @@ namespace Acorisoft.Morisa.Core
             _propertyStream.OnNext(null);
             _isOpenStream.OnNext(_isOpen);
         }
-        
+
         #endregion
 
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // IDocumentFileManager
+        //
+        //--------------------------------------------------------------------------------------------------------------
 
         #region IDocumentFileManager
 
@@ -244,23 +274,153 @@ namespace Acorisoft.Morisa.Core
             return ms;
         }
 
+
+        public Task<Guid> UploadImageAsync(string sourceFileName)
+        {
+            if (!_isOpen)
+            {
+                throw new InvalidOperationException(SR.DocumentEngine_InvalidOperation_ComposeNotOpen);
+            }
+
+            return Task.Run(()=> UploadAsync(sourceFileName, _compose.ImageDirectory));
+        }
+
+        public Task<Guid> UploadFileAsync(string sourceFileName)
+        {
+            if (!_isOpen)
+            {
+                throw new InvalidOperationException(SR.DocumentEngine_InvalidOperation_ComposeNotOpen);
+            }
+
+            return Task.Run(() => UploadAsync(sourceFileName, _compose.FileDirectory));
+        }
+
+        private Task<Guid> UploadAsync(string sourceFileName , string folder)
+        {
+            return Task.Run(() =>
+            {               
+
+                if (!File.Exists(sourceFileName))
+                {
+                    throw new InvalidOperationException(SR.DocumentEngine_InvalidOperation_FileNotFound);
+                }
+
+                var id = Guid.NewGuid();
+                var fileName = Path.Combine(folder, id.ToString("N"));
+                var retryTime = 10;
+
+                //
+                // 重试10次避免冲突。
+                while (File.Exists(fileName))
+                {
+                    retryTime--;
+
+                    id = Guid.NewGuid();
+                    fileName = Path.Combine(folder, id.ToString("N"));
+
+                    if (retryTime <= 0)
+                    {
+                        break;
+                    }
+                }
+
+                using var sourceStream = new FileStream(sourceFileName, FileMode.Open);
+                using var targetStream = new FileStream(fileName, FileMode.Create);
+
+                sourceStream.CopyTo(targetStream);
+
+                return id;
+            });
+        }
+
         #endregion IDocumentFileManager
-        
-        
+
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // IDocumentPropertyManager
+        //
+        //--------------------------------------------------------------------------------------------------------------
+
         #region IDocumentPropertyManager
-        
+
+        public async Task UpdatePropertyAsync(ComposeProperty property)
+        {
+            if(property == null)
+            {
+                return;
+            }
+
+            
+            //
+            //
+            await _propertyCollection.SetPropertyAsync(property);
+
+            //
+            //
+            _propertyStream.OnNext(property);
+        }
+
         #endregion
-        
-        
-        
-        
-        
-        
+
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
-        // Avoid Boxing Methods
+        // IDocumentEngineAwaiter
         //
         //--------------------------------------------------------------------------------------------------------------
+
+        #region IDocumentEngineAwaiter
+
+        void IDocumentEngineAwaiter.Release()
+        {
+            if (!_isOpen)
+            {
+                return;
+            }
+
+            Interlocked.Decrement(ref _requestCount);
+
+            if (_requestCount <= 0)
+            {
+                _composeOpenCompletedStream.OnNext(Unit.Default);
+            }
+        }
+
+        void IDocumentEngineAwaiter.WaitOne()
+        {
+            if (!_isOpen)
+            {
+                return;
+            }
+
+            if (_requestCount <= 0)
+            {
+                _composeOpenStream.OnNext(Unit.Default);
+            }
+
+            Interlocked.Increment(ref _requestCount);
+
+            
+        }
+
+        #endregion
+
+
+
+        #endregion
+
+
+
+        //--------------------------------------------------------------------------------------------------------------
+        //
+        // Public Properties
+        //
+        //--------------------------------------------------------------------------------------------------------------
+        public IObservable<Unit> ComposeOpenStream => _composeOpenStream;
+        public IObservable<Unit> ComposeOpenCompletedStream => _composeOpenCompletedStream;
         public IObservable<ICompose> ComposeStream => _composeStream;
         public IObservable<bool> IsOpenStream => _isOpenStream;
         public IObservable<ComposeProperty> PropertyStream => _propertyStream;
@@ -276,16 +436,19 @@ namespace Acorisoft.Morisa.Core
         
 
         private static DocumentEngine _instance;
-        public static DocumentEngine CreateEngine(IMediator mediator , Action<DocumentEngine> registerCallback)
+        public static DocumentEngine CreateEngine(IMediator mediator , IContainer container)
         {
             // ReSharper disable once InvertIf
             if (_instance == null)
             {
                 _instance = new DocumentEngine(mediator);
-                
+
                 //
                 // TODO: Register DocumentEngine
-                registerCallback?.Invoke(_instance);
+                container.RegisterInstance<IDocumentEngine>(_instance);
+                container.UseInstance<IDocumentFileManager>(_instance);
+                container.UseInstance<IDocumentPropertyManager>(_instance);
+                container.UseInstance<IDocumentEngineAwaiter>(_instance);
             }
 
             return _instance;

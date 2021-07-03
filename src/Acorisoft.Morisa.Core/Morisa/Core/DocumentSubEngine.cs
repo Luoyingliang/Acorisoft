@@ -77,30 +77,24 @@ namespace Acorisoft.Morisa.Core
 
         protected PropertyCollection GetPropertyCollection()
         {
-            if (!_isOpen)
-            {
-                throw new InvalidOperationException(SR.CannotInitializeCollectionWithoutOpenCompose);
-            }
-
-            return _compose!.GetPropertyCollection(this);
+            return !_isOpen
+                ? throw new InvalidOperationException(SR.CannotInitializeCollectionWithoutOpenCompose)
+                : _compose!.GetPropertyCollection(this);
         }
 
         protected DatabaseCollection<T> GetCollection<T>(string name)
         {
-            if (!_isOpen)
-            {
-                throw new InvalidOperationException(SR.CannotInitializeCollectionWithoutOpenCompose);
-            }
-
-            return _compose!.GetDatabaseCollection<T>(name, this);
+            return !_isOpen
+                ? throw new InvalidOperationException(SR.CannotInitializeCollectionWithoutOpenCompose)
+                : _compose!.GetDatabaseCollection<T>(name, this);
         }
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
         //--------------------------------------------------------------------------------------------------------------
         //
         // Avoid Boxing Methods

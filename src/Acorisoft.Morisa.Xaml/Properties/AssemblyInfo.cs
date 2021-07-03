@@ -11,4 +11,4 @@ using System.Windows.Markup;
                                               // app, or any theme specific resource dictionaries)
 )]
 [assembly: GenerateDefinition("https://github.com/Luoyingliang/Acorisoft/Studio")]
-[assembly: SkipGenerateDefinition("Acorisoft.Platform.Windows.Primitives")]
+[assembly: SkipGenerateDefinition("Acorisoft.Morisa.Xaml")]

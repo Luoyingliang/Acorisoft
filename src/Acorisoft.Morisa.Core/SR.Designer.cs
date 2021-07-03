@@ -19,7 +19,7 @@ namespace Acorisoft {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class SR {
@@ -138,6 +138,24 @@ namespace Acorisoft {
         internal static string DocumentEngine_FolderWasNull {
             get {
                 return ResourceManager.GetString("DocumentEngine.FolderWasNull", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 创作集未打开。.
+        /// </summary>
+        internal static string DocumentEngine_InvalidOperation_ComposeNotOpen {
+            get {
+                return ResourceManager.GetString("DocumentEngine.InvalidOperation.ComposeNotOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to 无法操作，文件未找到。.
+        /// </summary>
+        internal static string DocumentEngine_InvalidOperation_FileNotFound {
+            get {
+                return ResourceManager.GetString("DocumentEngine.InvalidOperation.FileNotFound", resourceCulture);
             }
         }
         

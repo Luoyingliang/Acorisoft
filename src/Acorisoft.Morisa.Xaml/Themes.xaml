@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 	<ResourceDictionary.MergedDictionaries>
-		<ResourceDictionary Source="/Acorisoft.Morisa.Xaml;component/Morisa/Controls/ImageViewer.xaml"/>
-	</ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/Acorisoft.Morisa.Xaml;component/Morisa/Controls/ImageViewer.xaml"/>
+        <ResourceDictionary Source="/Acorisoft.Morisa.Xaml;component/Morisa/Controls/RankViewer.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     
 </ResourceDictionary>

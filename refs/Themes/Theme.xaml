@@ -638,7 +638,7 @@
                         <Trigger Property="RarityValue" Value="Three" SourceName="PART_Rarity">
                             <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.Three}"/>
                         </Trigger>
-                        <Trigger Property="RarityValue" Value="Four" SourceName="PART_Rarity">
+                        <Trigger Property="RankIntern" Value="Four" SourceName="PART_Rarity">
                             <Setter Property="Source" TargetName="PART_Decorative" Value="{StaticResource Pow.Decorative.Four}"/>
                         </Trigger>
                         <Trigger Property="RarityValue" Value="Five" SourceName="PART_Rarity">
