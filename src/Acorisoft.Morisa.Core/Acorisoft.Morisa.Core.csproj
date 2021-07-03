@@ -34,8 +34,4 @@
     <ProjectReference Include="..\Acorisoft.Foundation\Acorisoft.Foundation.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Morisa\Resources" />
-  </ItemGroup>
-
 </Project>

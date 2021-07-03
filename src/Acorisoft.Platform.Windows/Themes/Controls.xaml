@@ -5,4 +5,7 @@
         <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/AppServiceHost.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/ExtraViewHost.xaml"/>
     </ResourceDictionary.MergedDictionaries>
+    
+    
+    <!-- 界面美化-->
 </ResourceDictionary>

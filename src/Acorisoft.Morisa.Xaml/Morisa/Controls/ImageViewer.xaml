@@ -1,0 +1,51 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:c="clr-namespace:Acorisoft.Morisa.Controls"
+                    xmlns:convs="clr-namespace:Acorisoft.Morisa.Converters"
+                    xmlns:gu="https://github.com/JohanLarsson/Gu.Wpf.FlipView">
+    <convs:ImageConverter x:Key="Image"/>
+
+    <Style TargetType="{x:Type c:ImageViewer}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type c:ImageViewer}">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                        <ContentPresenter Content="{TemplateBinding FirstImage}">
+                            <ContentPresenter.ContentTemplate>
+                                <DataTemplate>
+                                    <Image Source="{Binding Converter={StaticResource Image}}"/>
+                                </DataTemplate>
+                            </ContentPresenter.ContentTemplate>
+                        </ContentPresenter>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="HasMultiValues" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type c:ImageViewer}">
+                            <Border Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    Padding="{TemplateBinding Padding}">
+                                <gu:FlipView ItemsSource="{TemplateBinding ImageSources}">
+                                    <gu:FlipView.ItemTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{Binding Converter={StaticResource Image}}"/>
+                                        </DataTemplate>
+                                    </gu:FlipView.ItemTemplate>
+                                </gu:FlipView>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+</ResourceDictionary>

@@ -10,7 +10,15 @@
     <!-- 值类型 -->
     <Thickness x:Key="App.Margin.Unified16">16</Thickness>
     <CornerRadius x:Key="App.CornerRadius.Main">3</CornerRadius>
+
     
+    
+    
+    
+    
+    
+    
+    <SolidColorBrush x:Key="App.Brushes.Transparent" Color="Transparent"/>
     <SolidColorBrush x:Key="App.Brushes.White">#FFFFFF</SolidColorBrush>
     <SolidColorBrush x:Key="App.Brushes.Black">#000000</SolidColorBrush>
     
@@ -19,9 +27,98 @@
     
     <!-- 透明背景的更暗的遮罩层 -->
     <SolidColorBrush x:Key="App.Brushes.DeepDark">#80000000</SolidColorBrush>
+
+    <!-- 主题色 -->
+    <SolidColorBrush x:Key="App.Brushes.Color1">#91D100</SolidColorBrush>
     
     <!-- 字体 -->
     <FontFamily x:Key="App.Fonts.Regular">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/NotoSansCJKsc-Regular.otf#Noto Sans CJK SC Regular</FontFamily>
     <FontFamily x:Key="App.Fonts.Light">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/NotoSansCJKsc-Light.otf#Noto Sans CJK SC Light</FontFamily>
     <FontFamily x:Key="App.Fonts.Bold">pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/NotoSansCJKsc-Bold.otf#Noto Sans CJK SC Bold</FontFamily>
+    
+    
+    <!-- 全局样式 -->
+    <Style x:Key="ScrollBar.Thumb.Vertical" TargetType="{x:Type Thumb}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Width" Value="12" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Rectangle x:Name="rectangle"
+                                   Fill="#CFCFCF"
+                                   Stroke="#848484"
+                                   Height="{TemplateBinding Height}" 
+                                   SnapsToDevicePixels="True"
+                                   RadiusX="6" RadiusY="6"
+                                   Width="{TemplateBinding Width}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="ScrollBar.Thumb.Horizontal" TargetType="{x:Type Thumb}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Height" Value="12" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Rectangle x:Name="rectangle"
+                                   Fill="#CFCFCF"
+                                   Stroke="#848484"
+                                   RadiusX="6" RadiusY="6"
+                                   Height="{TemplateBinding Height}" 
+                                   SnapsToDevicePixels="True"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style TargetType="{x:Type ScrollBar}">
+        <Setter Property="Stylus.IsPressAndHoldEnabled" Value="false"/>
+        <Setter Property="Stylus.IsFlicksEnabled" Value="false"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Width" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+        <Setter Property="MinWidth" Value="{DynamicResource {x:Static SystemParameters.VerticalScrollBarWidthKey}}"/>
+        <Setter Property="SnapsToDevicePixels" Value="True" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type ScrollBar}">
+                    <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Row="1"/>
+                        <Track x:Name="PART_Track" 
+                                   IsDirectionReversed="true" 
+                                   IsEnabled="{TemplateBinding IsMouseOver}" Grid.Row="1">
+                            <Track.Thumb>
+                                <Thumb Style="{StaticResource ScrollBar.Thumb.Vertical}"/>
+                            </Track.Thumb>
+                        </Track>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Width" Value="Auto"/>
+                <Setter Property="MinWidth" Value="0"/>
+                <Setter Property="Height" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
+                <Setter Property="MinHeight" Value="{DynamicResource {x:Static SystemParameters.HorizontalScrollBarHeightKey}}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type ScrollBar}">
+                            <Grid x:Name="Bg" SnapsToDevicePixels="true">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Grid.Column="1"/>
+                                <Track x:Name="PART_Track" Grid.Column="1" IsEnabled="{TemplateBinding IsMouseOver}">
+                                    <Track.Thumb>
+                                        <Thumb Style="{StaticResource ScrollBar.Thumb.Horizontal}"/>
+                                    </Track.Thumb>
+                                </Track>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 </ResourceDictionary>

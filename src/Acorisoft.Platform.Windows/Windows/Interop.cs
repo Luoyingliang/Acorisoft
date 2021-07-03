@@ -21,7 +21,7 @@ namespace Acorisoft.Platform.Windows
             return bi;
         }
 
-        public static ImageSource GetImageSourceFromStream(Stream stream)
+        public static ImageSource GetImageSource(Stream stream)
         {
             stream.Seek(0, SeekOrigin.Begin);
             var bi = new BitmapImage();

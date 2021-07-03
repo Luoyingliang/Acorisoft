@@ -1,4 +1,5 @@
-namespace Acorisoft.Morisa.Internals
+// ReSharper disable InconsistentNaming
+namespace Acorisoft.Morisa
 {
     public static class Constants
     {
@@ -7,8 +8,19 @@ namespace Acorisoft.Morisa.Internals
         /// </summary>
         public const string IdMoniker = "_id";
 
+        //
+        // DocumentEngine Constants
+        //
         public const string MainDatabaseName = "MainDB.Md2v1";
         public const int InitSize = 33554432;
+        
+        
+        //
+        // URI Schemes Constants
+        //
+        public const string ImageURIScheme = "http://example.m/image/{0}";
+        public const string FileURIScheme = "http://example.m/file/{0}";
+        
         
         //
         // PropertyCollection Constants

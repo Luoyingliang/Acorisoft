@@ -9,91 +9,22 @@
         xmlns:g="clr-namespace:GraphShape.Controls;assembly=GraphShape.Controls"
         xmlns:powXaml="clr-namespace:Acorisoft.Morisa.Xaml;assembly=Acorisoft.Morisa.Integrating.PoW"
         xmlns:pow="clr-namespace:Acorisoft.Morisa.Documents;assembly=Acorisoft.Morisa.Integrating.PoW"
+        xmlns:gu="https://github.com/GuOrg/Gu.Wpf.FlipView"
+        xmlns:mXaml="https://github.com/Luoyingliang/Acorisoft/Studio"
+        xmlns:res="clr-namespace:Acorisoft.Morisa.Resources;assembly=Acorisoft.Morisa.Core"
+        xmlns:system="clr-namespace:System;assembly=System.Runtime"
         Title="MainWindow" MinHeight="768" MinWidth="1280">
     <Window.Resources>
-        <pow:Ability x:Key="Five" Rarity="{x:Static pow:AbilityRarity.Five}"/>
-        <pow:Ability x:Key="Four" Rarity="{x:Static pow:AbilityRarity.Four}"/>
-        <pow:Ability x:Key="three" Rarity="{x:Static pow:AbilityRarity.Three}"/>
-        <pow:Ability x:Key="two" Rarity="{x:Static pow:AbilityRarity.Two}"/>
-        <pow:Ability x:Key="one" Rarity="{x:Static pow:AbilityRarity.One}"/>
-        <pow:Ability x:Key="Ability" Rarity="{x:Static pow:AbilityRarity.Five}" Name="德特里安的救赎" Emotion="“愿群星照亮你的前路”">
-            <pow:Ability.StorySet>
-                <pow:AbilityStorySet Name="德特里安"/>
-            </pow:Ability.StorySet>
-            <pow:Ability.Regular>
-                <pow:AbilityPart>
-                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
-                </pow:AbilityPart>
-            </pow:Ability.Regular>
-            <pow:Ability.Unlock>
-                <pow:AbilityPart>
-                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
-                </pow:AbilityPart>
-            </pow:Ability.Unlock>
-            <pow:Ability.Evolution>
-                <pow:AbilityPart>
-                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
-                </pow:AbilityPart>
-            </pow:Ability.Evolution>
-            <pow:Ability.Cost>
-                <pow:AbilityPart>
-                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
-                </pow:AbilityPart>
-            </pow:Ability.Cost>
-            <pow:Ability.Zone>
-                <pow:AbilityPart>
-                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
-                </pow:AbilityPart>
-            </pow:Ability.Zone>
-        </pow:Ability>
-        <pow:Ability x:Key="Ability.Empty" Rarity="{x:Static pow:AbilityRarity.Five}" Name="德特里安的救赎" Emotion="“愿群星照亮你的前路”">
-            <pow:Ability.StorySet>
-                <pow:AbilityStorySet Name="德特里安"/>
-            </pow:Ability.StorySet>
-            <pow:Ability.Regular>
-                <pow:AbilityPart>
-                    <pow:AbilityEntry Name="贪婪" Description="Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print, graphic or web designs."/>
-                </pow:AbilityPart>
-            </pow:Ability.Regular>
-            <pow:Ability.Unlock>
-                <pow:AbilityPart>
-                </pow:AbilityPart>
-            </pow:Ability.Unlock>
-            <pow:Ability.Evolution>
-                <pow:AbilityPart>
-                </pow:AbilityPart>
-            </pow:Ability.Evolution>
-            <pow:Ability.Cost>
-                <pow:AbilityPart>
-                </pow:AbilityPart>
-            </pow:Ability.Cost>
-            <pow:Ability.Zone>
-                <pow:AbilityPart>
-                </pow:AbilityPart>
-            </pow:Ability.Zone>
-        </pow:Ability>
+
     </Window.Resources>
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="640" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="384" />
-        </Grid.ColumnDefinitions>
-        
-        <!-- 左边预览 -->
-        <powXaml:AbilityCardView Grid.Column="0" Ability="{StaticResource Ability.Empty}"/>
-        
-        <!-- 右边编辑 -->
-        <Grid Grid.Column="1"/>
-        <Grid Grid.Column="2">
-            <StackPanel>
-                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
-                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
-                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
-                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
-                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
-                <powXaml:AbilityListItemView Ability="{StaticResource Ability}"/>
-            </StackPanel>
-        </Grid>
+
+        <mXaml:ImageViewer>
+            <mXaml:ImageViewer.Image>
+                <res:ImageResource>
+                    <system:Guid></system:Guid>
+                </res:ImageResource>
+            </mXaml:ImageViewer.Image>
+        </mXaml:ImageViewer>
     </Grid>
 </Window>

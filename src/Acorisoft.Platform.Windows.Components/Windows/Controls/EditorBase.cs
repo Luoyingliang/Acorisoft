@@ -213,7 +213,7 @@ namespace Acorisoft.Platform.Windows.Controls
 
             //
             // 导出图片
-            return Interop.GetImageSourceFromStream(ms);
+            return Interop.GetImageSource(ms);
         }
 
         /// <summary>

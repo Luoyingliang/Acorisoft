@@ -4,6 +4,7 @@ using System.Reactive.Disposables;
 using System.Reactive.Subjects;
 using System.Threading.Tasks;
 using Acorisoft.Morisa.IO;
+using Acorisoft.Morisa.Resources;
 using MediatR;
 using Disposable = Acorisoft.ComponentModel.Disposable;
 // ReSharper disable ClassNeverInstantiated.Global
@@ -212,7 +213,36 @@ namespace Acorisoft.Morisa.Core
 
         #region IDocumentFileManager
 
-        
+        public Stream OpenImage(ImageResource resource)
+        {
+            if(resource == null)
+            {
+                return null;
+            }
+
+            if(resource.First == Guid.Empty)
+            {
+                return null;
+            }
+
+            if (!_isOpen)
+            {
+                return null;
+            }
+
+            var fileName = Path.Combine(_compose.ImageDirectory, resource.First.ToString("N"));
+
+            if (!File.Exists(fileName))
+            {
+                return null;
+            }
+
+            using var fs = new FileStream(fileName, FileMode.Open);
+            var ms = new MemoryStream();
+            fs.CopyTo(ms);
+            ms.Position = 0;
+            return ms;
+        }
 
         #endregion IDocumentFileManager
         
@@ -235,5 +265,32 @@ namespace Acorisoft.Morisa.Core
         public IObservable<bool> IsOpenStream => _isOpenStream;
         public IObservable<ComposeProperty> PropertyStream => _propertyStream;
         public ICompose Compose => _compose;
+
+        
+        
+        
+        
+        
+        #region Singleton
+
+        
+
+        private static DocumentEngine _instance;
+        public static DocumentEngine CreateEngine(IMediator mediator , Action<DocumentEngine> registerCallback)
+        {
+            // ReSharper disable once InvertIf
+            if (_instance == null)
+            {
+                _instance = new DocumentEngine(mediator);
+                
+                //
+                // TODO: Register DocumentEngine
+                registerCallback?.Invoke(_instance);
+            }
+
+            return _instance;
+        }
+
+        #endregion
     }
 }
