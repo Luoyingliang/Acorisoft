@@ -38,4 +38,15 @@
       </Compile>
     </ItemGroup>
 
+    <ItemGroup>
+      <Folder Include="Morisa\PoW\Views\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Morisa\PoW\Controls\ItemIconViewer.xaml">
+        <XamlRuntime>$(DefaultXamlRuntime)</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+    </ItemGroup>
+
 </Project>

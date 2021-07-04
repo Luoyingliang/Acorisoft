@@ -25,7 +25,7 @@ namespace Acorisoft.Morisa.Documents
 
         public bool Equals(Rarity other)
         {
-            return other == null ? false : Rank == other.Rank;
+            return other != null && Rank == other.Rank;
         }
 
         public override int GetHashCode()
@@ -35,7 +35,7 @@ namespace Acorisoft.Morisa.Documents
 
         public static bool operator ==(Rarity left, Rarity right)
         {
-            return left is null ? right is null : left.Equals(right);
+            return left?.Equals(right) ?? right is null;
         }
 
         public static bool operator !=(Rarity left, Rarity right)

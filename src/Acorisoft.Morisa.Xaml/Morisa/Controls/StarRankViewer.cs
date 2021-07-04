@@ -16,28 +16,15 @@ using System.Windows.Shapes;
 
 namespace Acorisoft.Morisa.Controls
 {
-    public enum Rank
-    {
-        One,
-        Two,
-        Three,
-        Four,
-        Five,
-        Six,
-        Seven,
-        Eight,
-        Nine,
-        Ten
-    }
 
     /// <summary>
-    /// <see cref="RankViewer"/> 类型表示一个稀有度呈现器
+    /// <see cref="StarRankViewer"/> 类型表示一个稀有度呈现器
     /// </summary>
-    public class RankViewer : ContentControl
+    public class StarRankViewer : ContentControl
     {
-        static RankViewer()
+        static StarRankViewer()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(RankViewer), new FrameworkPropertyMetadata(typeof(RankViewer)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(StarRankViewer), new FrameworkPropertyMetadata(typeof(StarRankViewer)));
         }
 
 
@@ -51,25 +38,25 @@ namespace Acorisoft.Morisa.Controls
             switch (rarity.Rank)
             {
                 case 2:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Two); break;
+                    d.SetValue(RankInternProperty, Rank.Two); break;
                 case 3:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Three); break;
+                    d.SetValue(RankInternProperty, Rank.Three); break;
                 case 4:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Four); break;
+                    d.SetValue(RankInternProperty, Rank.Four); break;
                 case 5:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Five); break;
+                    d.SetValue(RankInternProperty, Rank.Five); break;
                 case 6:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Six); break;
+                    d.SetValue(RankInternProperty, Rank.Six); break;
                 case 7:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Seven); break;
+                    d.SetValue(RankInternProperty, Rank.Seven); break;
                 case 8:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Eight); break;
+                    d.SetValue(RankInternProperty, Rank.Eight); break;
                 case 9:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Nine); break;
+                    d.SetValue(RankInternProperty, Rank.Nine); break;
                 case 10:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.Ten); break;
+                    d.SetValue(RankInternProperty, Rank.Ten); break;
                 default:
-                    d.SetValue(RankInternProperty, Acorisoft.Morisa.Controls.Rank.One); break;
+                    d.SetValue(RankInternProperty, Rank.One); break;
             }
         }
 
@@ -88,14 +75,14 @@ namespace Acorisoft.Morisa.Controls
         public static readonly DependencyProperty RarityProperty = DependencyProperty.Register(
             "Rarity",
             typeof(Rarity),
-            typeof(RankViewer),
+            typeof(StarRankViewer),
             new PropertyMetadata(null, OnRarityChanged));
 
 
         public static readonly DependencyPropertyKey RankInternProperty = DependencyProperty.RegisterReadOnly(
             "RankIntern",
             typeof(Rank),
-            typeof(RankViewer),
-            new PropertyMetadata(Morisa.Controls.Rank.One));
+            typeof(StarRankViewer),
+            new PropertyMetadata(Rank.One));
     }
 }

@@ -22,12 +22,18 @@ namespace Acorisoft.Morisa.Converters
                     return FallbackImage();
                 }
 
-                var stream = service.OpenImage(resource);
-
-                return Interop.GetImageSource(stream);
+                return GetImageSource(resource, service);
             }
             return FallbackImage();
         }
+
+        public static ImageSource GetImageSource(ImageResource resource, IDocumentFileManager service)
+        {
+            var stream = service.OpenImage(resource);
+
+            return Interop.GetImageSource(stream);
+        }
+
 
         protected ImageSource FallbackImage()
         {
