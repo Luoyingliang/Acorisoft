@@ -18,17 +18,25 @@
             d:DesignHeight="1080" d:DesignWidth="1920"
             d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,Type=thisVM:AbilityEditViewModel}">
     <UserControl.Resources>
-        <!--<ObjectDataProvider x:Key="Category" MethodName="GetEnumValuesFriendlyName" ObjectType="{x:Type w:EnumConverter}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="thisDocAbility:Category" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>
-
-        <ObjectDataProvider x:Key="Rarity" MethodName="GetFriendlyName" ObjectType="{x:Type thisConvs:AbilityRarityConverter}">
-            <ObjectDataProvider.MethodParameters>
-                <x:Type TypeName="thisRarity:Rarity" />
-            </ObjectDataProvider.MethodParameters>
-        </ObjectDataProvider>-->
+        <DataTemplate x:Key="Entry" DataType="{x:Type thisDocAbility:AbilityEntry}">
+            <DockPanel Margin="0 8"
+                       Background="{StaticResource App.Brushes.White}"
+                       DockPanel.Dock="Bottom">
+                <thisCtls:AbilityEntryViewer Entry="{Binding }" DockPanel.Dock="Left"/>
+                <Button Width="32"
+                        Height="32"
+                        Margin="8"
+                        Command="{Binding NewCostEntryCommand}"
+                        BorderThickness="0"
+                        Background="{StaticResource App.Brushes.Transparent}"
+                        DockPanel.Dock="Right">
+                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                          Stroke="{StaticResource App.Brushes.Black}"
+                          Stretch="Uniform"
+                          Margin="4"/>
+                </Button>
+            </DockPanel>
+        </DataTemplate>
     </UserControl.Resources>
     <Grid UseLayoutRounding="True">
         <Grid.ColumnDefinitions>
@@ -50,6 +58,7 @@
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="160" />
+                    <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
                     <RowDefinition Height="auto" />
@@ -96,6 +105,33 @@
 
                 <!-- 分类 -->
                 <w:ContextContentControl Grid.Row="1"
+                                         Title="类型"
+                                         Headline="Headline5"
+                                         Margin="0 8">
+                    <ComboBox x:Name="Type"
+                              SelectedIndex="0"
+                              SelectedItem="{Binding Type,Mode=TwoWay}"
+                              DisplayMemberPath="Name">
+                        <w:DataOption Name="主动技能">
+                            <w:DataOption.Data>
+                                <thisDocAbility:AbilityType>Active</thisDocAbility:AbilityType>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="被动技能">
+                            <w:DataOption.Data>
+                                <thisDocAbility:AbilityType>Passive</thisDocAbility:AbilityType>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="光环技能">
+                            <w:DataOption.Data>
+                                <thisDocAbility:AbilityType>Halo</thisDocAbility:AbilityType>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                    </ComboBox>
+                </w:ContextContentControl>
+
+                <!-- 分类 -->
+                <w:ContextContentControl Grid.Row="2"
                                          Title="分类"
                                          Headline="Headline5"
                                          Margin="0 8">
@@ -118,11 +154,16 @@
                                 <thisDocAbility:Category>Shield</thisDocAbility:Category>
                             </w:DataOption.Data>
                         </w:DataOption>
+                        <w:DataOption Name="辅助系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Support</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
                     </ComboBox>
                 </w:ContextContentControl>
 
                 <!-- Whisper -->
-                <w:ContextContentControl Grid.Row="2"
+                <w:ContextContentControl Grid.Row="3"
                                          Title="情绪"
                                          Headline="Headline5"
                                          Margin="0 8">
@@ -131,7 +172,7 @@
                 </w:ContextContentControl>
 
                 <!-- Labels -->
-                <w:ContextContentControl Grid.Row="3"
+                <w:ContextContentControl Grid.Row="4"
                                          Title="标签"
                                          Headline="Headline5"
                                          Margin="0 8">
@@ -140,7 +181,7 @@
                 </w:ContextContentControl>
 
                 <!-- Labels -->
-                <TabControl Grid.Row="4" Margin="0 8">
+                <TabControl Grid.Row="5" Margin="0 8">
                     <TabItem Header="代价">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
@@ -149,7 +190,7 @@
                                 <Button Width="32"
                                         Height="32"
                                         Margin="8"
-                                        Command="{Binding NewGeneralEntryCommand}"
+                                        Command="{Binding NewCostEntryCommand}"
                                         BorderThickness="0"
                                         Background="{StaticResource App.Brushes.Transparent}">
                                     <Path Data="{StaticResource App.Icon.Add.Circle}"
@@ -159,30 +200,7 @@
                                 </Button>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
-                                <ItemsControl ItemsSource="{Binding Cost,Mode=OneWay}" >
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*" />
-                                                    <ColumnDefinition Width="32" />
-                                                </Grid.ColumnDefinitions>
-                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
-                                                <Button Grid.Column="1"
-                                                        Width="32"
-                                                        Height="32"
-                                                        Command="{Binding NewGeneralEntryCommand}"
-                                                        BorderThickness="0"
-                                                        Background="{StaticResource App.Brushes.Transparent}">
-                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                                          Stroke="{StaticResource App.Brushes.Black}"
-                                                          Stretch="Uniform"
-                                                          Margin="4"/>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding Cost,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
                             </ScrollViewer>
                         </DockPanel>
                     </TabItem>
@@ -204,30 +222,7 @@
                                 </Button>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
-                                <ItemsControl ItemsSource="{Binding General,Mode=OneWay}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*" />
-                                                    <ColumnDefinition Width="32" />
-                                                </Grid.ColumnDefinitions>
-                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
-                                                <Button Grid.Column="1"
-                                                        Width="32"
-                                                        Height="32"
-                                                        Command="{Binding NewGeneralEntryCommand}"
-                                                        BorderThickness="0"
-                                                        Background="{StaticResource App.Brushes.Transparent}">
-                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                                          Stroke="{StaticResource App.Brushes.Black}"
-                                                          Stretch="Uniform"
-                                                          Margin="4"/>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding General,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
                             </ScrollViewer>
                         </DockPanel>
                     </TabItem>
@@ -239,7 +234,7 @@
                                 <Button Width="32"
                                         Height="32"
                                         Margin="8"
-                                        Command="{Binding NewGeneralEntryCommand}"
+                                        Command="{Binding NewHiddenEntryCommand}"
                                         BorderThickness="0"
                                         Background="{StaticResource App.Brushes.Transparent}">
                                     <Path Data="{StaticResource App.Icon.Add.Circle}"
@@ -249,30 +244,7 @@
                                 </Button>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
-                                <ItemsControl ItemsSource="{Binding Hidden,Mode=OneWay}" >
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*" />
-                                                    <ColumnDefinition Width="32" />
-                                                </Grid.ColumnDefinitions>
-                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
-                                                <Button Grid.Column="1"
-                                                        Width="32"
-                                                        Height="32"
-                                                        Command="{Binding NewGeneralEntryCommand}"
-                                                        BorderThickness="0"
-                                                        Background="{StaticResource App.Brushes.Transparent}">
-                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                                          Stroke="{StaticResource App.Brushes.Black}"
-                                                          Stretch="Uniform"
-                                                          Margin="4"/>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding Hidden,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
                             </ScrollViewer>
                         </DockPanel>
                     </TabItem>
@@ -284,7 +256,7 @@
                                 <Button Width="32"
                                         Height="32"
                                         Margin="8"
-                                        Command="{Binding NewGeneralEntryCommand}"
+                                        Command="{Binding NewUnlockedEntryCommand}"
                                         BorderThickness="0"
                                         Background="{StaticResource App.Brushes.Transparent}">
                                     <Path Data="{StaticResource App.Icon.Add.Circle}"
@@ -294,30 +266,7 @@
                                 </Button>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
-                                <ItemsControl ItemsSource="{Binding Unlocked,Mode=OneWay}">
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*" />
-                                                    <ColumnDefinition Width="32" />
-                                                </Grid.ColumnDefinitions>
-                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
-                                                <Button Grid.Column="1"
-                                                        Width="32"
-                                                        Height="32"
-                                                        Command="{Binding NewGeneralEntryCommand}"
-                                                        BorderThickness="0"
-                                                        Background="{StaticResource App.Brushes.Transparent}">
-                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                                          Stroke="{StaticResource App.Brushes.Black}"
-                                                          Stretch="Uniform"
-                                                          Margin="4"/>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding Unlocked,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
                             </ScrollViewer>
                         </DockPanel>
                     </TabItem>
@@ -329,7 +278,7 @@
                                 <Button Width="32"
                                         Height="32"
                                         Margin="8"
-                                        Command="{Binding NewGeneralEntryCommand}"
+                                        Command="{Binding NewEvolutionEntryCommand}"
                                         BorderThickness="0"
                                         Background="{StaticResource App.Brushes.Transparent}">
                                     <Path Data="{StaticResource App.Icon.Add.Circle}"
@@ -339,30 +288,7 @@
                                 </Button>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
-                                <ItemsControl ItemsSource="{Binding Evolution,Mode=OneWay}" >
-                                    <ItemsControl.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="1*" />
-                                                    <ColumnDefinition Width="32" />
-                                                </Grid.ColumnDefinitions>
-                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
-                                                <Button Grid.Column="1"
-                                                        Width="32"
-                                                        Height="32"
-                                                        Command="{Binding NewGeneralEntryCommand}"
-                                                        BorderThickness="0"
-                                                        Background="{StaticResource App.Brushes.Transparent}">
-                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                                          Stroke="{StaticResource App.Brushes.Black}"
-                                                          Stretch="Uniform"
-                                                          Margin="4"/>
-                                                </Button>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ItemsControl.ItemTemplate>
-                                </ItemsControl>
+                                <ItemsControl ItemsSource="{Binding Evolution,Mode=OneWay}"  ItemTemplate="{StaticResource Entry}"/>
                             </ScrollViewer>
                         </DockPanel>
                     </TabItem>
@@ -401,6 +327,11 @@
             <StackPanel>
                 <Button Content="打开Json" Command="{Binding LoadAsJsonCommand}"/>
                 <Button Content="保存为Json" Command="{Binding SaveAsJsonCommand}"/>
+                <thisCtls:AbilityEntryViewer>
+                    <thisCtls:AbilityEntryViewer.Entry>
+                        <thisDocAbility:AbilityEntry Name="Hello" Description="1231 3123"/>
+                    </thisCtls:AbilityEntryViewer.Entry>
+                </thisCtls:AbilityEntryViewer>
             </StackPanel>
         </Border>
     </Grid>

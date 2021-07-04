@@ -5,7 +5,11 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
     /// </summary>
     public interface IAbilityDocument : IValuableItemDocument
     {
-        
+        /// <summary>
+        /// 获取或设置能力的类型
+        /// </summary>
+        AbilityType Type { get; set; }
+
         /// <summary>
         /// 获取或设置标签
         /// </summary>

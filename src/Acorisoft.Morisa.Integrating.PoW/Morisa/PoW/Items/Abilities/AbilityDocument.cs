@@ -8,6 +8,11 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
     public class AbilityDocument : ValuableItemDocument, IAbilityDocument
     {
         /// <summary>
+        /// 获取或设置能力的类型
+        /// </summary>
+        public AbilityType Type { get; set; }
+
+        /// <summary>
         /// 获取或设置标签
         /// </summary>
         public string Labels { get; set; }

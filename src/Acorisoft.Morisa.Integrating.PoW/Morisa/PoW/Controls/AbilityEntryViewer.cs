@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using Acorisoft.Morisa.PoW.Items.Abilities;
@@ -54,7 +55,7 @@ namespace Acorisoft.Morisa.PoW.Controls
             {
                 return;
             }
-
+            Debug.WriteLine(entry.Name);
             d.SetValue(EntryNameProperty, entry.Name);
             d.SetValue(DescriptionProperty, entry.Description);
         }

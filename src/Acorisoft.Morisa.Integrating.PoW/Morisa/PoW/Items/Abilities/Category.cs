@@ -22,5 +22,12 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
         /// </summary>
         [Description("·ÀÓùÏµ")]
         Shield,
+
+
+        /// <summary>
+        /// ¸¨Öú
+        /// </summary>
+        [Description("¸¨ÖúÏµ")]
+        Support,
     }
 }

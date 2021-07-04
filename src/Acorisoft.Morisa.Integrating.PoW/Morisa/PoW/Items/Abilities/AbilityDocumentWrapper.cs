@@ -46,6 +46,18 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
                 RaiseUpdated();
             } 
         }
+        /// <summary>
+        /// 获取或设置能力的类型
+        /// </summary>
+        public AbilityType Type
+        {
+            get => Source.Type;
+            set
+            {
+                Source.Type = value;
+                RaiseUpdated();
+            }
+        }
 
         public string Whisper
         {

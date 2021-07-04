@@ -36,6 +36,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         private IAbilityDocument _documentWrapper;
         private DataOption _category;
         private DataOption _rarity;
+        private DataOption _type;
 
         public AbilityEditViewModel()
         {
@@ -235,6 +236,21 @@ namespace Acorisoft.Morisa.PoW.ViewModels
             }
         }
 
+        public DataOption Type
+        {
+            get => _category;
+            set
+            {
+                if (value?.Data is not AbilityType newType)
+                {
+                    return;
+                }
+
+                _documentWrapper.Type = newType;
+                _category = value;
+            }
+        }
+
         #region IAbilityDocument Members
 
         public Guid Id
@@ -280,37 +296,31 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         public AbilityEntryPart Cost
         {
             get => _documentWrapper.Cost;
-            set => _documentWrapper.Cost = value;
         }
 
         public AbilityEntryPart General
         {
             get => _documentWrapper.General;
-            set => _documentWrapper.General = value;
         }
 
         public AbilityEntryPart Evolution
         {
             get => _documentWrapper.Evolution;
-            set => _documentWrapper.Evolution = value;
         }
 
         public AbilityEntryPart Unlocked
         {
             get => _documentWrapper.Unlocked;
-            set => _documentWrapper.Unlocked = value;
         }
 
         public AbilityEntryPart Hidden
         {
             get => _documentWrapper.Hidden;
-            set => _documentWrapper.Hidden = value;
         }
 
         public AbilitySpritCore Sprit
         {
             get => _documentWrapper.Sprit;
-            set => _documentWrapper.Sprit = value;
         }
 
 

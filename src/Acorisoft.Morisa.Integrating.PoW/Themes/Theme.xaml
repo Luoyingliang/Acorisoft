@@ -16,6 +16,13 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="Pow.Support">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V512 H576 V0 H0 Z">
+                <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M576,512z M0,0z M565.3,328.1C553.5,317.4,535.1,318.1,522.7,328.1L430.3,402C419,411.1,404.9,416,390.3,416L272,416C263.2,416 256,408.8 256,400 256,391.2 263.2,384 272,384L350.3,384C366.2,384 381,373.1 383.6,357.4 386.9,337.4 371.5,320 352,320L192,320C165,320,138.9,329.3,117.9,346.3L71.4,384 16,384C7.2,384,0,391.2,0,400L0,496C0,504.8,7.2,512,16,512L372.8,512C387.3,512,401.4,507.1,412.8,498L564,377C579.2,364.9,580.4,341.7,565.3,328.1z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="Pow.Battle">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">

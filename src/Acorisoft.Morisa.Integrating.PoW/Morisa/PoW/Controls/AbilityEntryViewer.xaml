@@ -21,13 +21,13 @@
                         <DockPanel Margin="0 8"
                                    DockPanel.Dock="Bottom">
                             <TextBlock FontSize="16"
-                                       Text="{TemplateBinding EntryName}" 
+                                       Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=EntryName}" 
                                        DockPanel.Dock="Left"/>
                             <TextBlock FontSize="16" 
                                        Foreground="#969696" 
                                        FontWeight="Light"
                                        Margin="8 0 0 0"
-                                       Text="{TemplateBinding Description}" 
+                                       Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path= Description}" 
                                        DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
                         </DockPanel>
                     </Border>
