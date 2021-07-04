@@ -1,11 +1,12 @@
 using System;
 using System.Reactive.Subjects;
+using Acorisoft.ComponentModel;
 using Acorisoft.Platform.Windows.ViewModels;
 using Splat;
 
 namespace Acorisoft.Platform.Windows.Services
 {
-    public class ExtraViewSupportService : IExtraViewSupportService
+    public class ExtraViewSupportService : Disposable, IExtraViewSupportService
     {
         private readonly Subject<ExtraViewParam> _param;
         private readonly IFullLogger _logger;
@@ -15,7 +16,12 @@ namespace Acorisoft.Platform.Windows.Services
             _param = new Subject<ExtraViewParam>();
             _logger = Locator.Current.GetService<ILogManager>()?.GetLogger(typeof(NavigateSupportService));
         }
-        
+
+        protected override void OnDisposeManagedCore()
+        {
+            _param.Dispose();
+        }
+
         public void ActivateExtraView(ExtraViewParam param)
         {
             if (!_param.HasObservers)

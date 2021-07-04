@@ -7,11 +7,11 @@ namespace Acorisoft.Platform.Windows.ViewModels
 {
     public class PageViewModel : ViewModel, IPageViewModel
     {
-        private readonly Subject<string> _title;
+        private readonly BehaviorSubject<string> _title;
 
         protected PageViewModel()
         {
-            _title = new Subject<string>();
+            _title = new BehaviorSubject<string>(string.Empty);
         }
         
 

@@ -37,6 +37,11 @@
                             <Setter Property="FontSize" Value="18" TargetName="PART_Headline"/>
                             <Setter Property="Margin" Value="0 0 0 10" TargetName="PART_Headline"/>
                         </Trigger>
+                        <Trigger Property="Headline" Value="Headline5">
+                            <Setter Property="FontSize" Value="16" TargetName="PART_Headline"/>
+                            <Setter Property="FontWeight" Value="Bold" TargetName="PART_Headline"/>
+                            <Setter Property="Margin" Value="0 0 0 10" TargetName="PART_Headline"/>
+                        </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>

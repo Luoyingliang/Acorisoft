@@ -4,6 +4,7 @@ using Acorisoft.Morisa.PoW.Items.Abilities;
 using Acorisoft.Morisa.Resources;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,37 +32,57 @@ namespace Acorisoft.Morisa.PoW.Controls
 
         private static void OnAbilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var viewer = (ItemIconViewer)d;
+
             if (e.NewValue is not IAbilityDocument ability)
             {
-                return;
+                d.SetValue(RarityProperty, Rank.One);
             }
+            else
+            {
+                if (e.OldValue is AbilityDocumentWrapper oldWrapper)
+                {
+                    oldWrapper.PropertyChanged -= viewer.PerformanceDocumentChanged;
+                }
 
-            switch (ability.Rarity.Rank)
+                if (e.NewValue is AbilityDocumentWrapper newWrapper)
+                {
+                    newWrapper.PropertyChanged += viewer.PerformanceDocumentChanged;
+                }
+                viewer.PerformanceDocumentChanged(ability, new PropertyChangedEventArgs(""));
+            }
+        }
+        
+        private void PerformanceDocumentChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var ability = (IAbilityDocument) sender;
+            var rank = ability?.Rarity?.Rank ?? 1;
+            switch (rank)
             {
                 case 2:
-                    d.SetValue(RarityProperty, Rank.Two); break;
+                    SetValue(RarityProperty, Rank.Two); break;
                 case 3:
-                    d.SetValue(RarityProperty, Rank.Three); break;
+                    SetValue(RarityProperty, Rank.Three); break;
                 case 4:
-                    d.SetValue(RarityProperty, Rank.Four); break;
+                    SetValue(RarityProperty, Rank.Four); break;
                 case 5:
-                    d.SetValue(RarityProperty, Rank.Five); break;
+                    SetValue(RarityProperty, Rank.Five); break;
                 case 6:
-                    d.SetValue(RarityProperty, Rank.Six); break;
+                    SetValue(RarityProperty, Rank.Six); break;
                 case 7:
-                    d.SetValue(RarityProperty, Rank.Seven); break;
+                    SetValue(RarityProperty, Rank.Seven); break;
                 case 8:
-                    d.SetValue(RarityProperty, Rank.Eight); break;
+                    SetValue(RarityProperty, Rank.Eight); break;
                 case 9:
-                    d.SetValue(RarityProperty, Rank.Nine); break;
+                    SetValue(RarityProperty, Rank.Nine); break;
                 case 10:
-                    d.SetValue(RarityProperty, Rank.Ten); break;
+                    SetValue(RarityProperty, Rank.Ten); break;
                 default:
-                    d.SetValue(RarityProperty, Rank.One); break;
+                    SetValue(RarityProperty, Rank.One); break;
             }
 
-            d.SetValue(CategoryProperty, ability.Category);
-            d.SetValue(IconProperty, ability.Icon);
+            SetValue(CategoryProperty, ability.Category);
+            SetValue(IconProperty, ability.Icon);
         }
 
         public ControlSize SizeMode

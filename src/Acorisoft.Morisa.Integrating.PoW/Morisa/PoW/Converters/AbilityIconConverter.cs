@@ -18,23 +18,28 @@ using Acorisoft.Morisa.Converters;
 
 namespace Acorisoft.Morisa.PoW.Converters
 {
-    public class AbilityIconConverter : IValueConverter
+    public class AbilityIconConverter : IMultiValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             if(value is IAbilityDocument ability)
             {
-                if(ability.Icon is ImageResource && Locator.Current.GetService<IDocumentFileManager>() is IDocumentFileManager service)
-                {
-                    return ImageConverter.GetImageSource(ability.Icon, service);
-                }
-                else
-                {
-                    return PerformanceCategoryFallback(ability.Category);
-                }
+                
             }
 
             return Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image");
+        }
+
+        private ImageSource GetImageSourceFromImageResource(ImageResource resource)
+        {
+            if(Locator.Current.GetService<IDocumentFileManager>() is IDocumentFileManager service)
+            {
+                return ImageConverter.GetImageSource(resource, service);
+            }
+            else
+            {
+                return PerformanceCategoryFallback(Category.Fedora);
+            }
         }
 
         protected virtual ImageSource PerformanceCategoryFallback(Category category)
@@ -42,13 +47,49 @@ namespace Acorisoft.Morisa.PoW.Converters
             return category switch
             {
                 Category.Fedora => Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image"),
+                Category.Shield => Xaml.GetResource<DrawingImage>("Pow.Shield"),
+                Category.Battle => Xaml.GetResource<DrawingImage>("Pow.Battle"),
                 _ => Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image")
 
             };
         }
 
 
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        //public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        //{
+        //    throw new NotImplementedException();
+        //}
+        public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+        {
+            if(values == null)
+            {
+                return null;
+            }
+
+            ImageResource image = null;
+            var category = Category.Battle;
+            
+            foreach (var value in values)
+            {
+                if (value is ImageResource res)
+                {
+                    image = res;
+                }
+                else if (value is Category val)
+                {
+                    category = val;
+                }
+            }
+
+            if (image != null)
+            {
+                return GetImageSourceFromImageResource(image);
+            }
+
+            return PerformanceCategoryFallback(category);
+        }
+
+        public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
         {
             throw new NotImplementedException();
         }

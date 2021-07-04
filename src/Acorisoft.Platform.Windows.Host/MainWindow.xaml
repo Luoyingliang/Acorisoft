@@ -92,9 +92,7 @@
                 <w:ContextContentControl Title="ContextContentControl" Headline="Headline4" Content="Sample Text"/>
                 <w:ContextContentControl Title="ContextContentControl" Headline="Headline5" Content="Sample Text"/>
             </StackPanel>
-            <powXaml:AbilityViewer Ability="{StaticResource Ability.One}"/>
-            <powXaml:AbilityViewer Ability="{StaticResource Ability.One}" SizeMode="Normal"/>
-            <powXaml:AbilityViewer Ability="{StaticResource Ability.One}" SizeMode="Small"/>
+            <powXaml:AbilityViewer/>
         </WrapPanel>
     </Grid>
 </Window>

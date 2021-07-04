@@ -6,15 +6,15 @@ using ReactiveUI;
 
 namespace Acorisoft.Platform.Windows.Views
 {
-    public abstract class PageView<TViewModel> : ReactiveUserControl<TViewModel> where TViewModel : PageViewModel, IPageViewModel
+    public class DialogView<TViewModel>: ReactiveUserControl<TViewModel> where TViewModel : DialogViewModel, IDialogViewModel
     {
-        protected PageView()
+        protected DialogView()
         {
             this.WhenActivated(d =>
             {
                 d(this.WhenAnyValue(x => x.ViewModel)
-                          .Do(OnBindingDataContext)
-                          .BindTo(this, x => x.DataContext));
+                    .Do(OnBindingDataContext)
+                    .BindTo(this, x => x.DataContext));
             });
             
             //

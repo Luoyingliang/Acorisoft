@@ -1,0 +1,407 @@
+﻿<w:PageView x:Class="Acorisoft.Morisa.PoW.Views.AbilityEditView"
+            x:TypeArguments="thisVM:AbilityEditViewModel"
+            xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+            xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+            xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+            xmlns:local="clr-namespace:Acorisoft.Morisa.PoW.Views"
+            xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+            xmlns:w="https://github.com/Luoyingliang/Acorisoft"
+            xmlns:thisCtls="clr-namespace:Acorisoft.Morisa.PoW.Controls"
+            xmlns:thisConvs="clr-namespace:Acorisoft.Morisa.PoW.Converters"
+            xmlns:thisVM="clr-namespace:Acorisoft.Morisa.PoW.ViewModels"
+            xmlns:thisRarity="clr-namespace:Acorisoft.Morisa.Documents;assembly=Acorisoft.Morisa"
+            xmlns:thisDoc="clr-namespace:Acorisoft.Morisa.PoW.Items"
+            xmlns:thisDocAbility="clr-namespace:Acorisoft.Morisa.PoW.Items.Abilities"
+            Background="#F1F1F1"
+            mc:Ignorable="d"
+            d:DesignHeight="1080" d:DesignWidth="1920"
+            d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,Type=thisVM:AbilityEditViewModel}">
+    <UserControl.Resources>
+        <!--<ObjectDataProvider x:Key="Category" MethodName="GetEnumValuesFriendlyName" ObjectType="{x:Type w:EnumConverter}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="thisDocAbility:Category" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="Rarity" MethodName="GetFriendlyName" ObjectType="{x:Type thisConvs:AbilityRarityConverter}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="thisRarity:Rarity" />
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>-->
+    </UserControl.Resources>
+    <Grid UseLayoutRounding="True">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="640" />
+            <ColumnDefinition MinWidth="640" Width="1*" />
+            <ColumnDefinition Width="280" />
+        </Grid.ColumnDefinitions>
+
+        <!-- Preview -->
+        <thisCtls:AbilityViewer Grid.Column="0"
+                                Ability="{Binding Document,Mode=OneWay}" />
+
+        <!-- Form -->
+        <Border Grid.Column="1"
+                CornerRadius="5"
+                Margin="4 0 0 0"
+                Background="{StaticResource App.Brushes.White}"
+                Padding="16">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="160" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="auto" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <!-- 外观与名称 -->
+                <DockPanel Height="128" LastChildFill="True" Margin="0 0 0 24">
+
+                    <!-- 图标 -->
+                    <Button Width="128" DockPanel.Dock="Left" />
+
+                    <!-- 右侧栏目 -->
+                    <DockPanel DockPanel.Dock="Right">
+                        <StackPanel Margin="8 0 0 0">
+
+                            <!-- 名称 -->
+                            <w:ContextContentControl Title="名称"
+                                                     Headline="Headline5"
+                                                     Margin="0 0 0 10">
+                                <TextBox FontSize="14"
+                                         Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                            </w:ContextContentControl>
+
+                            <!-- 稀有度 -->
+                            <w:ContextContentControl Title="稀有度"
+                                                     Headline="Headline5"
+                                                     Margin="0 10 0 0">
+                                <ComboBox x:Name="Rarity"
+                                          SelectedIndex="0"
+                                          SelectedItem="{Binding Rarity,Mode=TwoWay}"
+                                          DisplayMemberPath="Name">
+                                    <w:DataOption Name="普通" Data="{x:Static thisDoc:Rarities.General}" />
+                                    <w:DataOption Name="精英" Data="{x:Static thisDoc:Rarities.Elite}" />
+                                    <w:DataOption Name="稀有" Data="{x:Static thisDoc:Rarities.Rare}" />
+                                    <w:DataOption Name="传奇" Data="{x:Static thisDoc:Rarities.Legendary}" />
+                                    <w:DataOption Name="史诗" Data="{x:Static thisDoc:Rarities.Epic}" />
+                                </ComboBox>
+                            </w:ContextContentControl>
+                        </StackPanel>
+                    </DockPanel>
+                </DockPanel>
+
+                <!-- 分类 -->
+                <w:ContextContentControl Grid.Row="1"
+                                         Title="分类"
+                                         Headline="Headline5"
+                                         Margin="0 8">
+                    <ComboBox x:Name="Category"
+                              SelectedIndex="0"
+                              SelectedItem="{Binding Category,Mode=TwoWay}"
+                              DisplayMemberPath="Name">
+                        <w:DataOption Name="侦查系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Fedora</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="战斗系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Battle</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="防御系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Shield</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                    </ComboBox>
+                </w:ContextContentControl>
+
+                <!-- Whisper -->
+                <w:ContextContentControl Grid.Row="2"
+                                         Title="情绪"
+                                         Headline="Headline5"
+                                         Margin="0 8">
+                    <TextBox FontSize="14"
+                             Text="{Binding Whisper,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </w:ContextContentControl>
+
+                <!-- Labels -->
+                <w:ContextContentControl Grid.Row="3"
+                                         Title="标签"
+                                         Headline="Headline5"
+                                         Margin="0 8">
+                    <TextBox FontSize="14"
+                             Text="{Binding Labels,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
+                </w:ContextContentControl>
+
+                <!-- Labels -->
+                <TabControl Grid.Row="4" Margin="0 8">
+                    <TabItem Header="代价">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Top">
+                                <Button Width="32"
+                                        Height="32"
+                                        Margin="8"
+                                        Command="{Binding NewGeneralEntryCommand}"
+                                        BorderThickness="0"
+                                        Background="{StaticResource App.Brushes.Transparent}">
+                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                          Stroke="{StaticResource App.Brushes.Black}"
+                                          Stretch="Uniform"
+                                          Margin="4"/>
+                                </Button>
+                            </StackPanel>
+                            <ScrollViewer DockPanel.Dock="Bottom">
+                                <ItemsControl ItemsSource="{Binding Cost,Mode=OneWay}" >
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="32" />
+                                                </Grid.ColumnDefinitions>
+                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
+                                                <Button Grid.Column="1"
+                                                        Width="32"
+                                                        Height="32"
+                                                        Command="{Binding NewGeneralEntryCommand}"
+                                                        BorderThickness="0"
+                                                        Background="{StaticResource App.Brushes.Transparent}">
+                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                                          Stroke="{StaticResource App.Brushes.Black}"
+                                                          Stretch="Uniform"
+                                                          Margin="4"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="常规部分">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Top">
+                                <Button Width="32"
+                                        Height="32"
+                                        Margin="8"
+                                        Command="{Binding NewGeneralEntryCommand}"
+                                        BorderThickness="0"
+                                        Background="{StaticResource App.Brushes.Transparent}">
+                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                          Stroke="{StaticResource App.Brushes.Black}"
+                                          Stretch="Uniform"
+                                          Margin="4"/>
+                                </Button>
+                            </StackPanel>
+                            <ScrollViewer DockPanel.Dock="Bottom">
+                                <ItemsControl ItemsSource="{Binding General,Mode=OneWay}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="32" />
+                                                </Grid.ColumnDefinitions>
+                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
+                                                <Button Grid.Column="1"
+                                                        Width="32"
+                                                        Height="32"
+                                                        Command="{Binding NewGeneralEntryCommand}"
+                                                        BorderThickness="0"
+                                                        Background="{StaticResource App.Brushes.Transparent}">
+                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                                          Stroke="{StaticResource App.Brushes.Black}"
+                                                          Stretch="Uniform"
+                                                          Margin="4"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="隐藏部分">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Top">
+                                <Button Width="32"
+                                        Height="32"
+                                        Margin="8"
+                                        Command="{Binding NewGeneralEntryCommand}"
+                                        BorderThickness="0"
+                                        Background="{StaticResource App.Brushes.Transparent}">
+                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                          Stroke="{StaticResource App.Brushes.Black}"
+                                          Stretch="Uniform"
+                                          Margin="4"/>
+                                </Button>
+                            </StackPanel>
+                            <ScrollViewer DockPanel.Dock="Bottom">
+                                <ItemsControl ItemsSource="{Binding Hidden,Mode=OneWay}" >
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="32" />
+                                                </Grid.ColumnDefinitions>
+                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
+                                                <Button Grid.Column="1"
+                                                        Width="32"
+                                                        Height="32"
+                                                        Command="{Binding NewGeneralEntryCommand}"
+                                                        BorderThickness="0"
+                                                        Background="{StaticResource App.Brushes.Transparent}">
+                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                                          Stroke="{StaticResource App.Brushes.Black}"
+                                                          Stretch="Uniform"
+                                                          Margin="4"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="解锁部分">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Top">
+                                <Button Width="32"
+                                        Height="32"
+                                        Margin="8"
+                                        Command="{Binding NewGeneralEntryCommand}"
+                                        BorderThickness="0"
+                                        Background="{StaticResource App.Brushes.Transparent}">
+                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                          Stroke="{StaticResource App.Brushes.Black}"
+                                          Stretch="Uniform"
+                                          Margin="4"/>
+                                </Button>
+                            </StackPanel>
+                            <ScrollViewer DockPanel.Dock="Bottom">
+                                <ItemsControl ItemsSource="{Binding Unlocked,Mode=OneWay}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="32" />
+                                                </Grid.ColumnDefinitions>
+                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
+                                                <Button Grid.Column="1"
+                                                        Width="32"
+                                                        Height="32"
+                                                        Command="{Binding NewGeneralEntryCommand}"
+                                                        BorderThickness="0"
+                                                        Background="{StaticResource App.Brushes.Transparent}">
+                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                                          Stroke="{StaticResource App.Brushes.Black}"
+                                                          Stretch="Uniform"
+                                                          Margin="4"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="进化部分">
+                        <DockPanel LastChildFill="True">
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Right"
+                                        DockPanel.Dock="Top">
+                                <Button Width="32"
+                                        Height="32"
+                                        Margin="8"
+                                        Command="{Binding NewGeneralEntryCommand}"
+                                        BorderThickness="0"
+                                        Background="{StaticResource App.Brushes.Transparent}">
+                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                          Stroke="{StaticResource App.Brushes.Black}"
+                                          Stretch="Uniform"
+                                          Margin="4"/>
+                                </Button>
+                            </StackPanel>
+                            <ScrollViewer DockPanel.Dock="Bottom">
+                                <ItemsControl ItemsSource="{Binding Evolution,Mode=OneWay}" >
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="1*" />
+                                                    <ColumnDefinition Width="32" />
+                                                </Grid.ColumnDefinitions>
+                                                <thisCtls:AbilityEntryViewer Grid.Column="0" Entry="{Binding}"/>
+                                                <Button Grid.Column="1"
+                                                        Width="32"
+                                                        Height="32"
+                                                        Command="{Binding NewGeneralEntryCommand}"
+                                                        BorderThickness="0"
+                                                        Background="{StaticResource App.Brushes.Transparent}">
+                                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
+                                                          Stroke="{StaticResource App.Brushes.Black}"
+                                                          Stretch="Uniform"
+                                                          Margin="4"/>
+                                                </Button>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </DockPanel>
+                    </TabItem>
+                    <TabItem Header="详细描述">
+                        <StackPanel>
+                            <!-- Motion -->
+                            <w:ContextContentControl Grid.Row="2"
+                                                     Title="动作描述"
+                                                     Headline="Headline5"
+                                                     Margin="0 8">
+                                <TextBox FontSize="14"
+                                         Text="{Binding Motion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                         TextWrapping="Wrap" />
+                            </w:ContextContentControl>
+
+                            <!-- Subjectivity -->
+                            <w:ContextContentControl Grid.Row="2"
+                                                     Title="使用描述"
+                                                     Headline="Headline5"
+                                                     Margin="0 8">
+                                <TextBox FontSize="14"
+                                         Text="{Binding Subjectivity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                         TextWrapping="Wrap" />
+                            </w:ContextContentControl>
+                        </StackPanel>
+                    </TabItem>
+                </TabControl>
+            </Grid>
+        </Border>
+
+        <!-- ToolBar -->
+        <Border Grid.Column="2"
+                CornerRadius="5"
+                Margin="4 0 0 0"
+                Background="{StaticResource App.Brushes.White}">
+            <StackPanel>
+                <Button Content="打开Json" Command="{Binding LoadAsJsonCommand}"/>
+                <Button Content="保存为Json" Command="{Binding SaveAsJsonCommand}"/>
+            </StackPanel>
+        </Border>
+    </Grid>
+</w:PageView>

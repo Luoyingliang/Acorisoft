@@ -10,6 +10,10 @@
                 <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Light-Theme.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Themes/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows.Components;component/Themes/Components.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows.Resources;component/Themes/Resources.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Morisa.Xaml;component/Themes.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Morisa.Integrating.PoW;component/Themes/Light-Theme.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/Acorisoft.Morisa.Integrating.PoW;component/Themes/Controls.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -8,7 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Acorisoft.Foundation\Acorisoft.Foundation.csproj" />
-      <ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" />
+		<ProjectReference Include="..\Acorisoft.Generators\Acorisoft.Generators.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
       <ProjectReference Include="..\Acorisoft.Morisa.Core\Acorisoft.Morisa.Core.csproj" />
       <ProjectReference Include="..\Acorisoft.Morisa.Xaml\Acorisoft.Morisa.Xaml.csproj" />
       <ProjectReference Include="..\Acorisoft.Morisa\Acorisoft.Morisa.csproj" />
@@ -21,6 +21,7 @@
       <PackageReference Include="gong-wpf-dragdrop" Version="2.3.2" />
       <PackageReference Include="Gu.Wpf.FlipView" Version="2.0.2" />
       <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+      <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     </ItemGroup>
 
     <ItemGroup>
@@ -36,10 +37,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>SR.resx</DependentUpon>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Morisa\PoW\Views\" />
     </ItemGroup>
 
     <ItemGroup>

@@ -50,5 +50,15 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
         /// 获取或设置能力的精神内核。
         /// </summary>
         AbilitySpritCore Sprit { get; set; }
+
+        /// <summary>
+        /// 动作描述
+        /// </summary>
+        string Motion { get; set; }
+
+        /// <summary>
+        /// 主观使用描述。
+        /// </summary>
+        string Subjectivity { get; set; }
     }
 }

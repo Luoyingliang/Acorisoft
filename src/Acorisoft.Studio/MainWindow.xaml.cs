@@ -16,6 +16,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Acorisoft.Platform.Windows;
+using Acorisoft.Platform.Windows.ViewModels;
 using LiteDB;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Web.WebView2.Core.Raw;
@@ -53,6 +54,10 @@ namespace Acorisoft.Studio
             // Browser.Address = @"file://D:/Repo/HyperMD/ai1.html";
             // Browser.ShowDevTools();
             // Browser.Source = new Uri(@"file://D:/Repo/HyperMD/ai1.html");
+
+            //
+            // NavigateTo HomeView
+            (DataContext as AppViewModelBase)?.Start();
         }
 
         private bool _flag;
@@ -62,17 +67,17 @@ namespace Acorisoft.Studio
         // Test for Post value to Dom
         public async void SaveMarkdownDocument()
         {
-            if (_flag)
-            {
-                await Browser.LoadAsync(json);
-            }
-            else
-            {
-                json = await Browser.SaveAsync();
-            }
+            //if (_flag)
+            //{
+            //    await Browser.LoadAsync(json);
+            //}
+            //else
+            //{
+            //    json = await Browser.SaveAsync();
+            //}
 
 
-            _flag = !_flag;
+            //_flag = !_flag;
         }
     }
 }

@@ -71,6 +71,7 @@
                                     <TextBlock FontSize="24"
                                                Text="{Binding Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AbilityWhisper}"
                                                TextAlignment="Center"
+                                               TextWrapping="Wrap"
                                                Margin="0 32" />
 
                                     <DockPanel Margin="0 4" DockPanel.Dock="Bottom">

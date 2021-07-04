@@ -32,32 +32,36 @@ namespace Acorisoft.Morisa.Controls
         {
             if (e.NewValue is not Rarity rarity)
             {
-                return;
+                d.SetValue(RankInternProperty, Rank.One);
+            }
+            else
+            {
+
+                switch (rarity.Rank)
+                {
+                    case 2:
+                        d.SetValue(RankInternProperty, Rank.Two); break;
+                    case 3:
+                        d.SetValue(RankInternProperty, Rank.Three); break;
+                    case 4:
+                        d.SetValue(RankInternProperty, Rank.Four); break;
+                    case 5:
+                        d.SetValue(RankInternProperty, Rank.Five); break;
+                    case 6:
+                        d.SetValue(RankInternProperty, Rank.Six); break;
+                    case 7:
+                        d.SetValue(RankInternProperty, Rank.Seven); break;
+                    case 8:
+                        d.SetValue(RankInternProperty, Rank.Eight); break;
+                    case 9:
+                        d.SetValue(RankInternProperty, Rank.Nine); break;
+                    case 10:
+                        d.SetValue(RankInternProperty, Rank.Ten); break;
+                    default:
+                        d.SetValue(RankInternProperty, Rank.One); break;
+                }
             }
 
-            switch (rarity.Rank)
-            {
-                case 2:
-                    d.SetValue(RankInternProperty, Rank.Two); break;
-                case 3:
-                    d.SetValue(RankInternProperty, Rank.Three); break;
-                case 4:
-                    d.SetValue(RankInternProperty, Rank.Four); break;
-                case 5:
-                    d.SetValue(RankInternProperty, Rank.Five); break;
-                case 6:
-                    d.SetValue(RankInternProperty, Rank.Six); break;
-                case 7:
-                    d.SetValue(RankInternProperty, Rank.Seven); break;
-                case 8:
-                    d.SetValue(RankInternProperty, Rank.Eight); break;
-                case 9:
-                    d.SetValue(RankInternProperty, Rank.Nine); break;
-                case 10:
-                    d.SetValue(RankInternProperty, Rank.Ten); break;
-                default:
-                    d.SetValue(RankInternProperty, Rank.One); break;
-            }
         }
 
         public Rank RankIntern

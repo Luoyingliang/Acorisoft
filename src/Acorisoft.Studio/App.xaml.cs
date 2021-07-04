@@ -24,6 +24,7 @@ namespace Acorisoft.Studio
             if (ViewModelGenerated.Version < 1)
             {
                 ViewModelGenerated.Initialize();
+                Acorisoft.Morisa.ViewModelGenerated.Initialize();
                 ServiceHost.Container.RegisterInstance(ViewModelLocator.AppViewModel);
                 ServiceHost.Container.UseInstance<IScreen>(ViewModelLocator.AppViewModel);
             }

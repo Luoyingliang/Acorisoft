@@ -12,15 +12,18 @@ namespace Acorisoft.Platform.Windows.Panels
     {
         protected sealed override Size MeasureOverride(Size availableSize)
         {
+            var height = 0d;
+            var width = 0d;
+
             foreach (FrameworkElement element in Children)
             {
                 element.Measure(availableSize);
-            }
 
-            availableSize.Width = Math.Max(24, availableSize.Width);
-            availableSize.Height = Math.Max(24, availableSize.Height);
+                height = Math.Max(height, element.DesiredSize.Height);
+                width = Math.Max(width, element.DesiredSize.Width);
+            }            
 
-            return availableSize;
+            return new Size(width, height);
         }
 
         protected sealed override Size ArrangeOverride(Size finalSize)

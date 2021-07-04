@@ -19,6 +19,11 @@ namespace Acorisoft.Platform.Windows.Controls
     [ContentProperty("Content")]
     public class AppServiceHost : ContentControl
     {
+        static AppServiceHost()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(AppServiceHost), new FrameworkPropertyMetadata(typeof(AppServiceHost)));
+        }
+        
         //--------------------------------------------------------------------------------------------------------------
         //
         // IAwaitService Implementations
@@ -137,6 +142,9 @@ namespace Acorisoft.Platform.Windows.Controls
         #region Dialog
 
         private IDisposable _dialogDisposable;
+        private IDisposable _dialogOpeningDisposable;
+        private IDisposable _dialogClosingDisposable;
+        private IDisposable _dialogUpdatingDisposable;
 
         private static void OnDialogServiceChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -153,14 +161,63 @@ namespace Acorisoft.Platform.Windows.Controls
             }
 
             host._dialogDisposable?.Dispose();
+            host._dialogClosingDisposable?.Dispose();
+            host._dialogOpeningDisposable?.Dispose();
+            host._dialogUpdatingDisposable?.Dispose();
+            
+            
             host._dialogDisposable = newServ.DialogStream
                                      /*   */.ObserveOn(RxApp.MainThreadScheduler)
                                      /*   */.Subscribe(host.OnReceiveDialogParam);
+            
+            host._dialogClosingDisposable = newServ.DialogClosingStream
+                                    /*   */.ObserveOn(RxApp.MainThreadScheduler)
+                                    /*   */.Subscribe(host.OnDialogClosing);
+            
+            host._dialogOpeningDisposable = newServ.DialogOpeningStream
+                                    /*   */.ObserveOn(RxApp.MainThreadScheduler)
+                                    /*   */.Subscribe(host.OnDialogOpening);
+            
+            host._dialogUpdatingDisposable = newServ.DialogUpdatingStream
+                                    /*   */.ObserveOn(RxApp.MainThreadScheduler)
+                                    /*   */.Subscribe(host.OnDialogUpdating);
         }
 
         private void OnReceiveDialogParam(IDialogViewModel dialog)
         {
             Dialog = dialog;
+        }
+
+        private void OnDialogClosing(Unit _)
+        {
+            RaiseEvent(new RoutedEventArgs
+            {
+                RoutedEvent = DialogClosingEvent
+            });
+        }
+        
+        private void OnDialogOpening(Unit _)
+        {
+            RaiseEvent(new RoutedEventArgs
+            {
+                RoutedEvent = DialogOpeningEvent
+            });
+        }
+        
+        private void OnDialogUpdating(IDialogViewModel dialog)
+        {
+            RaiseEvent(new RoutedEventArgs
+            {
+                RoutedEvent = DialogClosingEvent
+            });
+            
+            
+            Dialog = dialog;
+            
+            RaiseEvent(new RoutedEventArgs
+            {
+                RoutedEvent = DialogOpeningEvent
+            });
         }
 
         public static readonly RoutedEvent DialogOpeningEvent = EventManager.RegisterRoutedEvent("DialogOpening", RoutingStrategy.Bubble, typeof(RoutedEventHandler), typeof(AppServiceHost));

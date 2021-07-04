@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Reactive;
 using System.Threading.Tasks;
 using Acorisoft.Platform.Windows.ViewModels;
 
@@ -29,6 +30,13 @@ namespace Acorisoft.Platform.Windows
         /// 获取内容
         /// </summary>
         object Result { get; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <returns></returns>
+        T GetResult<T>();
     }
     
     /// <summary>
@@ -36,16 +44,10 @@ namespace Acorisoft.Platform.Windows
     /// </summary>
     public interface IDialogSupportService
     {
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="param"></param>
-        /// <returns></returns>
-        Task<IDialogSession> OpenDialog(DialogParam param);
-        
-        /// <summary>
-        /// 获取对话框视图模型。
-        /// </summary>
-        IObservable<IDialogViewModel> DialogStream { get; }
+        Task<IDialogSession> OpenDialog(IDialogViewModel vm);
+        public IObservable<IDialogViewModel> DialogStream { get; }
+        public IObservable<Unit> DialogOpeningStream { get; }
+        public IObservable<Unit> DialogClosingStream { get; }
+        public IObservable<IDialogViewModel> DialogUpdatingStream { get; }
     }
 }

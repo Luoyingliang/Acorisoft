@@ -130,8 +130,14 @@
                         <w:TilePanel>
                             <Image x:Name="PART_Decorative" Stretch="Uniform"/>
                             <Image x:Name="PART_Icon"
-                                   Stretch="Uniform"
-                                   Source="{Binding Mode=OneWay,RelativeSource={RelativeSource Mode=TemplatedParent},Path=Ability,Converter={StaticResource Icon}}"/>
+                                   Stretch="Uniform">
+                                <Image.Source>
+                                    <MultiBinding Converter="{StaticResource Icon}">
+                                        <Binding Path="Category" Mode="OneWay" RelativeSource="{RelativeSource Mode=TemplatedParent}"/>
+                                        <Binding Path="Icon" Mode="OneWay" RelativeSource="{RelativeSource Mode=TemplatedParent}"/>
+                                    </MultiBinding>
+                                </Image.Source>
+                            </Image>
                         </w:TilePanel>
                     </Border>
                     <ControlTemplate.Triggers>

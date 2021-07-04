@@ -10,7 +10,7 @@ namespace Acorisoft.Platform.Windows.Services
     /// </summary>
     public static class ServiceHost
     {
-        private static readonly Lazy<IDialogSupportService> DialogSupportServiceLazyInstance = new Lazy<IDialogSupportService>();
+        private static readonly Lazy<IDialogSupportService> DialogSupportServiceLazyInstance = new Lazy<IDialogSupportService>(new DialogSupportService());
         private static readonly Lazy<INavigateSupportService> NavigateSupportServiceLazyInstance = new Lazy<INavigateSupportService>(new NavigateSupportService());
         private static readonly Lazy<IExtraViewSupportService> ExtraViewSupportServiceLazyInstance = new Lazy<IExtraViewSupportService>(new ExtraViewSupportService());
         private static readonly Lazy<IPromptSupportService> PromptSupportServiceLazyInstance = new Lazy<IPromptSupportService>();
@@ -49,7 +49,7 @@ namespace Acorisoft.Platform.Windows.Services
         /// <summary>
         /// 获取全局的 <see cref="IDialogSupportService"/> 接口服务。
         /// </summary>
-        internal static IDialogSupportService DialogSupportService => DialogSupportServiceLazyInstance.Value;
+        public static IDialogSupportService DialogSupportService => DialogSupportServiceLazyInstance.Value;
 
         /// <summary>
         /// 获取全局的 <see cref="INavigateSupportService"/> 接口服务。

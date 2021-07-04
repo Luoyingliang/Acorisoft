@@ -96,8 +96,7 @@ namespace Acorisoft.Platform.Windows.ViewModels
                 _oldPage = _newPage;
                 _newPage = page;
                 _newPageTitleDisposable?.Dispose();
-                _newPageTitleDisposable = _newPage.TitleStream.ObserveOn(RxApp.MainThreadScheduler).Subscribe(x => Title = x);
-                Title = await _newPage.TitleStream.LastAsync();
+                _newPageTitleDisposable = _newPage.TitleStream.ObserveOn(RxApp.MainThreadScheduler).Subscribe(x => Title = x);                
                 await Router.Navigate.Execute((IRoutableViewModel) page);
             }
             else

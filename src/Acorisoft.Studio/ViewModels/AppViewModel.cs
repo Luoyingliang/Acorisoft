@@ -1,3 +1,5 @@
+using Acorisoft.Morisa.PoW.ViewModels;
+using Acorisoft.Morisa.PoW.Views;
 using Acorisoft.Platform.Windows.ViewModels;
 
 namespace Acorisoft.Studio.ViewModels
@@ -7,6 +9,14 @@ namespace Acorisoft.Studio.ViewModels
     /// </summary>
     public class AppViewModel : AppViewModelBase
     {
-        
+        public AppViewModel()
+        {
+            Title = "首页";
+        }
+
+        public override void Start()
+        {
+            Navigate<AbilityEditViewModel>();
+        }
     }
 }

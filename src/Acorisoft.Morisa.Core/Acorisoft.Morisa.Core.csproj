@@ -9,6 +9,7 @@
   <ItemGroup>
     <PackageReference Include="LiteDB" Version="5.0.10" />
     <PackageReference Include="MediatR" Version="9.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="NLog" Version="4.7.10" />
     <PackageReference Include="Splat" Version="11.1.1" />
     <PackageReference Include="Splat.DryIoc" Version="11.1.1" />

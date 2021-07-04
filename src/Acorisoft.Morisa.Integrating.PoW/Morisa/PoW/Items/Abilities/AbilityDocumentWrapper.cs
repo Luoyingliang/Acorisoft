@@ -145,5 +145,31 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
                 RaiseUpdated();
             } 
         }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string Motion
+        {
+            get => Source.Motion;
+            set
+            {
+                Source.Motion = value;
+                RaiseUpdated();
+            }
+        }
+
+        /// <summary>
+        ///
+        /// </summary>
+        public string Subjectivity
+        {
+            get => Source.Subjectivity;
+            set
+            {
+                Source.Subjectivity = value;
+                RaiseUpdated();
+            }
+        }
     }
 }

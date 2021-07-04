@@ -1,4 +1,5 @@
-﻿using Acorisoft.Morisa.Documents;
+﻿using System.ComponentModel;
+using Acorisoft.Morisa.Documents;
 using Acorisoft.Morisa.PoW.Items.Abilities;
 using Acorisoft.Morisa.Resources;
 using System.Windows;
@@ -17,23 +18,44 @@ namespace Acorisoft.Morisa.PoW.Controls
 
         private static void OnAbilityChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
+            var viewer = (AbilityViewer) d;
+            
             if(e.NewValue is not IAbilityDocument ability)
             {
-                return;
+                d.SetValue(AbilityNameProperty, "技能名称");
+                d.SetValue(AbilityRarityProperty, new Rarity { Rank = 5 });
             }
-            
-            d.SetValue(AbilityIconProperty, ability.Icon);
-            d.SetValue(AbilityNameProperty, ability.Name);
-            d.SetValue(AbilityRarityProperty, ability.Rarity);
-            d.SetValue(AbiltiyStoryProperty, ability.Storyboard);
-            d.SetValue(AbilityCostProperty, ability.Cost);
-            d.SetValue(AbilityEvolutionProperty, ability.Evolution);
-            d.SetValue(AbilityGeneralProperty, ability.General);
-            d.SetValue(AbilityHiddenProperty, ability.Hidden);
-            d.SetValue(AbilityUnlockedProperty, ability.Unlocked);
-            d.SetValue(AbilityCategoryProperty, ability.Category);
-            d.SetValue(AbilityLabelsProperty, ability.Labels);
-            d.SetValue(AbilityWhisperProperty, ability.Whisper);
+            else
+            {
+                if(e.OldValue is AbilityDocumentWrapper oldWrapper)
+                {
+                    oldWrapper.PropertyChanged -= viewer.PerformanceDocumentChanged;
+                }
+
+                if (e.NewValue is AbilityDocumentWrapper newWrapper)
+                {
+                    newWrapper.PropertyChanged += viewer.PerformanceDocumentChanged;
+                }
+                viewer.PerformanceDocumentChanged(ability, new PropertyChangedEventArgs(""));
+            }
+        }
+
+
+        private void PerformanceDocumentChanged(object sender, PropertyChangedEventArgs e)
+        {
+            var ability = (IAbilityDocument) sender;
+            SetValue(AbilityIconProperty, ability.Icon);
+            SetValue(AbilityNameProperty, ability.Name);
+            SetValue(AbilityRarityProperty, ability.Rarity);
+            SetValue(AbiltiyStoryProperty, ability.Storyboard);
+            SetValue(AbilityCostProperty, ability.Cost);
+            SetValue(AbilityEvolutionProperty, ability.Evolution);
+            SetValue(AbilityGeneralProperty, ability.General);
+            SetValue(AbilityHiddenProperty, ability.Hidden);
+            SetValue(AbilityUnlockedProperty, ability.Unlocked);
+            SetValue(AbilityCategoryProperty, ability.Category);
+            SetValue(AbilityLabelsProperty, ability.Labels);
+            SetValue(AbilityWhisperProperty, ability.Whisper);
         }
 
         #region DependencyProperty
@@ -196,7 +218,7 @@ namespace Acorisoft.Morisa.PoW.Controls
             "AbilityRarity",
             typeof(Rarity),
              typeof(AbilityViewer),
-             new PropertyMetadata(null));
+             new PropertyMetadata(new Rarity { Rank = 1 }));
 
         private static readonly DependencyPropertyKey AbiltiyStoryProperty = DependencyProperty.RegisterReadOnly(
             "AbiltiyStory",
@@ -214,7 +236,7 @@ namespace Acorisoft.Morisa.PoW.Controls
             "AbilityName",
             typeof(string),
              typeof(AbilityViewer),
-             new PropertyMetadata(null));
+             new PropertyMetadata("技能名称"));
 
 
 

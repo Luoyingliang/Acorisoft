@@ -1,9 +1,11 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Acorisoft.Platform.Windows.Services;
 using ReactiveUI;
 using Splat;
+// ReSharper disable CA1822
 
 namespace Acorisoft.Platform.Windows.ViewModels
 {
@@ -19,6 +21,35 @@ namespace Acorisoft.Platform.Windows.ViewModels
         //
         //--------------------------------------------------------------------------------------------------------------
         #region Navigate Methods
+
+        protected Task<IDialogSession> Dialog<TDialog>() where TDialog : DialogViewModel, IDialogViewModel
+        {
+            var vm = Locator.Current.GetService<TDialog>();
+            return ServiceHost.DialogSupportService.OpenDialog(vm);
+        }
+        
+        protected async Task<T> Dialog<TDialog, T>() where TDialog : DialogViewModel, IDialogViewModel
+        {
+            var vm = Locator.Current.GetService<TDialog>();
+            var session = await ServiceHost.DialogSupportService.OpenDialog(vm);
+
+            if (session.IsCompleted )
+            {
+                if (session.GetResult<T>() is T value)
+                {
+                    return value;
+                }
+                else
+                {
+                    if (session.Result is T newVal)
+                    {
+                        return newVal;
+                    }
+                }
+            }
+
+            return default(T);
+        }
         
         public void Navigate<TViewModel>() where TViewModel : PageViewModel, IPageViewModel
         {
