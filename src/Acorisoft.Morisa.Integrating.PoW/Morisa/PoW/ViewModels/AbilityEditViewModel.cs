@@ -13,6 +13,8 @@ using Acorisoft.Morisa.Resources;
 using Acorisoft.Platform.Windows.Controls;
 using Newtonsoft.Json;
 using ReactiveUI;
+using System.Reactive.Subjects;
+using System.Reactive;
 // ReSharper disable ValueParameterNotUsed
 // ReSharper disable ConvertToAutoProperty
 // ReSharper disable ConvertToAutoPropertyWithPrivateSetter
@@ -28,6 +30,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         private readonly ICommand _newHiddenEntryCommand;
         private readonly ICommand _loadAsJsonCommand;
         private readonly ICommand _saveAsJsonCommand;
+        private readonly ISubject<Unit> _update;
         
         private AbilityDocument _document;
         private IAbilityDocument _documentWrapper;
@@ -43,6 +46,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
             _newHiddenEntryCommand = ReactiveCommand.Create(OnNewAbilityEntryToHidden);
             _loadAsJsonCommand = ReactiveCommand.Create(OnLoadAsJson);
             _saveAsJsonCommand = ReactiveCommand.Create(OnSaveAsJson);
+            _update = new Subject<Unit>();
 
             //
             // 创建一个新的能力
@@ -184,6 +188,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
             RaiseUpdated(nameof(Storyboard));
             RaiseUpdated(nameof(Sprit));
             RaiseUpdated(nameof(Subjectivity));
+            _update.OnNext(Unit.Default);
         }
 
         /// <summary>
@@ -198,7 +203,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         public ICommand NewUnlockedEntryCommand => _newUnlockedEntryCommand;
         public ICommand NewEvolutionEntryCommand => _newEvolutionEntryCommand;
         public ICommand NewHiddenEntryCommand => _newHiddenEntryCommand;
-        
+        public IObservable<Unit> Update => _update;
 
         public DataOption Rarity
         {
