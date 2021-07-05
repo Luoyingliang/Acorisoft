@@ -18,23 +18,18 @@
             d:DesignHeight="1080" d:DesignWidth="1920"
             d:DataContext="{d:DesignInstance IsDesignTimeCreatable=True,Type=thisVM:AbilityEditViewModel}">
     <UserControl.Resources>
+        <w:BindingProxy x:Key="ViewModel" Data="{Binding}"/>
         <DataTemplate x:Key="Entry" DataType="{x:Type thisDocAbility:AbilityEntry}">
             <DockPanel Margin="0 8"
                        Background="{StaticResource App.Brushes.White}"
                        DockPanel.Dock="Bottom">
                 <thisCtls:AbilityEntryViewer Entry="{Binding }" DockPanel.Dock="Left"/>
-                <Button Width="32"
-                        Height="32"
-                        Margin="8"
-                        Command="{Binding NewCostEntryCommand}"
-                        BorderThickness="0"
-                        Background="{StaticResource App.Brushes.Transparent}"
-                        DockPanel.Dock="Right">
-                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                          Stroke="{StaticResource App.Brushes.Black}"
-                          Stretch="Uniform"
-                          Margin="4"/>
-                </Button>
+                <w:GeometryButton Width="32"
+                                  Height="32"
+                                  Margin="8"
+                                  DataContext="{StaticResource ViewModel}"
+                                  Command="{Binding Data.RemoveEntryCommand}"
+                                  Icon="{StaticResource App.Icon.Remove}"/>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -46,7 +41,8 @@
         </Grid.ColumnDefinitions>
 
         <!-- Preview -->
-        <thisCtls:AbilityViewer Grid.Column="0"
+        <thisCtls:AbilityViewer x:Name="Viewer"
+                                Grid.Column="0"
                                 Ability="{Binding Document,Mode=OneWay}" />
 
         <!-- Form -->
@@ -187,17 +183,11 @@
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Right"
                                         DockPanel.Dock="Top">
-                                <Button Width="32"
-                                        Height="32"
-                                        Margin="8"
-                                        Command="{Binding NewCostEntryCommand}"
-                                        BorderThickness="0"
-                                        Background="{StaticResource App.Brushes.Transparent}">
-                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                          Stroke="{StaticResource App.Brushes.Black}"
-                                          Stretch="Uniform"
-                                          Margin="4"/>
-                                </Button>
+                                <w:GeometryButton Width="32"
+                                                  Height="32"
+                                                  Margin="8"
+                                                  Icon="{StaticResource App.Icon.Add.Circle}"
+                                                  Command="{Binding NewCostEntryCommand}"/>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
                                 <ItemsControl ItemsSource="{Binding Cost,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
@@ -209,17 +199,11 @@
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Right"
                                         DockPanel.Dock="Top">
-                                <Button Width="32"
-                                        Height="32"
-                                        Margin="8"
-                                        Command="{Binding NewGeneralEntryCommand}"
-                                        BorderThickness="0"
-                                        Background="{StaticResource App.Brushes.Transparent}">
-                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                          Stroke="{StaticResource App.Brushes.Black}"
-                                          Stretch="Uniform"
-                                          Margin="4"/>
-                                </Button>
+                                <w:GeometryButton Width="32"
+                                                  Height="32"
+                                                  Margin="8"
+                                                  Icon="{StaticResource App.Icon.Add.Circle}"
+                                                  Command="{Binding NewGeneralEntryCommand}"/>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
                                 <ItemsControl ItemsSource="{Binding General,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
@@ -231,17 +215,11 @@
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Right"
                                         DockPanel.Dock="Top">
-                                <Button Width="32"
-                                        Height="32"
-                                        Margin="8"
-                                        Command="{Binding NewHiddenEntryCommand}"
-                                        BorderThickness="0"
-                                        Background="{StaticResource App.Brushes.Transparent}">
-                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                          Stroke="{StaticResource App.Brushes.Black}"
-                                          Stretch="Uniform"
-                                          Margin="4"/>
-                                </Button>
+                                <w:GeometryButton Width="32"
+                                                  Height="32"
+                                                  Margin="8"
+                                                  Icon="{StaticResource App.Icon.Add.Circle}"
+                                                  Command="{Binding NewHiddenEntryCommand}"/>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
                                 <ItemsControl ItemsSource="{Binding Hidden,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
@@ -253,17 +231,11 @@
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Right"
                                         DockPanel.Dock="Top">
-                                <Button Width="32"
-                                        Height="32"
-                                        Margin="8"
-                                        Command="{Binding NewUnlockedEntryCommand}"
-                                        BorderThickness="0"
-                                        Background="{StaticResource App.Brushes.Transparent}">
-                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                          Stroke="{StaticResource App.Brushes.Black}"
-                                          Stretch="Uniform"
-                                          Margin="4"/>
-                                </Button>
+                                <w:GeometryButton Width="32"
+                                                  Height="32"
+                                                  Margin="8"
+                                                  Icon="{StaticResource App.Icon.Add.Circle}"
+                                                  Command="{Binding NewUnlockedEntryCommand}"/>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
                                 <ItemsControl ItemsSource="{Binding Unlocked,Mode=OneWay}" ItemTemplate="{StaticResource Entry}"/>
@@ -275,17 +247,11 @@
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Right"
                                         DockPanel.Dock="Top">
-                                <Button Width="32"
-                                        Height="32"
-                                        Margin="8"
-                                        Command="{Binding NewEvolutionEntryCommand}"
-                                        BorderThickness="0"
-                                        Background="{StaticResource App.Brushes.Transparent}">
-                                    <Path Data="{StaticResource App.Icon.Add.Circle}"
-                                          Stroke="{StaticResource App.Brushes.Black}"
-                                          Stretch="Uniform"
-                                          Margin="4"/>
-                                </Button>
+                                <w:GeometryButton Width="32"
+                                                  Height="32"
+                                                  Margin="8"
+                                                  Icon="{StaticResource App.Icon.Add.Circle}"
+                                                  Command="{Binding NewEvolutionEntryCommand}"/>
                             </StackPanel>
                             <ScrollViewer DockPanel.Dock="Bottom">
                                 <ItemsControl ItemsSource="{Binding Evolution,Mode=OneWay}"  ItemTemplate="{StaticResource Entry}"/>
@@ -293,27 +259,33 @@
                         </DockPanel>
                     </TabItem>
                     <TabItem Header="详细描述">
-                        <StackPanel>
-                            <!-- Motion -->
-                            <w:ContextContentControl Grid.Row="2"
+                        <ScrollViewer>
+                            <StackPanel>
+                                <!-- Motion -->
+                                <w:ContextContentControl Grid.Row="2"
                                                      Title="动作描述"
                                                      Headline="Headline5"
                                                      Margin="0 8">
-                                <TextBox FontSize="14"
+                                    <TextBox FontSize="14"
+                                         AcceptsReturn="True"
+                                         AcceptsTab="True"
                                          Text="{Binding Motion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          TextWrapping="Wrap" />
-                            </w:ContextContentControl>
+                                </w:ContextContentControl>
 
-                            <!-- Subjectivity -->
-                            <w:ContextContentControl Grid.Row="2"
+                                <!-- Subjectivity -->
+                                <w:ContextContentControl Grid.Row="2"
                                                      Title="使用描述"
                                                      Headline="Headline5"
                                                      Margin="0 8">
-                                <TextBox FontSize="14"
+                                    <TextBox FontSize="14"
+                                         AcceptsReturn="True"
+                                         AcceptsTab="True"
                                          Text="{Binding Subjectivity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          TextWrapping="Wrap" />
-                            </w:ContextContentControl>
-                        </StackPanel>
+                                </w:ContextContentControl>
+                            </StackPanel>
+                        </ScrollViewer>
                     </TabItem>
                 </TabControl>
             </Grid>
@@ -324,15 +296,24 @@
                 CornerRadius="5"
                 Margin="4 0 0 0"
                 Background="{StaticResource App.Brushes.White}">
-            <StackPanel>
-                <Button Content="打开Json" Command="{Binding LoadAsJsonCommand}"/>
-                <Button Content="保存为Json" Command="{Binding SaveAsJsonCommand}"/>
-                <thisCtls:AbilityEntryViewer>
-                    <thisCtls:AbilityEntryViewer.Entry>
-                        <thisDocAbility:AbilityEntry Name="Hello" Description="1231 3123"/>
-                    </thisCtls:AbilityEntryViewer.Entry>
-                </thisCtls:AbilityEntryViewer>
-            </StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="40" />
+                    <RowDefinition Height="1*" />
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0 0 0 8">
+                    <w:GeometryButton Icon="{StaticResource App.Icon.Snapshot}"
+                                      Click="MakeSnapshot"/>
+                </StackPanel>
+
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0 0 0 8">
+                    <Button Content="打开Json" Command="{Binding LoadAsJsonCommand}"/>
+                    <Button Content="保存为Json" Command="{Binding SaveAsJsonCommand}"/>
+                </StackPanel>
+            </Grid>
         </Border>
     </Grid>
 </w:PageView>

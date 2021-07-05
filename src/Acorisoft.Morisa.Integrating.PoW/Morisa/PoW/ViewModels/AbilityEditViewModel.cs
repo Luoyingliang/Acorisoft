@@ -1,6 +1,7 @@
 ﻿using Acorisoft.Platform.Windows.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,6 +19,8 @@ using System.Reactive;
 // ReSharper disable ValueParameterNotUsed
 // ReSharper disable ConvertToAutoProperty
 // ReSharper disable ConvertToAutoPropertyWithPrivateSetter
+// ReSharper disable LocalizableElement
+// ReSharper disable StringLiteralTypo
 
 namespace Acorisoft.Morisa.PoW.ViewModels
 {
@@ -28,6 +31,12 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         private readonly ICommand _newUnlockedEntryCommand;
         private readonly ICommand _newEvolutionEntryCommand;
         private readonly ICommand _newHiddenEntryCommand;
+        private readonly ICommand _removeEntryCommand;
+        private readonly ICommand _clearCostEntryCommand;
+        private readonly ICommand _clearGeneralEntryCommand;
+        private readonly ICommand _clearUnlockedEntryCommand;
+        private readonly ICommand _clearEvolutionEntryCommand;
+        private readonly ICommand _clearHiddenEntryCommand;
         private readonly ICommand _loadAsJsonCommand;
         private readonly ICommand _saveAsJsonCommand;
         private readonly ISubject<Unit> _update;
@@ -40,11 +49,17 @@ namespace Acorisoft.Morisa.PoW.ViewModels
 
         public AbilityEditViewModel()
         {
-            _newCostEntryCommand = ReactiveCommand.Create(OnNewAbilityEntryToCost);
-            _newGeneralEntryCommand = ReactiveCommand.Create(OnNewAbilityEntryToGeneral);
-            _newUnlockedEntryCommand = ReactiveCommand.Create(OnNewAbilityEntryToUnlocked);
-            _newEvolutionEntryCommand = ReactiveCommand.Create(OnNewAbilityEntryToEvolution);
-            _newHiddenEntryCommand = ReactiveCommand.Create(OnNewAbilityEntryToHidden);
+            _newCostEntryCommand = ReactiveCommand.Create(() => OnNewAbilityEntry(_documentWrapper.Cost));
+            _newGeneralEntryCommand = ReactiveCommand.Create(() => OnNewAbilityEntry(_documentWrapper.General));
+            _newUnlockedEntryCommand = ReactiveCommand.Create(() => OnNewAbilityEntry(_documentWrapper.Unlocked));
+            _newEvolutionEntryCommand = ReactiveCommand.Create(() => OnNewAbilityEntry(_documentWrapper.Evolution));
+            _newHiddenEntryCommand = ReactiveCommand.Create(() => OnNewAbilityEntry(_documentWrapper.Hidden));
+            _clearCostEntryCommand = ReactiveCommand.Create(() => OnClearAbilityEntry(_documentWrapper.Cost));
+            _clearGeneralEntryCommand = ReactiveCommand.Create(() => OnClearAbilityEntry(_documentWrapper.General));
+            _clearUnlockedEntryCommand = ReactiveCommand.Create(() => OnClearAbilityEntry(_documentWrapper.Unlocked));
+            _clearEvolutionEntryCommand = ReactiveCommand.Create(() => OnClearAbilityEntry(_documentWrapper.Evolution));
+            _clearHiddenEntryCommand = ReactiveCommand.Create(() => OnClearAbilityEntry(_documentWrapper.Hidden));
+            _removeEntryCommand = ReactiveCommand.Create<AbilityEntry>(OnRemoveAbilityEntry);
             _loadAsJsonCommand = ReactiveCommand.Create(OnLoadAsJson);
             _saveAsJsonCommand = ReactiveCommand.Create(OnSaveAsJson);
             _update = new Subject<Unit>();
@@ -68,19 +83,21 @@ namespace Acorisoft.Morisa.PoW.ViewModels
                 Filter = "ason|*.ason"
             };
 
-            if (opendlg.ShowDialog() == DialogResult.OK)
+            if (opendlg.ShowDialog() != DialogResult.OK)
             {
-                var fileName = opendlg.FileName;
-                var json = File.ReadAllText(fileName);
-                try
-                {
-                    var document = JsonConvert.DeserializeObject<AbilityDocument>(json);
-                    OnNewAbility(document);
-                }
-                catch
-                {
-                    
-                }
+                return;
+            }
+            
+            var fileName = opendlg.FileName;
+            var json = File.ReadAllText(fileName);
+            try
+            {
+                var document = JsonConvert.DeserializeObject<AbilityDocument>(json);
+                OnNewAbility(document);
+            }
+            catch
+            {
+                Debug.WriteLine("发生意外的错误");
             }
         }
         protected void OnSaveAsJson()
@@ -93,11 +110,13 @@ namespace Acorisoft.Morisa.PoW.ViewModels
                 Filter = "ason|*.ason"
             };
 
-            if (!string.IsNullOrEmpty(json) && savedlg.ShowDialog() == DialogResult.OK)
+            if (string.IsNullOrEmpty(json) || savedlg.ShowDialog() != DialogResult.OK)
             {
-                var fileName = savedlg.FileName;
-                File.WriteAllText(fileName, json);
+                return;
             }
+            
+            var fileName = savedlg.FileName;
+            File.WriteAllText(fileName, json);
         }
 
         protected virtual void OnChangeRarity(DataOption value)
@@ -119,57 +138,60 @@ namespace Acorisoft.Morisa.PoW.ViewModels
 
             _documentWrapper.Category = newCategory;
         }
-
-        protected async void OnNewAbilityEntryToCost()
+        
+        protected async void OnNewAbilityEntry(AbilityEntryPart part)
         {
             var entry = await Dialog<NewAbilityEntryViewModel, AbilityEntry>();
 
             if (entry != null)
             {
-                _documentWrapper.Cost.Add(entry);
+                part.Add(entry);
             }
         }
         
-        protected async void OnNewAbilityEntryToHidden()
+        protected void OnRemoveAbilityEntry(AbilityEntry entry)
         {
-            var entry = await Dialog<NewAbilityEntryViewModel, AbilityEntry>();
-
-            if (entry != null)
+            if (entry == null)
             {
-                _documentWrapper.Hidden.Add(entry);
+                return;
+            }
+
+            if (_document.Cost.Remove(entry))
+            {
+                return;
+            }
+            
+            if (_document.General.Remove(entry))
+            {
+                return;
+            }
+            
+            if (_document.Unlocked.Remove(entry))
+            {
+                return;
+            }
+            
+            if (_document.Evolution.Remove(entry))
+            {
+                return;
+            }
+            
+            if (_document.Hidden.Remove(entry))
+            {
+                return;
             }
         }
         
-        protected async void OnNewAbilityEntryToEvolution()
+        protected void OnClearAbilityEntry(AbilityEntryPart part)
         {
-            var entry = await Dialog<NewAbilityEntryViewModel, AbilityEntry>();
-
-            if (entry != null)
+            if (part == null)
             {
-                _documentWrapper.Evolution.Add(entry);
+                return;
             }
+
+            part.Clear();
         }
         
-        protected async void OnNewAbilityEntryToGeneral()
-        {
-            var entry = await Dialog<NewAbilityEntryViewModel, AbilityEntry>();
-
-            if (entry != null)
-            {
-                _documentWrapper.General.Add(entry);
-            }
-        }
-        
-        protected async void OnNewAbilityEntryToUnlocked()
-        {
-            var entry = await Dialog<NewAbilityEntryViewModel, AbilityEntry>();
-
-            if (entry != null)
-            {
-                _documentWrapper.Unlocked.Add(entry);
-            }
-        }
-
 
         /// <summary>
         /// 当有新的能力更新的时候使用该方法。
@@ -189,6 +211,11 @@ namespace Acorisoft.Morisa.PoW.ViewModels
             RaiseUpdated(nameof(Storyboard));
             RaiseUpdated(nameof(Sprit));
             RaiseUpdated(nameof(Subjectivity));
+            RaiseUpdated(nameof(Cost));
+            RaiseUpdated(nameof(General));
+            RaiseUpdated(nameof(Hidden));
+            RaiseUpdated(nameof(Unlocked));
+            RaiseUpdated(nameof(Evolution));
             _update.OnNext(Unit.Default);
         }
 
@@ -196,7 +223,6 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         /// 获取当前文档。
         /// </summary>
         public IAbilityDocument Document => _documentWrapper;
-
         public ICommand LoadAsJsonCommand => _loadAsJsonCommand;
         public ICommand SaveAsJsonCommand => _saveAsJsonCommand;
         public ICommand NewCostEntryCommand => _newCostEntryCommand;
@@ -204,6 +230,12 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         public ICommand NewUnlockedEntryCommand => _newUnlockedEntryCommand;
         public ICommand NewEvolutionEntryCommand => _newEvolutionEntryCommand;
         public ICommand NewHiddenEntryCommand => _newHiddenEntryCommand;
+        public ICommand RemoveEntryCommand => _removeEntryCommand;
+        public ICommand ClearCostEntryCommand => _clearCostEntryCommand;
+        public ICommand ClearGeneralEntryCommand => _clearGeneralEntryCommand;
+        public ICommand ClearUnlockedEntryCommand => _clearUnlockedEntryCommand;
+        public ICommand ClearEvolutionEntryCommand => _clearEvolutionEntryCommand;
+        public ICommand ClearHiddenEntryCommand => _clearHiddenEntryCommand;
         public IObservable<Unit> Update => _update;
 
         public DataOption Rarity
@@ -247,7 +279,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
                 }
 
                 _documentWrapper.Type = newType;
-                _category = value;
+                _type = value;
             }
         }
 

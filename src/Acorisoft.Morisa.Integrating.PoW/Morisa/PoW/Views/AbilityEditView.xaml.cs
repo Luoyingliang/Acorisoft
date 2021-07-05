@@ -19,6 +19,9 @@ using ReactiveUI;
 using Acorisoft.Platform.Windows.Controls;
 using Acorisoft.Morisa.PoW.Items.Abilities;
 using Acorisoft.Morisa.Documents;
+using Acorisoft.Platform.Windows;
+using System.Windows.Forms;
+using System.IO;
 
 namespace Acorisoft.Morisa.PoW.Views
 {
@@ -64,7 +67,43 @@ namespace Acorisoft.Morisa.PoW.Views
 
                     index++;
                 }
+
+                index = 0;
+
+                foreach (DataOption item in Type.Items)
+                {
+                    if (item?.Data is AbilityType type && type == ViewModel.Document.Type)
+                    {
+                        Type.SelectedIndex = index;
+                    }
+
+                    index++;
+                }
             });
+        }
+
+        private void MakeSnapshot(object sender, RoutedEventArgs e)
+        {
+            var savedlg = new SaveFileDialog 
+            {
+                Filter = "PNG 文件|*.png"
+            }; 
+
+            if(savedlg.ShowDialog() != DialogResult.OK)
+            {
+                return;
+            }
+
+            var bitmap = Interop.Snapshot(Viewer);
+            var encoder = new PngBitmapEncoder();
+
+
+            using (var fs = new FileStream(savedlg.FileName, FileMode.Create))
+            {
+                encoder.Frames.Add(BitmapFrame.Create(bitmap));
+                encoder.Save(fs);
+
+            }           
         }
     }
 }

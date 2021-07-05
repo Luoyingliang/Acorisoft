@@ -5,6 +5,7 @@
         <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/AppServiceHost.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/ExtraViewHost.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/ContextContentControl.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/Acorisoft.Platform.Windows;component/Windows/Controls/GeometryButton.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     
     
