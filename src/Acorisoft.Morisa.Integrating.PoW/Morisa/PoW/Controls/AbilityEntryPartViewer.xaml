@@ -11,12 +11,11 @@
     </ResourceDictionary.MergedDictionaries>
 
     <Style TargetType="{x:Type this:AbilityEntryPartViewer}">
-        <Setter Property="MinHeight" Value="36" />
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type this:AbilityEntryPartViewer}">
-                    <Border CornerRadius="5" Background="{StaticResource Pow.White}">
+                    <Border x:Name="PART_Bd" CornerRadius="5" Background="{StaticResource Pow.White}">
                         <DockPanel Margin="0 8">
                             <TextBlock FontSize="20" 
                                        Text="{TemplateBinding Title}" 
@@ -36,12 +35,11 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="HasItems" Value="True">
-                            <Setter Property="Visibility" Value="Visible" TargetName="PART_Items"/>
+                            <Setter Property="Visibility" Value="Visible"/>
                             <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Empty"/>
                         </Trigger>
                         <Trigger Property="HasItems" Value="False">
-                            <Setter Property="Visibility" Value="Visible" TargetName="PART_Empty"/>
-                            <Setter Property="Visibility" Value="Collapsed" TargetName="PART_Items"/>
+                            <Setter Property="Visibility" Value="Collapsed"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

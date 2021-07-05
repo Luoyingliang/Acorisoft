@@ -29,5 +29,31 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
         /// </summary>
         [Description("辅助系")]
         Support,
+
+        /// <summary>
+        /// 变身
+        /// </summary>
+        [Description("变身系")]
+        Transformation,
+
+
+        /// <summary>
+        /// 哨兵
+        /// </summary>
+        [Description("Eye")]
+        Vision,
+
+
+        /// <summary>
+        /// 强化
+        /// </summary>
+        [Description("强化系")]
+        Strengthen,
+
+        /// <summary>
+        /// 锻造系
+        /// </summary>
+        [Description("锻造系")]
+        Forging,
     }
 }

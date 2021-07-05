@@ -319,10 +319,10 @@ namespace Acorisoft.Morisa.PoW.ViewModels
         }
 
 
-        public Storyboard Storyboard
+        public string Storyboard
         {
-            get => _documentWrapper.Storyboard;
-            set => _documentWrapper.Storyboard = value;
+            get => _documentWrapper.Storyboard?.Name;
+            set => _documentWrapper.Storyboard = new Storyboard { Name = value };
         }
 
         public AbilityEntryPart Cost

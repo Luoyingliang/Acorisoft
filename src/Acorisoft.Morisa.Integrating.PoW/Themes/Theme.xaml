@@ -169,6 +169,20 @@
             </DrawingGroup>
         </DrawingImage.Drawing>
     </DrawingImage>
+    <DrawingImage x:Key="Pow.Hammer">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M24,24z M0,0z M3.788,7.203A1.5,1.5,0,0,1,4.081,5.496L5.496,4.08A1.5,1.5,0,0,1,7.203,3.787L8.678,2.314A2,2,0,0,1,11.506,2.314L14.335,5.142A2,2,0,0,1,14.335,7.971L7.97,14.335A2,2,0,0,1,5.141,14.335L2.314,11.506A2,2,0,0,1,2.314,8.678L3.788,7.203z M10.8,14.335L14.336,10.799 17.871,14.335 14.336,17.87 10.8,14.335z M15.75,19.285L19.285,15.749 21.053,17.517A2.5,2.5,0,0,1,17.518,21.052L15.75,19.284z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
+    <DrawingImage x:Key="Pow.Arm">
+        <DrawingImage.Drawing>
+            <DrawingGroup ClipGeometry="M0,0 V24 H24 V0 H0 Z">
+                <GeometryDrawing Brush="#FFFFFF" Geometry="F1 M24,24z M0,0z M3,18.34C3,18.34,4,7.09,7,3L12,4 11,7.09 9,7.09 9,14.25 10,14.25C12,11.18 16.14,10.06 18.64,11.18 21.94,12.71 21.64,17.32 18.64,19.36 16.24,21 9,22.43 3,18.34z" />
+            </DrawingGroup>
+        </DrawingImage.Drawing>
+    </DrawingImage>
     <DrawingImage x:Key="Pow.Zencart">
         <DrawingImage.Drawing>
             <DrawingGroup ClipGeometry="M0,0 V1024 H1024 V0 H0 Z">

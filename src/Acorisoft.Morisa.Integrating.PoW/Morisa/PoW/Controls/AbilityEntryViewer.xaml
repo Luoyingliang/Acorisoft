@@ -20,18 +20,21 @@
                             Background="{StaticResource Pow.White}">
                         <DockPanel Margin="0 8"
                                    DockPanel.Dock="Bottom">
-                            <TextBlock FontSize="16"
-                                       Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=EntryName}" 
-                                       VerticalAlignment="Center"
-                                       DockPanel.Dock="Left"/>
+                            <TextBox FontSize="16"
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     Text="{Binding Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Path=EntryName}" 
+                                     DockPanel.Dock="Left"/>
                             
-                            <TextBlock FontSize="16" 
-                                       VerticalAlignment="Center"
-                                       Foreground="#969696" 
-                                       FontWeight="Light"
-                                       Margin="8 0 0 0"
-                                       Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path= Description}" 
-                                       DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
+                            <TextBox FontSize="16" 
+                                     IsReadOnly="True"
+                                     BorderThickness="0"
+                                     VerticalAlignment="Center"
+                                     Foreground="#969696" 
+                                     FontWeight="Light"
+                                     Margin="8 0 0 0"
+                                     Text="{Binding Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Path= Description}" 
+                                     DockPanel.Dock="Right" TextAlignment="Left" TextWrapping="Wrap"/>
                         </DockPanel>
                     </Border>
                 </ControlTemplate>

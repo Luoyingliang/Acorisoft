@@ -9,6 +9,8 @@
             Source="pack://application:,,,/Acorisoft.Morisa.Integrating.PoW;component/Themes/Theme.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
+    <thisConvs:AbilityTypeConverter x:Key="Type"/>
+
     <Style TargetType="{x:Type this:AbilityViewer}">
         <Setter Property="IsTabStop" Value="False" />
         <Setter Property="MinHeight" Value="32" />
@@ -35,8 +37,8 @@
                                 <Grid DockPanel.Dock="Right" Margin="16 0 0 0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="auto" />
+                                        <RowDefinition Height="auto" />
                                         <RowDefinition Height="*" />
-                                        <RowDefinition Height="0    " />
                                     </Grid.RowDefinitions>
 
                                     <TextBlock Grid.Row="0"
@@ -50,12 +52,12 @@
                                                FontSize="16"
                                                Foreground="#969696"
                                                FontWeight="Light"
-                                               Text="{Binding Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AbiltiyStory}"
+                                               Text="{Binding Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AbilityType, Converter={StaticResource Type}}"
                                                TextAlignment="Left"
                                                TextWrapping="Wrap"
                                                Margin="0 8" />
 
-                                    <m:StarRankViewer Grid.Row="1"
+                                    <m:StarRankViewer Grid.Row="2"
                                                       Height="32"
                                                       Rarity="{Binding Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}, Path=AbilityRarity}"
                                                       VerticalAlignment="Top"

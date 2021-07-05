@@ -47,6 +47,10 @@ namespace Acorisoft.Morisa.PoW.Converters
             return category switch
             {
                 Category.Fedora => Xaml.GetResource<DrawingImage>("Pow.Fedora"),
+                Category.Vision => Xaml.GetResource<DrawingImage>("Pow.Eye"),
+                Category.Strengthen => Xaml.GetResource<DrawingImage>("Pow.Arm"),
+                Category.Transformation => Xaml.GetResource<DrawingImage>("Pow.Wizard"),
+                Category.Forging => Xaml.GetResource<DrawingImage>("Pow.Hammer"),
                 Category.Shield => Xaml.GetResource<DrawingImage>("Pow.Shield"),
                 Category.Battle => Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image"),
                 Category.Support => Xaml.GetResource<DrawingImage>("Pow.Support"),

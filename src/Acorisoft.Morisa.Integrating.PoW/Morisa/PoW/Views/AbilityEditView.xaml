@@ -20,19 +20,30 @@
     <UserControl.Resources>
         <w:BindingProxy x:Key="ViewModel" Data="{Binding}"/>
         <DataTemplate x:Key="Entry" DataType="{x:Type thisDocAbility:AbilityEntry}">
-            <DockPanel Margin="0 8"
-                       HorizontalAlignment="Left"
-                       Background="{StaticResource App.Brushes.White}"
-                       DockPanel.Dock="Bottom">
-                <thisCtls:AbilityEntryViewer Entry="{Binding }" DockPanel.Dock="Right"/>
+            <Grid Margin="0 8"
+                  MinWidth="560"
+                  Background="{StaticResource App.Brushes.White}"
+                  DockPanel.Dock="Bottom">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3" />
+                    <ColumnDefinition Width="1*" />
+                    <ColumnDefinition Width="32" />
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="3" 
+                        Background="{StaticResource App.Brushes.Color1}"/>
+                
+                <thisCtls:AbilityEntryViewer Grid.Column="1"
+                                             Entry="{Binding }"
+                                             DockPanel.Dock="Right"
+                                             Margin="8 0"/>
                 <w:GeometryButton Width="32"
                                   Height="32"
-                                  Margin="8"
+                                  Grid.Column="2"
                                   Command="{Binding Path=Data.RemoveEntryCommand,Source={StaticResource ViewModel}}"
                                   CommandParameter="{Binding}"
                                   Icon="{StaticResource App.Icon.Remove}"
                                   DockPanel.Dock="Left"/>
-            </DockPanel>
+            </Grid>
         </DataTemplate>
     </UserControl.Resources>
     <Grid UseLayoutRounding="True">
@@ -135,6 +146,7 @@
                                          Margin="0 8">
                     <ComboBox x:Name="Category"
                               SelectedIndex="0"
+                              FontSize="15"
                               SelectedItem="{Binding Category,Mode=TwoWay}"
                               DisplayMemberPath="Name">
                         <w:DataOption Name="侦查系">
@@ -155,6 +167,26 @@
                         <w:DataOption Name="辅助系">
                             <w:DataOption.Data>
                                 <thisDocAbility:Category>Support</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="变身系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Transformation</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="洞悉系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Vision</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="锻造系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Forging</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
+                        <w:DataOption Name="强化系">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Strengthen</thisDocAbility:Category>
                             </w:DataOption.Data>
                         </w:DataOption>
                     </ComboBox>
@@ -262,9 +294,35 @@
                     </TabItem>
                     <TabItem Header="详细描述">
                         <ScrollViewer>
-                            <StackPanel>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="100" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <w:ContextContentControl Grid.Row="0"
+                                                         Title="故事"
+                                                         Headline="Headline5"
+                                                         Margin="0 8">
+                                    <TextBox FontSize="14"
+                                             AcceptsReturn="True"
+                                             AcceptsTab="True"
+                                             Text="{Binding Storyboard,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                             TextWrapping="Wrap" />
+                                </w:ContextContentControl>
+                                
+                                <w:ContextContentControl Grid.Row="1"
+                                                         Title="动作描述"
+                                                         Headline="Headline5"
+                                                         Margin="0 8">
+                                    <TextBox FontSize="14"
+                                             AcceptsReturn="True"
+                                             AcceptsTab="True"
+                                             Text="{Binding Motion,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                                             TextWrapping="Wrap" />
+                                </w:ContextContentControl>
                                 <!-- Motion -->
-                                <w:ContextContentControl Grid.Row="2"
+                                <w:ContextContentControl Grid.Row="1"
                                                      Title="动作描述"
                                                      Headline="Headline5"
                                                      Margin="0 8">
@@ -286,7 +344,7 @@
                                          Text="{Binding Subjectivity,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
                                          TextWrapping="Wrap" />
                                 </w:ContextContentControl>
-                            </StackPanel>
+                            </Grid>
                         </ScrollViewer>
                     </TabItem>
                 </TabControl>

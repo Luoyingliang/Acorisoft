@@ -56,6 +56,7 @@ namespace Acorisoft.Morisa.PoW.Controls
             SetValue(AbilityCategoryProperty, ability.Category);
             SetValue(AbilityLabelsProperty, ability.Labels);
             SetValue(AbilityWhisperProperty, ability.Whisper);
+            SetValue(AbilityTypeProperty, ability.Type);
         }
 
         #region DependencyProperty
@@ -164,8 +165,23 @@ namespace Acorisoft.Morisa.PoW.Controls
             get => (Category)GetValue(AbilityCategoryProperty.DependencyProperty);
             private set => SetValue(AbilityCategoryProperty, value);
         }
-        
-        
+
+
+
+        public AbilityType AbilityType
+        {
+            get => (AbilityType)GetValue(AbilityTypeProperty.DependencyProperty);
+            private set => SetValue(AbilityTypeProperty, value);
+        }
+
+        public static readonly DependencyPropertyKey AbilityTypeProperty = DependencyProperty.RegisterReadOnly(
+            "AbilityType",
+            typeof(AbilityType),
+             typeof(AbilityViewer),
+             new PropertyMetadata(default(AbilityType)));
+
+
+
         private static readonly DependencyPropertyKey AbilityCategoryProperty = DependencyProperty.RegisterReadOnly(
             "AbilityCategory",
             typeof(Category),
