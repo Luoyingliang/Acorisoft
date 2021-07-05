@@ -22,8 +22,11 @@
                                    DockPanel.Dock="Bottom">
                             <TextBlock FontSize="16"
                                        Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=EntryName}" 
+                                       VerticalAlignment="Center"
                                        DockPanel.Dock="Left"/>
+                            
                             <TextBlock FontSize="16" 
+                                       VerticalAlignment="Center"
                                        Foreground="#969696" 
                                        FontWeight="Light"
                                        Margin="8 0 0 0"

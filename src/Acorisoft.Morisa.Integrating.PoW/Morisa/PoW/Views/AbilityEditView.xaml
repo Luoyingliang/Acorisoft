@@ -21,15 +21,17 @@
         <w:BindingProxy x:Key="ViewModel" Data="{Binding}"/>
         <DataTemplate x:Key="Entry" DataType="{x:Type thisDocAbility:AbilityEntry}">
             <DockPanel Margin="0 8"
+                       HorizontalAlignment="Left"
                        Background="{StaticResource App.Brushes.White}"
                        DockPanel.Dock="Bottom">
-                <thisCtls:AbilityEntryViewer Entry="{Binding }" DockPanel.Dock="Left"/>
+                <thisCtls:AbilityEntryViewer Entry="{Binding }" DockPanel.Dock="Right"/>
                 <w:GeometryButton Width="32"
                                   Height="32"
                                   Margin="8"
-                                  DataContext="{StaticResource ViewModel}"
-                                  Command="{Binding Data.RemoveEntryCommand}"
-                                  Icon="{StaticResource App.Icon.Remove}"/>
+                                  Command="{Binding Path=Data.RemoveEntryCommand,Source={StaticResource ViewModel}}"
+                                  CommandParameter="{Binding}"
+                                  Icon="{StaticResource App.Icon.Remove}"
+                                  DockPanel.Dock="Left"/>
             </DockPanel>
         </DataTemplate>
     </UserControl.Resources>
@@ -181,7 +183,7 @@
                     <TabItem Header="代价">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
+                                        
                                         DockPanel.Dock="Top">
                                 <w:GeometryButton Width="32"
                                                   Height="32"
@@ -197,7 +199,7 @@
                     <TabItem Header="常规部分">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
+                                        
                                         DockPanel.Dock="Top">
                                 <w:GeometryButton Width="32"
                                                   Height="32"
@@ -213,7 +215,7 @@
                     <TabItem Header="隐藏部分">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
+                                        
                                         DockPanel.Dock="Top">
                                 <w:GeometryButton Width="32"
                                                   Height="32"
@@ -229,7 +231,7 @@
                     <TabItem Header="解锁部分">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
+                                        
                                         DockPanel.Dock="Top">
                                 <w:GeometryButton Width="32"
                                                   Height="32"
@@ -245,7 +247,7 @@
                     <TabItem Header="进化部分">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
-                                        HorizontalAlignment="Right"
+                                        
                                         DockPanel.Dock="Top">
                                 <w:GeometryButton Width="32"
                                                   Height="32"
@@ -295,6 +297,7 @@
         <Border Grid.Column="2"
                 CornerRadius="5"
                 Margin="4 0 0 0"
+                Padding="16"
                 Background="{StaticResource App.Brushes.White}">
             <Grid>
                 <Grid.RowDefinitions>
