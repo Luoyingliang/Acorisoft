@@ -25,7 +25,7 @@
                                  Title="标题"
                                  Headline="Headline5"
                                  Margin="0 8">
-                <TextBox FontSize="14"
+                <TextBox FontSize="16"
                          Padding="4"
                          BorderThickness="0 0 0 2"
                          Text="{Binding Name,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />
@@ -35,7 +35,8 @@
                                  Title="描述"
                                  Headline="Headline5"
                                  Margin="0 8">
-                <TextBox FontSize="14"
+                <TextBox FontSize="15"
+                         AcceptsReturn="True"
                          Padding="4"
                          TextWrapping="Wrap"
                          Text="{Binding Description,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" />

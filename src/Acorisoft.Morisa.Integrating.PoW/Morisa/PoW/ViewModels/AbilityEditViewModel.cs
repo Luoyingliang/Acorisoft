@@ -216,6 +216,7 @@ namespace Acorisoft.Morisa.PoW.ViewModels
             RaiseUpdated(nameof(Hidden));
             RaiseUpdated(nameof(Unlocked));
             RaiseUpdated(nameof(Evolution));
+            RaiseUpdated(nameof(Motion));
             _update.OnNext(Unit.Default);
         }
 

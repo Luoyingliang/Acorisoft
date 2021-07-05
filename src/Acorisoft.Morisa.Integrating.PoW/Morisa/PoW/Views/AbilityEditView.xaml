@@ -29,8 +29,9 @@
                     <ColumnDefinition Width="1*" />
                     <ColumnDefinition Width="32" />
                 </Grid.ColumnDefinitions>
-                <Border CornerRadius="3" 
-                        Background="{StaticResource App.Brushes.Color1}"/>
+                <Border VerticalAlignment="Top"
+                        Background="{StaticResource App.Brushes.Color1}"
+                        Height="32"/>
                 
                 <thisCtls:AbilityEntryViewer Grid.Column="1"
                                              Entry="{Binding }"
@@ -41,6 +42,7 @@
                                   Grid.Column="2"
                                   Command="{Binding Path=Data.RemoveEntryCommand,Source={StaticResource ViewModel}}"
                                   CommandParameter="{Binding}"
+                                  VerticalAlignment="Top"
                                   Icon="{StaticResource App.Icon.Remove}"
                                   DockPanel.Dock="Left"/>
             </Grid>
@@ -54,9 +56,11 @@
         </Grid.ColumnDefinitions>
 
         <!-- Preview -->
-        <thisCtls:AbilityViewer x:Name="Viewer"
-                                Grid.Column="0"
-                                Ability="{Binding Document,Mode=OneWay}" />
+        <ScrollViewer Grid.Column="0"
+                      VerticalScrollBarVisibility="Auto">
+            <thisCtls:AbilityRenderer x:Name="Viewer"
+                                      Ability="{Binding Document,Mode=OneWay}" />
+        </ScrollViewer>
 
         <!-- Form -->
         <Border Grid.Column="1"
@@ -189,6 +193,11 @@
                                 <thisDocAbility:Category>Strengthen</thisDocAbility:Category>
                             </w:DataOption.Data>
                         </w:DataOption>
+                        <w:DataOption Name="哨兵">
+                            <w:DataOption.Data>
+                                <thisDocAbility:Category>Sentinel</thisDocAbility:Category>
+                            </w:DataOption.Data>
+                        </w:DataOption>
                     </ComboBox>
                 </w:ContextContentControl>
 
@@ -212,7 +221,7 @@
 
                 <!-- Labels -->
                 <TabControl Grid.Row="5" Margin="0 8">
-                    <TabItem Header="代价">
+                    <TabItem Header="代价、效果">
                         <DockPanel LastChildFill="True">
                             <StackPanel Orientation="Horizontal"
                                         

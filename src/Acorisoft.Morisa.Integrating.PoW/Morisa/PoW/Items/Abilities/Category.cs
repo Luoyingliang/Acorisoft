@@ -43,7 +43,6 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
         [Description("Eye")]
         Vision,
 
-
         /// <summary>
         /// 强化
         /// </summary>
@@ -55,5 +54,11 @@ namespace Acorisoft.Morisa.PoW.Items.Abilities
         /// </summary>
         [Description("锻造系")]
         Forging,
+
+        /// <summary>
+        /// 哨兵
+        /// </summary>
+        [Description("哨兵")]
+        Sentinel,
     }
 }

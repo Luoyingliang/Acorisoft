@@ -9,6 +9,11 @@ using System.Windows.Controls;
 
 namespace Acorisoft.Morisa.PoW.Controls
 {
+    public class AbilityRenderer : AbilityViewer
+    {
+
+    }
+
     public class AbilityViewer : Control
     {
         static AbilityViewer()
@@ -57,6 +62,8 @@ namespace Acorisoft.Morisa.PoW.Controls
             SetValue(AbilityLabelsProperty, ability.Labels);
             SetValue(AbilityWhisperProperty, ability.Whisper);
             SetValue(AbilityTypeProperty, ability.Type);
+            SetValue(AbilityMotionProperty, ability.Motion);
+            SetValue(AbilitySubjectivityProperty, ability.Subjectivity);
         }
 
         #region DependencyProperty
@@ -166,13 +173,36 @@ namespace Acorisoft.Morisa.PoW.Controls
             private set => SetValue(AbilityCategoryProperty, value);
         }
 
-
-
         public AbilityType AbilityType
         {
             get => (AbilityType)GetValue(AbilityTypeProperty.DependencyProperty);
             private set => SetValue(AbilityTypeProperty, value);
         }
+
+        public string AbilityMotion
+        {
+            get => (string)GetValue(AbilityMotionProperty.DependencyProperty);
+            private set => SetValue(AbilityMotionProperty, value);
+        }
+
+        public string AbilitySubjectivity
+        {
+            get => (string)GetValue(AbilitySubjectivityProperty.DependencyProperty);
+            private set => SetValue(AbilitySubjectivityProperty, value);
+        }
+
+        public static readonly DependencyPropertyKey AbilitySubjectivityProperty = DependencyProperty.RegisterReadOnly(
+            "AbilitySubjectivity",
+            typeof(string),
+             typeof(AbilityViewer),
+             new PropertyMetadata(null));
+
+        public static readonly DependencyPropertyKey AbilityMotionProperty = DependencyProperty.RegisterReadOnly(
+            "AbilityMotion",
+            typeof(string),
+             typeof(AbilityViewer),
+             new PropertyMetadata(null));
+
 
         public static readonly DependencyPropertyKey AbilityTypeProperty = DependencyProperty.RegisterReadOnly(
             "AbilityType",

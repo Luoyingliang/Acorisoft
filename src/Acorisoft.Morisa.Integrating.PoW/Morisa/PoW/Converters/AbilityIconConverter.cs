@@ -54,6 +54,7 @@ namespace Acorisoft.Morisa.PoW.Converters
                 Category.Shield => Xaml.GetResource<DrawingImage>("Pow.Shield"),
                 Category.Battle => Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image"),
                 Category.Support => Xaml.GetResource<DrawingImage>("Pow.Support"),
+                Category.Sentinel => Xaml.GetResource<DrawingImage>("Pow.Chess"),
                 _ => Xaml.GetResource<DrawingImage>("Pow.Sword.Cross.Image")
 
             };
